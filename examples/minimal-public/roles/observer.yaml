@@ -1,0 +1,21 @@
+apiVersion: brain-role.dev/v1alpha1
+kind: RoleManifest
+metadata:
+  id: synthetic-observer
+  version: 0.1.0
+  classification: PUBLIC
+spec:
+  purpose: Inspect a synthetic public architecture without mutation.
+  owner: synthetic-architecture-maintainers
+  inputs: [validated-instance]
+  outputs: [conformance-summary]
+  capabilities: [architecture.read]
+  networkPolicy: deny
+  readLayers: [P0, P1, P2, P3, P4, P5, P6]
+  writeLayers: []
+  forbiddenLayers: [P0]
+  stateScope: none
+  escalation: maintainer-review
+  failureMode: stop
+  fallbackPolicy: remain read-only
+  selfEscalation: false

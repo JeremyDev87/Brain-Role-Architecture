@@ -1,0 +1,18 @@
+name: Feature proposal
+description: Propose an evidence-backed contract extension
+title: "[feat] "
+labels: [feat]
+body:
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Use case or failure evidence
+      description: Explain why the v0.1 direct design is insufficient.
+    validations:
+      required: true
+  - type: textarea
+    id: boundary
+    attributes:
+      label: Security, compatibility, and deletion boundary
+    validations:
+      required: true

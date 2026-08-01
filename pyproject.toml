@@ -1,0 +1,84 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "brain-role-architecture"
+version = "0.1.0"
+description = "A verifiable role-aware architecture for AI-agent governance."
+readme = "README.md"
+requires-python = ">=3.11"
+license = {file = "LICENSE"}
+authors = [{name = "Brain-Role Architecture Contributors"}]
+keywords = ["ai-agents", "governance", "json-schema", "conformance"]
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+  "jsonschema>=4.23,<5",
+  "PyYAML>=6.0.2,<7",
+]
+
+[project.scripts]
+brain-role = "brain_role.cli:main"
+
+[project.urls]
+Repository = "https://github.com/JeremyDev87/Brain-Role-Architecture"
+Specification = "https://github.com/JeremyDev87/Brain-Role-Architecture/blob/main/SPEC.md"
+
+[dependency-groups]
+dev = [
+  "build>=1.2.2,<2",
+  "mypy>=1.14,<2",
+  "pytest>=8.3,<9",
+  "ruff>=0.9,<1",
+  "types-jsonschema>=4.26.0.20260518",
+  "types-PyYAML>=6.0.12.20241230",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/brain_role"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+  "/src",
+  "/schemas",
+  "/examples",
+  "/spec",
+  "/tests",
+  "/scripts",
+  "/docs",
+  "/README.md",
+  "/README.ko.md",
+  "/SPEC.md",
+  "/LICENSE",
+  "/NOTICE",
+  "/CHANGELOG.md",
+  "/SECURITY.md",
+  "/CONTRIBUTING.md",
+  "/CODE_OF_CONDUCT.md",
+  "/GOVERNANCE.md",
+  "/Makefile",
+]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "RUF"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+packages = ["brain_role"]
+mypy_path = "src"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
