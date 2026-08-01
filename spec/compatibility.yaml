@@ -1,0 +1,6 @@
+specVersion: 0.1.0
+packageVersion: 0.1.0
+schemaNamespace: brain-role.dev/v1alpha1
+jsonSchemaDraft: https://json-schema.org/draft/2020-12/schema
+status: PRE_RELEASE
+publicationAuthority: MAINTAINER_APPROVAL_REQUIRED

@@ -1,0 +1,21 @@
+apiVersion: brain-role.dev/v1alpha1
+kind: BrainArchitecture
+metadata:
+  id: minimal-public
+  architectureId: bra-minimal-public
+  version: 0.1.0
+  classification: PUBLIC
+layers:
+  - layers/p0.yaml
+  - layers/p1.yaml
+  - layers/p2.yaml
+  - layers/p3.yaml
+  - layers/p4.yaml
+  - layers/p5.yaml
+  - layers/p6.yaml
+roles:
+  - roles/observer.yaml
+  - roles/operator.yaml
+policies:
+  - policies/p0-protection.yaml
+compileOrder: compile-order.yaml

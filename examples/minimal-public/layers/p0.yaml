@@ -1,0 +1,30 @@
+apiVersion: brain-role.dev/v1alpha1
+kind: LayerManifest
+metadata:
+  id: p0-layer
+  version: 0.1.0
+  classification: PUBLIC
+spec:
+  layer: P0
+  status: active
+  mutability: immutable
+  owner: synthetic-architecture-maintainers
+  classification: PUBLIC
+  responsibilities:
+    - truth-and-non-fabrication
+    - safety-and-security
+    - provenance-and-no-loss
+    - deterministic-transition
+    - deny-higher-layer-override
+  dependencies: []
+  changeControl:
+    approval: out-of-band-new-identity
+    provenance: spec://layers/p0
+    rollback: new-identity-only
+    effectiveAt: "2026-07-31T00:00:00Z"
+  p0Core:
+    - truth-non-fabrication
+    - safety-security
+    - provenance-no-loss
+    - deterministic-transition
+    - no-higher-layer-override

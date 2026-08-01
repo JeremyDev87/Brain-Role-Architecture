@@ -1,0 +1,41 @@
+cases:
+  - id: p0-mutable
+    target: layers/p0.yaml
+    pointer: /spec/mutability
+    value: controlled
+    expected: E_P0_IMMUTABLE
+  - id: p0-core-incomplete
+    target: layers/p0.yaml
+    pointer: /spec/p0Core/4
+    value: __REMOVE__
+    expected: E_P0_CORE
+  - id: dependency-cycle
+    target: layers/p2.yaml
+    pointer: /spec/dependencies
+    value: [P4]
+    expected: E_DEP_CYCLE
+  - id: compile-order-incomplete
+    target: compile-order.yaml
+    pointer: /order/3
+    value: __REMOVE__
+    expected: E_COMPILE_SET
+  - id: role-p0-write
+    target: roles/operator.yaml
+    pointer: /spec/writeLayers/0
+    value: P0
+    expected: E_ROLE_P0_WRITE
+  - id: role-self-escalation
+    target: roles/operator.yaml
+    pointer: /spec/selfEscalation
+    value: true
+    expected: E_ROLE_SELF_ESCALATION
+  - id: forbidden-overlap
+    target: roles/operator.yaml
+    pointer: /spec/forbiddenLayers/1
+    value: P2
+    expected: E_ROLE_PERMISSION_CONFLICT
+  - id: reserved-write
+    target: roles/operator.yaml
+    pointer: /spec/writeLayers/0
+    value: P1
+    expected: E_ROLE_RESERVED_WRITE

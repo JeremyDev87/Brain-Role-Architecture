@@ -1,0 +1,42 @@
+{
+  "$id": "https://brain-role.dev/schemas/v1alpha1/compile-order.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "apiVersion": {
+      "const": "brain-role.dev/v1alpha1"
+    },
+    "kind": {
+      "const": "CompileOrder"
+    },
+    "order": {
+      "items": {
+        "enum": [
+          "P0",
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "P5",
+          "P6"
+        ]
+      },
+      "maxItems": 7,
+      "minItems": 7,
+      "prefixItems": [
+        {
+          "const": "P0"
+        }
+      ],
+      "type": "array",
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "order"
+  ],
+  "title": "Compile Order",
+  "type": "object"
+}

@@ -1,0 +1,79 @@
+{
+  "$id": "https://brain-role.dev/schemas/v1alpha1/policy.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "apiVersion": {
+      "const": "brain-role.dev/v1alpha1"
+    },
+    "kind": {
+      "const": "PolicyManifest"
+    },
+    "metadata": {
+      "additionalProperties": false,
+      "properties": {
+        "classification": {
+          "const": "PUBLIC"
+        },
+        "id": {
+          "pattern": "^[a-z][a-z0-9-]{2,63}$",
+          "type": "string"
+        },
+        "version": {
+          "pattern": "^0\\.1\\.[0-9]+$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "classification"
+      ],
+      "type": "object"
+    },
+    "spec": {
+      "additionalProperties": false,
+      "properties": {
+        "denyRoleWrites": {
+          "contains": {
+            "const": "P0"
+          },
+          "items": {
+            "enum": [
+              "P0",
+              "P1",
+              "P2",
+              "P3",
+              "P4",
+              "P5",
+              "P6"
+            ]
+          },
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "denySelfEscalation": {
+          "const": true
+        },
+        "secretRefPattern": {
+          "const": "^env://[A-Z][A-Z0-9_]{2,127}$"
+        }
+      },
+      "required": [
+        "denyRoleWrites",
+        "denySelfEscalation",
+        "secretRefPattern"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec"
+  ],
+  "title": "Policy Manifest",
+  "type": "object"
+}
