@@ -39,8 +39,8 @@ all explanatory documentation.
 | **P2** | Durable state and memory | Controlled with explicit ownership and provenance. |
 | **P3** | Risk and conflict registry | Controlled; may be reserved. |
 | **P4** | Workflows and orchestration | Controlled, reviewable, and reversible. |
-| **P5** | Persona and communication behavior | Controlled; cannot weaken lower-layer contracts. |
-| **P6** | Goals and direction | Most adaptable, but still bounded by P0-P5. |
+| **P5** | Persona and communication behavior | Controlled with explicit change-control metadata. |
+| **P6** | Goals and direction | Controlled with explicit change-control metadata. |
 
 P numbers describe **responsibility and authority**, not runtime or compile order.
 
@@ -94,7 +94,7 @@ configuration, or touch `SOUL.md`, `USER.md`, `MEMORY.md`, or `~/.hermes`.
 - Designing auditable AI-agent governance bundles
 - Validating layer ownership, dependency, and permission contracts in CI
 - Testing adapters against deterministic synthetic fixtures
-- Reviewing whether persona and goal changes remain inside lower-layer constraints
+- Reviewing persona and goal changes under their declared change-control contracts
 
 ## It is not
 

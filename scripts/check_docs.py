@@ -24,6 +24,27 @@ LOCALE_LABELS = {
     "README.es.md": "Español",
     "README.ja.md": "日本語",
 }
+P0_ONLY_MARKERS = {
+    "README.md": "P0 is the only absolute invariant",
+    "README.ko.md": "P0만 절대 불변입니다",
+    "README.zh-CN.md": "P0 是唯一的绝对不变量",
+    "README.es.md": "P0 es el único invariante absoluto",
+    "README.ja.md": "絶対不変なのは P0 だけです",
+}
+FORBIDDEN_PRECEDENCE_CLAIMS = (
+    "cannot weaken lower-layer contracts",
+    "bounded by P0-P5",
+    "remain inside lower-layer constraints",
+    "하위 계층 계약을 약화할 수 없습니다",
+    "P0-P5의 경계를 따릅니다",
+    "하위 계층 제약 안에 있는지",
+    "不得削弱更低层的契约",
+    "受 P0-P5 约束",
+    "更低层约束之内",
+    "下位レイヤーの契約を弱められません",
+    "P0-P5 の境界に従います",
+    "下位レイヤーの制約内にあるか",
+)
 README_TOKENS = (
     "PRE_RELEASE",
     "0.1.0",
@@ -72,9 +93,14 @@ def main() -> None:
             failures.append(f"{name}: locale marker drift")
         if f"**{LOCALE_LABELS[name]}**" not in text:
             failures.append(f"{name}: current locale is not emphasized")
+        if P0_ONLY_MARKERS[name] not in text:
+            failures.append(f"{name}: P0-only invariance contract missing")
         for other in README_NAMES:
             if other != name and f"]({other})" not in text:
                 failures.append(f"{name}: locale link missing {other}")
+        for claim in FORBIDDEN_PRECEDENCE_CLAIMS:
+            if claim in text:
+                failures.append(f"{name}: non-normative P1-P6 precedence claim")
         for token in README_TOKENS:
             if token not in text:
                 failures.append(f"{name}: public contract missing {token}")
