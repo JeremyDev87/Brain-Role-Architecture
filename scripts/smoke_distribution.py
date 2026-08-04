@@ -79,10 +79,25 @@ def main() -> None:
                 raise SystemExit("DIST_SMOKE_FAIL wheel validation surface")
     with tarfile.open(sdists[0], "r:gz") as archive:
         names = archive.getnames()
-        has_spec = any(name.endswith("/SPEC.md") for name in names)
-        has_schema = any(name.endswith("/schemas/v1alpha1/architecture.schema.json") for name in names)
-        if not has_spec or not has_schema:
-            raise SystemExit("DIST_SMOKE_FAIL sdist contract incomplete")
+        required_suffixes = {
+            "/README.md",
+            "/README.ko.md",
+            "/README.zh-CN.md",
+            "/README.es.md",
+            "/README.ja.md",
+            "/SPEC.md",
+            "/schemas/v1alpha1/architecture.schema.json",
+            "/docs/assets/brain-role-meme.png",
+        }
+        missing = sorted(
+            suffix for suffix in required_suffixes if not any(name.endswith(suffix) for name in names)
+        )
+        if missing:
+            raise SystemExit(f"DIST_SMOKE_FAIL sdist contract incomplete: {', '.join(missing)}")
+        meme_name = next(name for name in names if name.endswith("/docs/assets/brain-role-meme.png"))
+        extracted = archive.extractfile(meme_name)
+        if extracted is None or extracted.read() != (ROOT / "docs/assets/brain-role-meme.png").read_bytes():
+            raise SystemExit("DIST_SMOKE_FAIL sdist meme bytes differ from source")
     print(f"DIST_SMOKE_OK wheel={wheel.name} sdist={sdists[0].name} isolated_cwd=yes")
 
 

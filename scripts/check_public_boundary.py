@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 from pathlib import Path
@@ -29,6 +30,9 @@ EXCLUDED = {
     ".codegraph",
 }
 PLACEHOLDER = re.compile(r"\{\{[^{}\n]+\}\}")
+ALLOWED_BINARY_DIGESTS = {
+    "docs/assets/brain-role-meme.png": "7759fe2bf370b9e13b56555f860e04520d8301f6d414c6b51b973cf7800cf1e7",
+}
 
 
 def walk(value: Any) -> list[Any]:
@@ -86,11 +90,15 @@ def scan(root: Path) -> list[str]:
             continue
         data = path.read_bytes()
         if b"\x00" in data:
+            if hashlib.sha256(data).hexdigest() == ALLOWED_BINARY_DIGESTS.get(rel):
+                continue
             findings.append(f"{display}: unscannable binary file")
             continue
         try:
             text = data.decode("utf-8")
         except UnicodeDecodeError:
+            if hashlib.sha256(data).hexdigest() == ALLOWED_BINARY_DIGESTS.get(rel):
+                continue
             findings.append(f"{display}: unscannable non-UTF8 file")
             continue
         for reason in inspect_text(text):

@@ -195,3 +195,15 @@ def test_non_utf8_and_symlink_are_fail_closed(tmp_path: Path) -> None:
         "binary.dat: unscannable non-UTF8 file",
         "linked.txt: symlink not allowed",
     ]
+
+
+def test_readme_image_allowlist_requires_exact_bytes(tmp_path: Path) -> None:
+    source = ROOT / "docs" / "assets" / "brain-role-meme.png"
+    destination = tmp_path / "docs" / "assets" / "brain-role-meme.png"
+    destination.parent.mkdir(parents=True)
+    payload = source.read_bytes()
+    destination.write_bytes(payload)
+    assert scan(tmp_path) == []
+
+    destination.write_bytes(payload[:-1] + bytes([payload[-1] ^ 1]))
+    assert scan(tmp_path) == ["docs/assets/brain-role-meme.png: unscannable binary file"]

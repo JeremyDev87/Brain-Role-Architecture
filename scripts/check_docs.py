@@ -6,30 +6,78 @@ from urllib.parse import unquote
 
 ROOT = Path(__file__).resolve().parents[1]
 LINK = re.compile(r"(?<!!)\[[^\]]+\]\(([^)]+)\)")
+IMAGE = re.compile(r"!\[[^\]]*\]\(([^)]+)\)")
 OPEN_PLACEHOLDER = "{" * 2
 CLOSE_PLACEHOLDER = "}" * 2
+README_NAMES = (
+    "README.md",
+    "README.ko.md",
+    "README.zh-CN.md",
+    "README.es.md",
+    "README.ja.md",
+)
+LOCALE_MARKER = "<!-- locales: " + " ".join(README_NAMES) + " -->"
+LOCALE_LABELS = {
+    "README.md": "English",
+    "README.ko.md": "한국어",
+    "README.zh-CN.md": "简体中文",
+    "README.es.md": "Español",
+    "README.ja.md": "日本語",
+}
+README_TOKENS = (
+    "PRE_RELEASE",
+    "0.1.0",
+    "SPEC.md",
+    "docs/assets/brain-role-meme.png",
+    "uv run brain-role validate",
+    '{"errors":[],"specVersion":"0.1.0","valid":true}',
+    "make verify",
+)
 
 
-def main() -> None:
+def local_path_failures(root: Path, path: Path) -> list[str]:
     failures: list[str] = []
-    documents = sorted(ROOT.rglob("*.md"))
-    for path in documents:
-        if any(part in {".git", ".venv", ".artifacts"} for part in path.parts):
-            continue
-        text = path.read_text(encoding="utf-8")
-        if OPEN_PLACEHOLDER in text or CLOSE_PLACEHOLDER in text:
-            failures.append(f"{path.relative_to(ROOT)}: unresolved placeholder")
-        for raw in LINK.findall(text):
+    text = path.read_text(encoding="utf-8")
+    relative = path.relative_to(root).as_posix()
+    for kind, pattern in (("link", LINK), ("image", IMAGE)):
+        for raw in pattern.findall(text):
             target = raw.split("#", 1)[0].strip()
             if not target or target.startswith(("http://", "https://", "mailto:")):
                 continue
             resolved = path.parent / unquote(target)
             if not resolved.exists():
-                failures.append(f"{path.relative_to(ROOT)}: broken link {target}")
-    for readme in (ROOT / "README.md", ROOT / "README.ko.md"):
+                failures.append(f"{relative}: broken {kind} {target}")
+    return failures
+
+
+def main() -> None:
+    failures: list[str] = []
+    documents = [
+        path
+        for path in sorted(ROOT.rglob("*.md"))
+        if not any(part in {".git", ".venv", ".artifacts"} for part in path.parts)
+    ]
+    for path in documents:
+        text = path.read_text(encoding="utf-8")
+        if OPEN_PLACEHOLDER in text or CLOSE_PLACEHOLDER in text:
+            failures.append(f"{path.relative_to(ROOT)}: unresolved placeholder")
+        failures.extend(local_path_failures(ROOT, path))
+    for name in README_NAMES:
+        readme = ROOT / name
+        if not readme.is_file():
+            failures.append(f"{name}: localized README missing")
+            continue
         text = readme.read_text(encoding="utf-8")
-        if "PRE_RELEASE" not in text or "0.1.0" not in text:
-            failures.append(f"{readme.name}: release status drift")
+        if not text.startswith(LOCALE_MARKER):
+            failures.append(f"{name}: locale marker drift")
+        if f"**{LOCALE_LABELS[name]}**" not in text:
+            failures.append(f"{name}: current locale is not emphasized")
+        for other in README_NAMES:
+            if other != name and f"]({other})" not in text:
+                failures.append(f"{name}: locale link missing {other}")
+        for token in README_TOKENS:
+            if token not in text:
+                failures.append(f"{name}: public contract missing {token}")
     if failures:
         raise SystemExit("DOCS_CHECK_FAIL\n" + "\n".join(failures))
     print(f"DOCS_CHECK_OK markdown={len(documents)}")
