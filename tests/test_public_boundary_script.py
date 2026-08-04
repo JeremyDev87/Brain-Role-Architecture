@@ -162,6 +162,58 @@ def test_private_urls_use_exact_host_and_ip_classification(tmp_path: Path) -> No
     assert scan(tmp_path) == ["private.txt: private URL"]
 
 
+def test_noncanonical_and_malformed_url_authorities_fail_closed(tmp_path: Path) -> None:
+    unsafe_urls = [
+        "http" + "://2130706433/admin",
+        "http" + "://0177.0.0.1/admin",
+        "http" + "://0x7f000001/admin",
+        "http" + "://127.1/admin",
+        "http" + "://1.2.3.4.5/admin",
+        "http" + "://0x7g/admin",
+        "http" + "://%6cocalhost/admin",
+        "http" + "://%256cocalhost/admin",
+        "https" + "://\uff11\uff12\uff17\u3002\uff10\u3002\uff10\u3002\uff11/admin",
+        "https" + "://127\u30020\u30020\u30021/admin",
+        "https" + "://\uff4c\uff4f\uff43\uff41\uff4c\uff48\uff4f\uff53\uff54/admin",
+        "https" + "://\u24db\u24de\u24d2\u24d0\u24db\u24d7\u24de\u24e2\u24e3/admin",
+        "http" + "://localhost%2e/admin",
+        "http" + "://service.local%2e/admin",
+        "env" + "://" + "https" + "://" + "user" + ":" + "password" + "@localhost/admin",
+        "env" + "://" + "https" + "://" + "localhost/admin",
+        "ENV" + "://127.0.0.1/admin",
+        "^" + "https" + "://localhost/admin",
+        "https" + "://localhost%3A443/admin",
+        "https" + "://localhost%00.example.com/admin",
+        "http" + "://[::1/admin",
+        "https" + ":///missing-host",
+        "https" + "://example.com:99999/path",
+    ]
+    for index, value in enumerate(unsafe_urls):
+        write(tmp_path / f"unsafe-{index}.txt", value + "\n")
+    assert scan(tmp_path) == sorted(
+        f"unsafe-{index}.txt: private URL" for index in range(len(unsafe_urls))
+    )
+
+
+def test_public_url_lookalikes_remain_allowed(tmp_path: Path) -> None:
+    write(
+        tmp_path / "public.txt",
+        "\n".join(
+            [
+                "https" + "://localhost.example.com/health",
+                "https" + "://127.0.0.1.example.com/health",
+                "https" + "://example.com:443/health",
+                "[https" + "://example.com]",
+                "https" + "://\u4f8b\u3048.\u30c6\u30b9\u30c8/health",
+                "[" + "https" + "://[2606:4700:4700::1111]]",
+                "https" + "://0x7f000001.example.com/health",
+                "env" + "://VARIABLE_NAME",
+            ]
+        ),
+    )
+    assert scan(tmp_path) == []
+
+
 def test_home_directory_roots_are_rejected(tmp_path: Path) -> None:
     separator = chr(92)
     paths = [

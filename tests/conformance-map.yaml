@@ -20,7 +20,7 @@ requirements:
   REQ-ROLE-003: tests/test_conformance_cases.py::test_declared_invalid_cases
   REQ-ROLE-004: tests/test_policy.py::test_self_escalation_is_rejected
   REQ-PUBLIC-001: tests/test_policy.py::test_private_absolute_path_is_rejected
-  REQ-PUBLIC-002: tests/test_policy.py::test_private_absolute_path_is_rejected
+  REQ-PUBLIC-002: tests/test_public_boundary_script.py::test_noncanonical_and_malformed_url_authorities_fail_closed
   REQ-PUBLIC-003: tests/test_policy.py::test_literal_secret_field_is_rejected
   REQ-CLI-001: tests/test_cli.py::test_cli_valid_json_is_byte_deterministic
   REQ-CLI-002: tests/test_cli.py::test_cli_conformance_failure_is_exit_one
