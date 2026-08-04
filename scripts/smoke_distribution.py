@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import os
 import shutil
 import subprocess
@@ -11,6 +12,12 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / ".artifacts" / "dist"
+
+
+def venv_command(venv: Path, name: str) -> Path:
+    scripts = venv / ("Scripts" if os.name == "nt" else "bin")
+    suffix = ".exe" if os.name == "nt" else ""
+    return scripts / f"{name}{suffix}"
 
 
 def run(
@@ -47,36 +54,50 @@ def main() -> None:
             raise SystemExit("DIST_SMOKE_FAIL wheel schema set incomplete")
         if any(name.startswith(("tests/", "examples/")) for name in names):
             raise SystemExit("DIST_SMOKE_FAIL wheel includes test/example material")
-        with tempfile.TemporaryDirectory(prefix="brain-role-wheel-") as temp:
-            temp_path = Path(temp)
-            site = temp_path / "site"
-            archive.extractall(site)
-            instance = temp_path / "instance"
-            shutil.copytree(ROOT / "examples" / "minimal-public", instance)
-            env = os.environ.copy()
-            env["PYTHONPATH"] = str(site)
-            version = run(
-                [sys.executable, "-m", "brain_role", "--version"],
-                temp_path,
-                env,
-            )
-            validate = run(
-                [
-                    sys.executable,
-                    "-m",
-                    "brain_role",
-                    "validate",
-                    str(instance),
-                    "--format",
-                    "json",
-                ],
-                temp_path,
-                env,
-            )
-            if version.returncode != 0 or version.stdout != "brain-role 0.1.0\n":
-                raise SystemExit("DIST_SMOKE_FAIL wheel version surface")
-            if validate.returncode != 0 or '"valid":true' not in validate.stdout:
-                raise SystemExit("DIST_SMOKE_FAIL wheel validation surface")
+    with tempfile.TemporaryDirectory(prefix="brain-role-wheel-") as temp:
+        temp_path = Path(temp)
+        venv = temp_path / "venv"
+        create = run([sys.executable, "-m", "venv", str(venv)], temp_path, os.environ.copy())
+        if create.returncode != 0:
+            raise SystemExit("DIST_SMOKE_FAIL isolated environment creation")
+        python = venv_command(venv, "python")
+        uv = shutil.which("uv")
+        if uv is None:
+            raise SystemExit("DIST_SMOKE_FAIL uv executable unavailable")
+        install = run(
+            [uv, "pip", "install", "--python", str(python), str(wheel)],
+            temp_path,
+            os.environ.copy(),
+        )
+        if install.returncode != 0:
+            raise SystemExit("DIST_SMOKE_FAIL isolated wheel install")
+        instance = temp_path / "instance"
+        shutil.copytree(ROOT / "examples" / "minimal-public", instance)
+        output = temp_path / "rendered"
+        env = os.environ.copy()
+        env.pop("PYTHONPATH", None)
+        executable = venv_command(venv, "brain-role")
+        version = run([str(executable), "--version"], temp_path, env)
+        validate = run(
+            [str(executable), "validate", str(instance), "--format", "json"],
+            temp_path,
+            env,
+        )
+        render = run(
+            [str(executable), "render", "hermes", str(instance), "--output", str(output)],
+            temp_path,
+            env,
+        )
+        rendered = output / "prefill_messages.json"
+        if version.returncode != 0 or version.stdout != "brain-role 0.1.0\n":
+            raise SystemExit("DIST_SMOKE_FAIL installed console version surface")
+        if validate.returncode != 0 or '"valid":true' not in validate.stdout:
+            raise SystemExit("DIST_SMOKE_FAIL installed console validation surface")
+        if render.returncode != 0 or not rendered.is_file():
+            raise SystemExit("DIST_SMOKE_FAIL installed console render surface")
+        payload = json.loads(rendered.read_text(encoding="utf-8"))
+        if not isinstance(payload, list) or not payload or payload[0].get("role") != "system":
+            raise SystemExit("DIST_SMOKE_FAIL installed render artifact")
     with tarfile.open(sdists[0], "r:gz") as archive:
         names = archive.getnames()
         required_suffixes = {
@@ -98,7 +119,10 @@ def main() -> None:
         extracted = archive.extractfile(meme_name)
         if extracted is None or extracted.read() != (ROOT / "docs/assets/brain-role-meme.png").read_bytes():
             raise SystemExit("DIST_SMOKE_FAIL sdist meme bytes differ from source")
-    print(f"DIST_SMOKE_OK wheel={wheel.name} sdist={sdists[0].name} isolated_cwd=yes")
+    print(
+        f"DIST_SMOKE_OK wheel={wheel.name} sdist={sdists[0].name} "
+        "fresh_install=yes console=version,validate,render isolated_cwd=yes"
+    )
 
 
 if __name__ == "__main__":

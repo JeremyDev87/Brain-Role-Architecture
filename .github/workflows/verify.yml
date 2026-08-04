@@ -37,3 +37,6 @@ jobs:
       - run: uv sync --frozen --all-groups --no-editable
       - run: uv run --no-sync pytest -q tests/test_cli.py tests/test_hermes_adapter.py
       - run: uv run --no-sync brain-role --version
+      - run: uv build --no-sources --out-dir .artifacts/dist
+      - run: uv run --no-sync python scripts/check_release_readiness.py
+      - run: uv run --no-sync python scripts/smoke_distribution.py
