@@ -1,46 +1,145 @@
+<!-- locales: README.md README.ko.md README.zh-CN.md README.es.md README.ja.md -->
+
 # Brain-Role Architecture
+
+**English** | [한국어](README.ko.md) | [简体中文](README.zh-CN.md) | [Español](README.es.md) | [日本語](README.ja.md)
+
+[![Verify](https://github.com/JeremyDev87/Brain-Role-Architecture/actions/workflows/verify.yml/badge.svg)](https://github.com/JeremyDev87/Brain-Role-Architecture/actions/workflows/verify.yml)
+[![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB.svg)](pyproject.toml)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-D22128.svg)](LICENSE)
 
 **PRE_RELEASE · source candidate 0.1.0 · not published**
 
 Brain-Role Architecture is a verifiable, role-aware architecture for governing AI-agent invariants,
-state, workflows, persona, and goals from P0 to P6.
+durable state, risk, workflows, persona, and goals without confusing responsibility with execution order.
 
-> P0 is the only absolute invariant. P1-P6 are controlled-mutable responsibility layers with explicit
-> ownership, approval, provenance, rollback, and effective-time contracts.
+> **One rule survives every rewrite:** P0 is the only absolute invariant. P1-P6 can change only through
+> explicit ownership, approval, provenance, rollback, and effective-time contracts.
 
-The project separates three concepts that are often conflated:
+![A cartoon office inside a brain: P6 throws new goals while P0 calmly guards the invariant gate](docs/assets/brain-role-meme.png)
 
-- **Brain plane:** responsibility, authority, and change rules.
-- **Actor/Role plane:** capabilities, inputs/outputs, permissions, and escalation.
-- **Compilation plane:** an explicit dependency DAG and explicit compile order, independent of P numbers.
+*P6 has another brilliant new direction. P0 has heard this before.*
+
+## Why this exists
+
+Agent systems often mix safety rules, memory, workflows, persona, and goals into one mutable prompt or
+configuration. That makes it difficult to answer basic governance questions: What may change? Who owns the
+change? What depends on it? Can it be rolled back? Brain-Role Architecture makes those boundaries explicit,
+machine-checkable, and portable.
+
+The README explains the project; [SPEC.md](SPEC.md) remains the normative contract and takes precedence over
+all explanatory documentation.
+
+## Responsibility topology: P0-P6
+
+| Layer | Responsibility | Change contract |
+| --- | --- | --- |
+| **P0** | Truth/non-fabrication, safety/security, provenance/no-loss, deterministic transition | **Absolute invariant.** No higher layer or role may override it. |
+| **P1** | Repeatable automation and schedules | Controlled; may be reserved. |
+| **P2** | Durable state and memory | Controlled with explicit ownership and provenance. |
+| **P3** | Risk and conflict registry | Controlled; may be reserved. |
+| **P4** | Workflows and orchestration | Controlled, reviewable, and reversible. |
+| **P5** | Persona and communication behavior | Controlled; cannot weaken lower-layer contracts. |
+| **P6** | Goals and direction | Most adaptable, but still bounded by P0-P5. |
+
+P numbers describe **responsibility and authority**, not runtime or compile order.
+
+## Three independent planes
+
+1. **Brain plane** — responsibility, authority, and change rules.
+2. **Actor/Role plane** — capabilities, inputs/outputs, permissions, state scope, and escalation.
+3. **Compilation plane** — an explicit dependency DAG and explicit compile order, independent of P numbers.
+
+Keeping these planes separate prevents a role from gaining authority merely because it runs first or last.
+See [the three-plane explanation](docs/explanation/three-planes.md).
 
 ## What is included
 
 - Normative specification and Draft 2020-12 JSON Schemas
 - Deterministic, offline `brain-role` validator CLI
-- Synthetic valid/invalid conformance fixtures
+- Synthetic valid and invalid conformance fixtures
 - Read-only Hermes `prefill_messages_file` reference exporter
-- Public/private boundary, threat model, tests, and package smoke verification
+- Public/private boundary checks and a threat model
+- Unit, schema-sync, documentation, and distribution smoke verification
 
 ## Quick start
 
+Requirements: Python 3.11+ and [`uv`](https://docs.astral.sh/uv/).
+
 ```bash
+git clone https://github.com/JeremyDev87/Brain-Role-Architecture.git
+cd Brain-Role-Architecture
 uv sync --all-groups
 uv run brain-role validate examples/minimal-public --format json
+```
+
+Expected result:
+
+```json
+{"errors":[],"specVersion":"0.1.0","valid":true}
+```
+
+Render a deterministic Hermes reference bundle and run every repository gate:
+
+```bash
 uv run brain-role render hermes examples/minimal-public --output .artifacts/hermes
 make verify
 ```
 
-`render hermes` only generates files under the selected output directory. It does not activate Hermes,
-change configuration, or touch `SOUL.md`, `USER.md`, `MEMORY.md`, or `~/.hermes`.
+`render hermes` writes only beneath the selected output directory. It does **not** activate Hermes, change
+configuration, or touch `SOUL.md`, `USER.md`, `MEMORY.md`, or `~/.hermes`.
 
-Read the [normative specification](SPEC.md), [Korean README](README.ko.md), and
-[quick-start tutorial](docs/tutorials/quickstart.md).
+## Use it for
+
+- Designing auditable AI-agent governance bundles
+- Validating layer ownership, dependency, and permission contracts in CI
+- Testing adapters against deterministic synthetic fixtures
+- Reviewing whether persona and goal changes remain inside lower-layer constraints
+
+## It is not
+
+- A hosted agent runtime or orchestration service
+- A self-modifying memory system
+- Authorization to deploy, publish, activate, or mutate a live Hermes installation
+- A container for real profiles, sessions, credentials, private URLs, or personal data
+
+## Documentation map
+
+- [Normative specification](SPEC.md)
+- [Quick-start tutorial](docs/tutorials/quickstart.md)
+- [Three independent planes](docs/explanation/three-planes.md)
+- [CLI reference](docs/reference/cli.md)
+- [Manifest and schema model](docs/reference/manifest-model.md)
+- [Threat model](docs/security/threat-model.md)
+- [Contributing](CONTRIBUTING.md) and [governance](GOVERNANCE.md)
+
+## Security and public/private boundary
+
+Public bundles must contain only synthetic `PUBLIC` material. Do not add credentials, private URLs, real
+profiles or sessions, secret values, account identifiers, or personal absolute paths. Report vulnerabilities
+through [SECURITY.md](SECURITY.md), not a public issue.
+
+The validator is offline, deterministic, and side-effect-free. Validation errors use instance-relative paths
+and must not echo private absolute paths or secret values.
+
+## Project status
+
+Version `0.1.0` is an experimental source candidate. It is not represented as a package on a registry, a Git
+tag, a GitHub Release, or a deployment. Compatibility may change while the specification remains pre-release.
+See [CHANGELOG.md](CHANGELOG.md).
+
+## Contributing
+
+Start with [CONTRIBUTING.md](CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md). Changes that alter
+behavior must preserve the normative contract, add synthetic regression evidence, and pass:
+
+```bash
+make verify
+```
 
 ## Publication boundary
 
-Passing validation does **not** authorize a Git commit, push, release, package publication, deployment,
-or repository visibility change. No tag, release, or registry package is represented by source version
-`0.1.0`.
+Passing validation or `make verify` does **not** authorize a Git commit, push, release, package publication,
+deployment, activation, or repository visibility change. Those are separate owner-controlled decisions.
 
 Licensed under Apache-2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE).
