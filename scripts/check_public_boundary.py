@@ -31,7 +31,7 @@ EXCLUDED = {
 }
 PLACEHOLDER = re.compile(r"\{\{[^{}\n]+\}\}")
 ALLOWED_BINARY_DIGESTS = {
-    "docs/assets/brain-role-meme.png": "0a7adfb7f82feb840dc656c3015ca65da1b513fabebfb3cb277d939f5012c264",
+    "docs/assets/brain-role-meme.png": "cf81bd082b86ed1570f6c1bbf62d8d85d76790a46b529182f2eeb30243c30f4f",
 }
 
 

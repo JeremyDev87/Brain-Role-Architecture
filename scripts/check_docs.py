@@ -55,11 +55,14 @@ README_TOKENS = (
     "make verify",
 )
 ASSET_PROVENANCE_TOKENS = (
+    "exactly the seven canonical brain-element names",
+    "`Brainstem`, `Cerebellum`, `Hippocampus`,",
+    "`Amygdala`, `Cortex`, `Ego`, and `Prefrontal`",
+    "no P0-P6 identifiers",
     "non-sequential, disconnected layout",
     "there are no arrows, paths,",
     "stacks, or inter-station connectors",
-    "they do not imply runtime",
-    "or compile order",
+    "does not imply runtime or compile order",
 )
 
 
