@@ -16,9 +16,11 @@ package contents, and the operator-selected export directory.
    offline and fail closed when the host is missing, brackets or ports are malformed, or host percent-decoding
    remains ambiguous after two bounded rounds. After decoding, host names are IDNA-canonicalized and trailing
    root dots are removed before classification, covering Unicode and encoded browser-equivalent private hosts.
-   Decimal, octal, hexadecimal, and shortened IPv4 forms are normalized without DNS, network access, or a
-   platform resolver. Only the exact normative `env://VARIABLE_NAME` shape bypasses URL classification;
-   malformed or nested environment-reference payloads fail closed.
+   HTTP(S) candidates are also scanned after WHATWG-equivalent tab/LF/CR removal, backslash-to-slash
+   conversion, and special-scheme authority-separator normalization. Decimal, octal, hexadecimal, and
+   shortened IPv4 forms are normalized without DNS, network access, or a platform resolver. Only the exact
+   normative `env://VARIABLE_NAME` shape bypasses URL classification; malformed or nested
+   environment-reference payloads fail closed.
 7. Path traversal or symlink escape: contained relative regular-file references only.
 8. Dependency confusion/cycle: local schema set, dangling checks, DAG validation.
 9. Resource exhaustion: per-file, total-byte, and nesting limits.

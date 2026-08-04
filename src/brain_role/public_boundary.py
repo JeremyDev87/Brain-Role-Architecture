@@ -39,6 +39,8 @@ LEGACY_IPV4_PATTERN = re.compile(
 )
 NUMERIC_AUTHORITY_PATTERN = re.compile(r"[0-9.]+")
 MAX_HOST_DECODE_ROUNDS = 2
+WHATWG_HTTP_TRANSLATION = str.maketrans({"\t": None, "\n": None, "\r": None, "\\": "/"})
+WHATWG_HTTP_AUTHORITY_PATTERN = re.compile(r"\b(https?):/*", re.IGNORECASE)
 
 
 def _normalized_host(host: str) -> str | None:
@@ -139,28 +141,34 @@ def is_private_host(host: str) -> bool:
 def inspect_urls(text: str) -> tuple[bool, bool]:
     credential = False
     private = False
-    for match in URL_PATTERN.finditer(text):
-        if match.start() > 0 and text[match.start() - 1] == "^":
-            if "^" + match.group() == ENV_REFERENCE_DECLARATION:
+    normalized_http_text = WHATWG_HTTP_AUTHORITY_PATTERN.sub(
+        r"\1://", text.translate(WHATWG_HTTP_TRANSLATION)
+    )
+    for surface, http_only in ((text, False), (normalized_http_text, True)):
+        for match in URL_PATTERN.finditer(surface):
+            if match.start() > 0 and surface[match.start() - 1] == "^":
+                if "^" + match.group() == ENV_REFERENCE_DECLARATION:
+                    continue
+            raw = _trim_url_match(match.group())
+            scheme = raw.partition(":")[0].lower()
+            if http_only and scheme not in {"http", "https"}:
                 continue
-        raw = _trim_url_match(match.group())
-        scheme = raw.partition(":")[0]
-        if ENV_REFERENCE_PATTERN.fullmatch(raw) is not None:
-            continue
-        if scheme.lower() == "env":
-            private = True
-            continue
-        try:
-            parsed = urlsplit(raw)
-            host = parsed.hostname
-            _ = parsed.port
-        except ValueError:
-            private = True
-            continue
-        if parsed.username is not None or parsed.password is not None:
-            credential = True
-        if not parsed.netloc or host is None or is_private_host(host):
-            private = True
+            if ENV_REFERENCE_PATTERN.fullmatch(raw) is not None:
+                continue
+            if scheme == "env":
+                private = True
+                continue
+            try:
+                parsed = urlsplit(raw)
+                host = parsed.hostname
+                _ = parsed.port
+            except ValueError:
+                private = True
+                continue
+            if parsed.username is not None or parsed.password is not None:
+                credential = True
+            if not parsed.netloc or host is None or is_private_host(host):
+                private = True
     return credential, private
 
 
