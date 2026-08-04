@@ -81,18 +81,21 @@ def test_all_localized_readmes_share_the_public_contract() -> None:
 def test_meme_is_a_real_landscape_png() -> None:
     payload = MEME_PATH.read_bytes()
     assert payload.startswith(b"\x89PNG\r\n\x1a\n")
-    assert hashlib.sha256(payload).hexdigest() == "0a7adfb7f82feb840dc656c3015ca65da1b513fabebfb3cb277d939f5012c264"
+    assert hashlib.sha256(payload).hexdigest() == "cf81bd082b86ed1570f6c1bbf62d8d85d76790a46b529182f2eeb30243c30f4f"
     width, height = struct.unpack(">II", payload[16:24])
     assert width >= 1200
     assert height >= 675
     assert width > height
 
     provenance = (ROOT / "docs" / "assets" / "README.md").read_text(encoding="utf-8")
+    assert "exactly the seven canonical brain-element names" in provenance
+    assert "`Brainstem`, `Cerebellum`, `Hippocampus`," in provenance
+    assert "`Amygdala`, `Cortex`, `Ego`, and `Prefrontal`" in provenance
+    assert "no P0-P6 identifiers" in provenance
     assert "non-sequential, disconnected layout" in provenance
     assert "there are no arrows, paths," in provenance
     assert "stacks, or inter-station connectors" in provenance
-    assert "they do not imply runtime" in provenance
-    assert "or compile order" in provenance
+    assert "does not imply runtime or compile order" in provenance
 
 
 def test_sdist_declares_all_readmes_and_readme_assets() -> None:
