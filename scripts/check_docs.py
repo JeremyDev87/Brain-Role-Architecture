@@ -54,6 +54,13 @@ README_TOKENS = (
     '{"errors":[],"specVersion":"0.1.0","valid":true}',
     "make verify",
 )
+ASSET_PROVENANCE_TOKENS = (
+    "non-sequential, disconnected layout",
+    "there are no arrows, paths,",
+    "stacks, or inter-station connectors",
+    "they do not imply runtime",
+    "or compile order",
+)
 
 
 def local_path_failures(root: Path, path: Path) -> list[str]:
@@ -104,6 +111,10 @@ def main() -> None:
         for token in README_TOKENS:
             if token not in text:
                 failures.append(f"{name}: public contract missing {token}")
+    provenance = (ROOT / "docs" / "assets" / "README.md").read_text(encoding="utf-8")
+    for token in ASSET_PROVENANCE_TOKENS:
+        if token not in provenance:
+            failures.append(f"docs/assets/README.md: semantic image provenance missing {token}")
     if failures:
         raise SystemExit("DOCS_CHECK_FAIL\n" + "\n".join(failures))
     print(f"DOCS_CHECK_OK markdown={len(documents)}")

@@ -81,11 +81,18 @@ def test_all_localized_readmes_share_the_public_contract() -> None:
 def test_meme_is_a_real_landscape_png() -> None:
     payload = MEME_PATH.read_bytes()
     assert payload.startswith(b"\x89PNG\r\n\x1a\n")
-    assert hashlib.sha256(payload).hexdigest() == "7759fe2bf370b9e13b56555f860e04520d8301f6d414c6b51b973cf7800cf1e7"
+    assert hashlib.sha256(payload).hexdigest() == "0a7adfb7f82feb840dc656c3015ca65da1b513fabebfb3cb277d939f5012c264"
     width, height = struct.unpack(">II", payload[16:24])
     assert width >= 1200
     assert height >= 675
     assert width > height
+
+    provenance = (ROOT / "docs" / "assets" / "README.md").read_text(encoding="utf-8")
+    assert "non-sequential, disconnected layout" in provenance
+    assert "there are no arrows, paths," in provenance
+    assert "stacks, or inter-station connectors" in provenance
+    assert "they do not imply runtime" in provenance
+    assert "or compile order" in provenance
 
 
 def test_sdist_declares_all_readmes_and_readme_assets() -> None:
