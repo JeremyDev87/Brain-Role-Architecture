@@ -153,6 +153,14 @@ def test_invalid_compile_preserves_existing_output(instance_copy: Path, tmp_path
     assert output.read_bytes() == b"preserve-existing-output\n"
 
 
+def test_safe_output_path_rejects_first_path_component_symlink() -> None:
+    if not Path("/tmp").is_symlink():
+        pytest.skip("this platform has no /tmp symlink to exercise")
+    output_safety = importlib.import_module("brain_role.output_safety")
+    with pytest.raises(InputFailure, match="symlink"):
+        output_safety.safe_output_path(Path("/tmp") / "compiled.json")
+
+
 def test_compile_rejects_runtime_native_and_symlink_outputs(
     monkeypatch: pytest.MonkeyPatch,
     example_root: Path,
