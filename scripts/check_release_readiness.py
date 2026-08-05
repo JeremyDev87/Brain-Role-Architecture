@@ -62,6 +62,7 @@ def check(root: Path) -> list[str]:
         "docs/reference/cli.md": (
             "brain-role --version",
             "brain-role validate <instance>",
+            "brain-role compile <instance>",
             "brain-role render hermes <instance>",
         ),
         "docs/release-checklist.md": (

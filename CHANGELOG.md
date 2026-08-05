@@ -8,5 +8,7 @@ fixtures, read-only Hermes exporter, threat model, and verification gates.
 - Hardened the public boundary against non-canonical IPv4, encoded localhost, and malformed URL authorities.
 - Added source-bound test execution, release metadata consistency checks, and fresh wheel install/CLI smoke for
   the existing `version`, `validate`, and `render hermes` surfaces.
+- Added the deterministic `CompiledBrainRole` schema, canonical compiler, safe atomic `compile` CLI surface,
+  and installed-distribution compile smoke without changing PRE_RELEASE status.
 
 No tag, release, or registry publication exists yet.

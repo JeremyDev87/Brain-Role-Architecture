@@ -74,6 +74,7 @@ def test_all_localized_readmes_share_the_public_contract() -> None:
         assert "SPEC.md" in text
         assert "docs/assets/brain-role-meme.png" in text
         assert "uv run brain-role validate" in text
+        assert "uv run brain-role compile" in text
         assert EXPECTED_JSON in text
         assert "make verify" in text
 

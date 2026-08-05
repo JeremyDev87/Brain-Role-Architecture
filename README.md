@@ -79,12 +79,16 @@ Expected result:
 {"errors":[],"specVersion":"0.1.0","valid":true}
 ```
 
-Render a deterministic Hermes reference bundle and run every repository gate:
+Compile a deterministic neutral bundle, render a Hermes reference bundle, and run every repository gate:
 
 ```bash
+uv run brain-role compile examples/minimal-public --output .artifacts/compiled.json
 uv run brain-role render hermes examples/minimal-public --output .artifacts/hermes
 make verify
 ```
+
+`compile` writes a canonical JSON file with explicit layer order and stable role/policy ordering. It adds no
+source paths, credentials, or runtime activation data.
 
 `render hermes` writes only beneath the selected output directory. It does **not** activate Hermes, change
 configuration, or touch `SOUL.md`, `USER.md`, `MEMORY.md`, or `~/.hermes`.

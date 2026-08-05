@@ -49,6 +49,7 @@ def main() -> None:
             "brain_role/schemas/v1alpha1/role.schema.json",
             "brain_role/schemas/v1alpha1/policy.schema.json",
             "brain_role/schemas/v1alpha1/compile-order.schema.json",
+            "brain_role/schemas/v1alpha1/compiled-bundle.schema.json",
         }
         if not required.issubset(names):
             raise SystemExit("DIST_SMOKE_FAIL wheel schema set incomplete")
@@ -74,12 +75,18 @@ def main() -> None:
         instance = temp_path / "instance"
         shutil.copytree(ROOT / "examples" / "minimal-public", instance)
         output = temp_path / "rendered"
+        compiled = temp_path / "compiled.json"
         env = os.environ.copy()
         env.pop("PYTHONPATH", None)
         executable = venv_command(venv, "brain-role")
         version = run([str(executable), "--version"], temp_path, env)
         validate = run(
             [str(executable), "validate", str(instance), "--format", "json"],
+            temp_path,
+            env,
+        )
+        compile_result = run(
+            [str(executable), "compile", str(instance), "--output", str(compiled)],
             temp_path,
             env,
         )
@@ -93,6 +100,11 @@ def main() -> None:
             raise SystemExit("DIST_SMOKE_FAIL installed console version surface")
         if validate.returncode != 0 or '"valid":true' not in validate.stdout:
             raise SystemExit("DIST_SMOKE_FAIL installed console validation surface")
+        if compile_result.returncode != 0 or not compiled.is_file():
+            raise SystemExit("DIST_SMOKE_FAIL installed console compile surface")
+        compiled_payload = json.loads(compiled.read_text(encoding="utf-8"))
+        if compiled_payload.get("kind") != "CompiledBrainRole":
+            raise SystemExit("DIST_SMOKE_FAIL installed compile artifact")
         if render.returncode != 0 or not rendered.is_file():
             raise SystemExit("DIST_SMOKE_FAIL installed console render surface")
         payload = json.loads(rendered.read_text(encoding="utf-8"))
@@ -108,6 +120,7 @@ def main() -> None:
             "/README.ja.md",
             "/SPEC.md",
             "/schemas/v1alpha1/architecture.schema.json",
+            "/schemas/v1alpha1/compiled-bundle.schema.json",
             "/docs/assets/brain-role-meme.png",
         }
         missing = sorted(
@@ -121,7 +134,7 @@ def main() -> None:
             raise SystemExit("DIST_SMOKE_FAIL sdist meme bytes differ from source")
     print(
         f"DIST_SMOKE_OK wheel={wheel.name} sdist={sdists[0].name} "
-        "fresh_install=yes console=version,validate,render isolated_cwd=yes"
+        "fresh_install=yes console=version,validate,compile,render isolated_cwd=yes"
     )
 
 

@@ -79,12 +79,16 @@ uv run brain-role validate examples/minimal-public --format json
 {"errors":[],"specVersion":"0.1.0","valid":true}
 ```
 
-결정론적 Hermes 참조 번들을 생성하고 저장소의 전체 검증을 실행합니다.
+결정론적 중립 번들을 컴파일하고 Hermes 참조 번들을 생성한 뒤 저장소의 전체 검증을 실행합니다.
 
 ```bash
+uv run brain-role compile examples/minimal-public --output .artifacts/compiled.json
 uv run brain-role render hermes examples/minimal-public --output .artifacts/hermes
 make verify
 ```
+
+`compile`은 명시적 레이어 순서와 안정적인 role/policy 순서를 가진 canonical JSON 파일을 생성하며,
+source 경로·credential·runtime activation 정보를 추가하지 않습니다.
 
 `render hermes`는 선택한 출력 디렉터리 아래에만 파일을 만듭니다. Hermes를 활성화하거나 설정을
 변경하지 않으며 `SOUL.md`, `USER.md`, `MEMORY.md`, `~/.hermes`를 건드리지 않습니다.
