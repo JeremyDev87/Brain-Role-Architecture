@@ -1,4 +1,4 @@
-# Brain-Role Architecture Specification 0.1.0
+# Brain-Role Architecture Specification 0.2.0
 
 Status: **PRE_RELEASE**
 Schema namespace: `brain-role.dev/v1alpha1`
@@ -84,5 +84,62 @@ P4 workflows and orchestration, P5 persona and communication, and P6 goals and d
 
 ## 8. Version and publication
 
-Package, specification, and compatibility metadata are `0.1.0` and experimental. Passing `make verify`
-MUST NOT be interpreted as permission to commit, push, publish, release, deploy, or change visibility.
+Package, specification, and compatibility metadata are `0.2.0` and experimental. Governance manifests remain
+compatible with `0.1.x`; neural manifests require `0.2.x`. Passing `make verify` MUST NOT be interpreted as
+permission to commit, push, publish, release, deploy, or change visibility.
+
+
+## 9. Orthogonal neural plane
+
+The neural plane is execution topology, not an authority hierarchy. A Functional Neuron is a role capability
+bound to typed ports in a circuit; it is not a Role, Skill, Wiki node, or new P-layer. A Synapse is an internal
+port binding and is not a Hexagonal Adapter.
+
+- **REQ-NEURAL-001:** `NeuralArchitecture` MUST remain separate from `BrainArchitecture`; each neuron MUST
+  reference an existing role-granted capability and a non-P0 layer within that role contract.
+- **REQ-NEURAL-002:** Input and output port names MUST be unique per neuron. A Synapse MUST reference declared
+  ports whose signal types exactly match, and each `(fromNeuron, fromPort, toNeuron, toPort)` tuple MUST be unique.
+- **REQ-CONNECTOME-001:** `CompiledConnectome` MUST be deterministically derived, sorted, path-independent, and
+  bound to the canonical `CompiledBrainRole` bytes by SHA-256 without becoming an authority source.
+
+## 10. Bounded neural simulation
+
+- **REQ-RUNTIME-001:** Simulation MUST be offline and deterministic, MUST treat capability references as data,
+  MUST NOT execute dynamic code, and MUST emit an immutable canonical `NeuralTrace`.
+- **REQ-RUNTIME-002:** Directed neural cycles MAY exist only under explicit positive delay and `maxTicks` and
+  `maxEvents` bounds; reaching a bound MUST terminate without source or topology mutation.
+- **REQ-RUNTIME-003:** Integration strategies MUST have distinct deterministic semantics after receptor gain is
+  applied: `any` selects the strongest received signal and fires when it meets `activationThreshold`; `all`
+  requires every declared input port to receive a signal in the tick and the summed amplitude to meet the
+  threshold; and `threshold` fires when the summed amplitude meets the threshold.
+
+## 11. Regulatory and homeostatic planes
+
+- **REQ-MOD-001:** A regulator MAY adjust only the schema-closed runtime parameters
+  `activationThreshold` and `signalGain` through bounded receptor effects. It MUST NOT carry business payloads
+  or change permission, policy, ownership, layer, or publication authority.
+
+The reference simulator additionally enforces `minLevel <= initialLevel <= maxLevel`, bounded decay, and
+`ttlTicks`; a homeostat or clock phase refreshes that logical TTL. Unimplemented dynamic `gateRef` and
+`transformRef` execution is intentionally outside v0.2.0 and therefore rejected by the closed Synapse schema.
+- **REQ-MOD-002:** A regulator MUST have no effect on a target without an explicit matching receptor.
+- **REQ-HOMEOSTAT-001:** A homeostat MUST observe a declared metric, compare it with an acceptable range, and
+  set only a bounded declared regulator level through deterministic negative-feedback input.
+
+## 12. Support, clock, and plasticity control
+
+- **REQ-SUPPORT-001:** Support manifests MAY declare observe, throttle, retry, or quarantine-propose actions.
+  The 0.2.0 reference simulator MUST emit observation evidence only when `observe` is declared, MUST record every
+  declared non-observe action as an `applied=false` proposal, and MUST NOT execute it, delete business state,
+  execute capabilities, or create authority. Canonical proposal evidence MUST require `applied=false`.
+- **REQ-CLOCK-001:** Clock behavior MUST use scenario-provided logical ticks and declared phases; it MUST NOT
+  read wall-clock time during validation, compilation, or simulation.
+- **REQ-PLASTICITY-001:** Plasticity MUST begin as a provenance-bearing proposal with rollback. The reference
+  simulator MUST record but MUST NOT apply a proposal or rewrite topology.
+
+## 13. Compatibility and CLI
+
+- **REQ-COMPAT-001:** For an unchanged `0.1.x` governance instance, legacy validation reports,
+  `CompiledBrainRole` bytes/SHA, and Hermes adapter artifact bytes/SHA MUST remain unchanged.
+- **REQ-CLI-004:** `validate-neural`, `compile-connectome`, and `simulate` MUST preserve the existing exit-code,
+  output-safety, no-secret-echo, canonical serialization, and SHA-receipt conventions.

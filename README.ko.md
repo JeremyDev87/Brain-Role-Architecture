@@ -8,7 +8,7 @@
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB.svg)](pyproject.toml)
 [![라이선스: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-D22128.svg)](LICENSE)
 
-**PRE_RELEASE · 소스 후보 0.1.0 · 미출시**
+**PRE_RELEASE · 소스 후보 0.2.0 · 미출시**
 
 Brain-Role Architecture는 AI 에이전트의 불변 규칙, 지속 상태, 위험, 워크플로, 페르소나,
 목표를 책임과 실행 순서를 혼동하지 않고 통제하기 위한 검증 가능한 역할 기반 아키텍처입니다.
@@ -128,7 +128,7 @@ source 경로·credential·runtime activation 정보를 추가하지 않습니�
 
 ## 프로젝트 상태
 
-`0.1.0`은 실험적 소스 후보입니다. 레지스트리 패키지, Git 태그, GitHub Release, 배포본으로
+`0.2.0`은 실험적 소스 후보입니다. 레지스트리 패키지, Git 태그, GitHub Release, 배포본으로
 표시되지 않습니다. 명세가 사전 출시 상태인 동안 호환성이 변경될 수 있습니다.
 [CHANGELOG.md](CHANGELOG.md)를 참고하십시오.
 

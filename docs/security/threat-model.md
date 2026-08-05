@@ -30,4 +30,20 @@ package contents, and the operator-selected export directory.
 
 Static schemas cannot prove model behavior, human review quality, repository settings, package registry
 state, or host compromise. Behavioral prompt-injection evaluation, CodeQL, Scorecard, and SLSA release
-provenance are intentionally deferred until real v0.1 usage or failure evidence justifies them.
+provenance are intentionally deferred until real v0.2 usage or failure evidence justifies them.
+
+
+## Neural extension threats
+
+11. Signal forgery or port confusion: exact source/output/target/input signal-type equality and canonical IDs.
+12. Unbounded recurrent circuit: positive delay plus explicit `maxTicks` and `maxEvents` termination bounds.
+13. Modulation authority escalation: schema-closed receptor effects exclude policy, permission, owner, and layer.
+14. Broadcast regulator abuse: no matching receptor means no target effect; levels remain bounded.
+15. Support-worker confused deputy: observation is evidence-only; throttle, retry, and quarantine are recorded
+    as `applied=false` proposals and never executed by the 0.2.0 reference simulator.
+16. Time nondeterminism: simulation accepts logical ticks and does not read the host wall clock.
+17. Self-rewriting topology: plasticity is immutable proposal evidence and is never applied by the simulator.
+18. Artifact substitution: a connectome carries the exact canonical governance bundle SHA-256 and every loaded
+    nested manifest, reference, and numeric bound is revalidated before simulation.
+19. Numeric/output poisoning: neural sources, compiled artifacts, scenarios, and traces reject non-finite numbers
+    and reapply the public-boundary scan so secret-like values cannot be serialized into derived artifacts.

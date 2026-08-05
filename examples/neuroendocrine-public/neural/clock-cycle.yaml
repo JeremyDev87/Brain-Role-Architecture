@@ -1,0 +1,17 @@
+apiVersion: brain-role.dev/v1alpha1
+kind: ClockManifest
+metadata:
+  id: logical-cycle
+  version: 0.2.0
+  classification: PUBLIC
+spec:
+  periodTicks: 4
+  phases:
+  - name: active
+    startInclusive: 0
+    endExclusive: 2
+  - name: maintenance
+    startInclusive: 2
+    endExclusive: 4
+    regulatorRef: resource-pressure
+    level: 0.25

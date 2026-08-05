@@ -30,3 +30,17 @@ requirements:
   REQ-CLI-003: tests/test_cli.py::test_cli_input_failure_is_exit_two_without_path_echo
   REQ-HERMES-001: tests/test_hermes_adapter.py::test_hermes_export_is_deterministic_and_prefill_compatible
   REQ-HERMES-002: tests/test_hermes_adapter.py::test_runtime_home_output_is_rejected
+  REQ-NEURAL-001: tests/test_neuroendocrine_runtime.py::test_connectome_is_valid_canonical_and_path_independent
+  REQ-NEURAL-002: tests/test_neuroendocrine_runtime.py::test_semantic_validation_rejects_signal_drift_and_authority_effect
+  REQ-CONNECTOME-001: tests/test_neuroendocrine_runtime.py::test_connectome_is_valid_canonical_and_path_independent
+  REQ-RUNTIME-001: tests/test_neuroendocrine_runtime.py::test_receptor_homeostat_clock_and_support_change_bounded_trace
+  REQ-RUNTIME-002: tests/test_neuroendocrine_runtime.py::test_directed_cycle_terminates_at_explicit_tick_bound
+  REQ-RUNTIME-003: tests/test_neuroendocrine_runtime.py::test_integration_strategies_have_distinct_runtime_semantics
+  REQ-MOD-001: tests/test_neuroendocrine_runtime.py::test_semantic_validation_rejects_signal_drift_and_authority_effect
+  REQ-MOD-002: tests/test_neuroendocrine_runtime.py::test_regulator_without_receptor_has_no_effect
+  REQ-HOMEOSTAT-001: tests/test_neuroendocrine_runtime.py::test_receptor_homeostat_clock_and_support_change_bounded_trace
+  REQ-SUPPORT-001: tests/test_neuroendocrine_runtime.py::test_support_non_observe_actions_are_proposal_only
+  REQ-CLOCK-001: tests/test_neuroendocrine_runtime.py::test_receptor_homeostat_clock_and_support_change_bounded_trace
+  REQ-PLASTICITY-001: tests/test_neuroendocrine_runtime.py::test_receptor_homeostat_clock_and_support_change_bounded_trace
+  REQ-COMPAT-001: tests/test_neuroendocrine_runtime.py::test_existing_artifacts_remain_exact_oracles
+  REQ-CLI-004: tests/test_neuroendocrine_runtime.py::test_neural_cli_compiles_and_simulates_with_deterministic_receipts

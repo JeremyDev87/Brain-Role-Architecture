@@ -5,10 +5,10 @@ import json
 from brain_role.errors import ValidationIssue
 
 
-def json_report(issues: tuple[ValidationIssue, ...]) -> str:
+def json_report(issues: tuple[ValidationIssue, ...], spec_version: str = "0.1.0") -> str:
     payload = {
         "errors": [issue.as_dict() for issue in issues],
-        "specVersion": "0.1.0",
+        "specVersion": spec_version,
         "valid": not issues,
     }
     return (
@@ -22,9 +22,9 @@ def json_report(issues: tuple[ValidationIssue, ...]) -> str:
     )
 
 
-def text_report(issues: tuple[ValidationIssue, ...]) -> str:
+def text_report(issues: tuple[ValidationIssue, ...], spec_version: str = "0.1.0") -> str:
     if not issues:
-        return "VALID specVersion=0.1.0 errors=0\n"
-    lines = [f"INVALID specVersion=0.1.0 errors={len(issues)}"]
+        return f"VALID specVersion={spec_version} errors=0\n"
+    lines = [f"INVALID specVersion={spec_version} errors={len(issues)}"]
     lines.extend(f"{item.code} {item.path}{item.pointer}: {item.message}" for item in issues)
     return "\n".join(lines) + "\n"

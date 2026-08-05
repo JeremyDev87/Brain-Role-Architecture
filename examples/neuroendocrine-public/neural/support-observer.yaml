@@ -1,0 +1,13 @@
+apiVersion: brain-role.dev/v1alpha1
+kind: SupportManifest
+metadata:
+  id: health-observer
+  version: 0.2.0
+  classification: PUBLIC
+spec:
+  class: anomaly
+  targets:
+  - reviewer
+  actions:
+  - observe
+  - quarantine-propose

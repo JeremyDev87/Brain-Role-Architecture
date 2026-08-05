@@ -1,0 +1,17 @@
+apiVersion: brain-role.dev/v1alpha1
+kind: SynapseManifest
+metadata:
+  id: planner-to-reviewer
+  version: 0.2.0
+  classification: PUBLIC
+spec:
+  from:
+    neuron: planner
+    port: result
+  to:
+    neuron: reviewer
+    port: review
+  signalType: task.reviewed/v1
+  effect: excite
+  strength: 1.0
+  delayTicks: 1
