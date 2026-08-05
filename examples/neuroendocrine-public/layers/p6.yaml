@@ -1,0 +1,20 @@
+apiVersion: brain-role.dev/v1alpha1
+kind: LayerManifest
+metadata:
+  id: p6-layer
+  version: 0.1.0
+  classification: PUBLIC
+spec:
+  layer: P6
+  status: active
+  mutability: controlled
+  owner: synthetic-architecture-maintainers
+  classification: PUBLIC
+  responsibilities:
+    - bounded-goals-and-stop-criteria
+  dependencies: [P0, P2, P4]
+  changeControl:
+    approval: maintainer-review
+    provenance: spec://layers/p6
+    rollback: restore-prior-reviewed-manifest
+    effectiveAt: "2026-07-31T00:00:00Z"

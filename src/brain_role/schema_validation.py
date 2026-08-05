@@ -17,6 +17,18 @@ _SCHEMA_BY_KIND = {
     "RoleManifest": "role.schema.json",
     "PolicyManifest": "policy.schema.json",
     "CompileOrder": "compile-order.schema.json",
+    "NeuralArchitecture": "neural-architecture.schema.json",
+    "NeuronManifest": "neuron.schema.json",
+    "SynapseManifest": "synapse.schema.json",
+    "RegulatorManifest": "regulator.schema.json",
+    "ReceptorBinding": "receptor-binding.schema.json",
+    "HomeostatManifest": "homeostat.schema.json",
+    "SupportManifest": "support.schema.json",
+    "ClockManifest": "clock.schema.json",
+    "PlasticityProposal": "plasticity-proposal.schema.json",
+    "CompiledConnectome": "compiled-connectome.schema.json",
+    "ActivationScenario": "activation-scenario.schema.json",
+    "NeuralTrace": "neural-trace.schema.json",
 }
 
 

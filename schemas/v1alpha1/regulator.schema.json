@@ -1,0 +1,88 @@
+{
+  "$id": "https://brain-role.dev/schemas/v1alpha1/regulator.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "apiVersion": {
+      "const": "brain-role.dev/v1alpha1"
+    },
+    "kind": {
+      "const": "RegulatorManifest"
+    },
+    "metadata": {
+      "additionalProperties": false,
+      "properties": {
+        "classification": {
+          "const": "PUBLIC"
+        },
+        "id": {
+          "pattern": "^[a-z][a-z0-9-]{0,63}$",
+          "type": "string"
+        },
+        "version": {
+          "pattern": "^0\\.2\\.[0-9]+$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "classification"
+      ],
+      "type": "object"
+    },
+    "spec": {
+      "additionalProperties": false,
+      "properties": {
+        "class": {
+          "enum": [
+            "neuromodulator",
+            "hormone"
+          ]
+        },
+        "decayPerTick": {
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "initialLevel": {
+          "type": "number"
+        },
+        "maxLevel": {
+          "type": "number"
+        },
+        "minLevel": {
+          "type": "number"
+        },
+        "scope": {
+          "enum": [
+            "neuron",
+            "circuit",
+            "architecture"
+          ]
+        },
+        "ttlTicks": {
+          "maximum": 1000000,
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "class",
+        "scope",
+        "initialLevel",
+        "minLevel",
+        "maxLevel",
+        "decayPerTick",
+        "ttlTicks"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec"
+  ],
+  "type": "object"
+}

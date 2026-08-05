@@ -8,7 +8,7 @@
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB.svg)](pyproject.toml)
 [![Licencia: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-D22128.svg)](LICENSE)
 
-**PRE_RELEASE · candidato de código fuente 0.1.0 · no publicado**
+**PRE_RELEASE · candidato de código fuente 0.2.0 · no publicado**
 
 Brain-Role Architecture es una arquitectura verificable y consciente de los roles para gobernar los invariantes, el estado, los flujos de trabajo, la personalidad y los objetivos de agentes de IA desde P0 hasta P6.
 
@@ -105,7 +105,7 @@ Este proyecto no pretende:
 - activar, reconfigurar o mutar automáticamente una instalación de Hermes;
 - acceder a la red, ejecutar código dinámico o escribir en hogares de ejecución como `~/.hermes`;
 - autorizar commits, pushes, lanzamientos, publicaciones, despliegues o cambios de visibilidad del repositorio;
-- afirmar que existe una etiqueta, un lanzamiento o un paquete de registro publicado para `0.1.0`.
+- afirmar que existe una etiqueta, un lanzamiento o un paquete de registro publicado para `0.2.0`.
 
 ## Mapa de documentación
 
@@ -133,7 +133,7 @@ Antes de compartir un ejemplo o una incidencia, sustituye cualquier dato privado
 
 ## Estado del proyecto
 
-El proyecto se encuentra en estado **PRE_RELEASE** como candidato de código fuente `0.1.0` y **no está publicado**. Esta designación describe el estado del código fuente; no representa una etiqueta, un lanzamiento ni un paquete disponible en un registro.
+El proyecto se encuentra en estado **PRE_RELEASE** como candidato de código fuente `0.2.0` y **no está publicado**. Esta designación describe el estado del código fuente; no representa una etiqueta, un lanzamiento ni un paquete disponible en un registro.
 
 La interfaz, los esquemas y la documentación pueden seguir evolucionando dentro de los límites establecidos por `SPEC.md`. No se deben inferir garantías de publicación a partir del número de versión.
 
@@ -152,6 +152,6 @@ Una validación correcta o una ejecución satisfactoria de `make verify` aporta 
 
 ## Límite de publicación y licencia
 
-Superar la validación **no** autoriza un commit de Git, push, lanzamiento, publicación de paquetes, despliegue ni cambio de visibilidad del repositorio. Ninguna etiqueta, lanzamiento o paquete de registro está representado por la versión de código fuente `0.1.0`.
+Superar la validación **no** autoriza un commit de Git, push, lanzamiento, publicación de paquetes, despliegue ni cambio de visibilidad del repositorio. Ninguna etiqueta, lanzamiento o paquete de registro está representado por la versión de código fuente `0.2.0`.
 
 El proyecto está licenciado bajo Apache-2.0. Consulta [`LICENSE`](LICENSE) y [`NOTICE`](NOTICE).

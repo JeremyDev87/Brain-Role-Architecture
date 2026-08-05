@@ -8,7 +8,7 @@
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB.svg)](pyproject.toml)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-D22128.svg)](LICENSE)
 
-**PRE_RELEASE · source candidate 0.1.0 · not published**
+**PRE_RELEASE · source candidate 0.2.0 · not published**
 
 Brain-Role Architecture is a verifiable, role-aware architecture for governing AI-agent invariants,
 durable state, risk, workflows, persona, and goals without confusing responsibility with execution order.
@@ -53,10 +53,16 @@ P numbers describe **responsibility and authority**, not runtime or compile orde
 Keeping these planes separate prevents a role from gaining authority merely because it runs first or last.
 See [the three-plane explanation](docs/explanation/three-planes.md).
 
+The additive 0.2.x neural extension is orthogonal to all three: typed Functional Neurons and Synapses carry
+execution signals, while explicit receptors, homeostats, support contracts, and logical clocks provide bounded
+modulation. None of activation, strength, concentration, receptor count, or graph centrality creates authority.
+
 ## What is included
 
 - Normative specification and Draft 2020-12 JSON Schemas
 - Deterministic, offline `brain-role` validator CLI
+- Deterministic `CompiledConnectome` compiler and bounded offline neural simulator
+- Receptor-bounded regulation, homeostasis, support, logical-clock, and proposal-only plasticity contracts
 - Synthetic valid and invalid conformance fixtures
 - Read-only Hermes `prefill_messages_file` reference exporter
 - Public/private boundary checks and a threat model
@@ -84,6 +90,10 @@ Compile a deterministic neutral bundle, render a Hermes reference bundle, and ru
 ```bash
 uv run brain-role compile examples/minimal-public --output .artifacts/compiled.json
 uv run brain-role render hermes examples/minimal-public --output .artifacts/hermes
+uv run brain-role validate-neural examples/neuroendocrine-public
+uv run brain-role compile-connectome examples/neuroendocrine-public --output .artifacts/connectome.json
+uv run brain-role simulate .artifacts/connectome.json \
+  --scenario examples/neuroendocrine-public/scenario.yaml --output .artifacts/trace.json
 make verify
 ```
 
@@ -113,6 +123,8 @@ configuration, or touch `SOUL.md`, `USER.md`, `MEMORY.md`, or `~/.hermes`.
 - [Quick-start tutorial](docs/tutorials/quickstart.md)
 - [Three independent planes](docs/explanation/three-planes.md)
 - [CLI reference](docs/reference/cli.md)
+- [Neural runtime reference](docs/reference/neural-runtime.md)
+- [Neural runtime authority decision](docs/adr/0006-neural-runtime-orthogonal-planes.md)
 - [Manifest and schema model](docs/reference/manifest-model.md)
 - [Threat model](docs/security/threat-model.md)
 - [Contributing](CONTRIBUTING.md) and [governance](GOVERNANCE.md)
@@ -128,7 +140,7 @@ and must not echo private absolute paths or secret values.
 
 ## Project status
 
-Version `0.1.0` is an experimental source candidate. It is not represented as a package on a registry, a Git
+Version `0.2.0` is an experimental source candidate. It is not represented as a package on a registry, a Git
 tag, a GitHub Release, or a deployment. Compatibility may change while the specification remains pre-release.
 See [CHANGELOG.md](CHANGELOG.md).
 

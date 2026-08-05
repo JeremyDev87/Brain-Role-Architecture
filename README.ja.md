@@ -8,7 +8,7 @@
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB.svg)](pyproject.toml)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-D22128.svg)](LICENSE)
 
-**PRE_RELEASE · ソース候補 0.1.0 · 未公開**
+**PRE_RELEASE · ソース候補 0.2.0 · 未公開**
 
 Brain-Role Architecture は、AI エージェントの不変条件、永続状態、リスク、ワークフロー、
 ペルソナ、目標を、責任と実行順序を混同せずに統制するための検証可能なロール指向アーキテクチャです。
@@ -128,7 +128,7 @@ source path、credential、runtime activation 情報を追加しません。
 
 ## プロジェクトの状態
 
-`0.1.0` は実験的なソース候補です。レジストリパッケージ、Git tag、GitHub Release、デプロイとして
+`0.2.0` は実験的なソース候補です。レジストリパッケージ、Git tag、GitHub Release、デプロイとして
 表明されていません。仕様がプレリリースの間は互換性が変わる可能性があります。
 [CHANGELOG.md](CHANGELOG.md)を参照してください。
 

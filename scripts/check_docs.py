@@ -47,7 +47,7 @@ FORBIDDEN_PRECEDENCE_CLAIMS = (
 )
 README_TOKENS = (
     "PRE_RELEASE",
-    "0.1.0",
+    "0.2.0",
     "SPEC.md",
     "docs/assets/brain-role-meme.png",
     "uv run brain-role validate",

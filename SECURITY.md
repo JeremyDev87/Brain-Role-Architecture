@@ -2,7 +2,7 @@
 
 ## Release status
 
-`0.1.0` is a PRE_RELEASE source candidate. No released version is currently supported.
+`0.2.0` is a PRE_RELEASE source candidate. No released version is currently supported.
 
 ## Reporting
 

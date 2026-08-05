@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.2.0] - PRE_RELEASE
+
+Unreleased additive source candidate introducing an authority-orthogonal neural reference runtime.
+
+- Added typed Functional Neuron and active Synapse manifests plus deterministic `CompiledConnectome` output.
+- Added receptor-bounded regulator, homeostat, logical clock, proposal-only support interventions, and
+  proposal-only plasticity contracts.
+- Added a bounded offline simulator that emits immutable deterministic `NeuralTrace` artifacts.
+- Preserved `0.1.x` governance validation and exact `CompiledBrainRole`/Hermes artifact compatibility.
+
 ## [0.1.0] - PRE_RELEASE
 
 Unreleased source candidate establishing the normative P0-P6 model, schemas, validator, conformance

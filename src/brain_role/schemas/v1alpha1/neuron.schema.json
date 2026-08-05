@@ -1,0 +1,140 @@
+{
+  "$id": "https://brain-role.dev/schemas/v1alpha1/neuron.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "apiVersion": {
+      "const": "brain-role.dev/v1alpha1"
+    },
+    "kind": {
+      "const": "NeuronManifest"
+    },
+    "metadata": {
+      "additionalProperties": false,
+      "properties": {
+        "classification": {
+          "const": "PUBLIC"
+        },
+        "id": {
+          "pattern": "^[a-z][a-z0-9-]{0,63}$",
+          "type": "string"
+        },
+        "version": {
+          "pattern": "^0\\.2\\.[0-9]+$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "classification"
+      ],
+      "type": "object"
+    },
+    "spec": {
+      "additionalProperties": false,
+      "properties": {
+        "capabilityRef": {
+          "pattern": "^[a-z][a-z0-9.-]{0,127}$",
+          "type": "string"
+        },
+        "inputPorts": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "pattern": "^[A-Za-z][A-Za-z0-9._-]{0,127}$",
+                "type": "string"
+              },
+              "signalType": {
+                "pattern": "^[a-z][a-z0-9.-]*/v[1-9][0-9]*$",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "signalType"
+            ],
+            "type": "object"
+          },
+          "maxItems": 64,
+          "type": "array"
+        },
+        "integration": {
+          "additionalProperties": false,
+          "properties": {
+            "activationThreshold": {
+              "maximum": 1000000.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            "strategy": {
+              "enum": [
+                "any",
+                "all",
+                "threshold"
+              ]
+            }
+          },
+          "required": [
+            "strategy",
+            "activationThreshold"
+          ],
+          "type": "object"
+        },
+        "layer": {
+          "enum": [
+            "P1",
+            "P2",
+            "P3",
+            "P4",
+            "P5",
+            "P6"
+          ]
+        },
+        "outputPorts": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "pattern": "^[A-Za-z][A-Za-z0-9._-]{0,127}$",
+                "type": "string"
+              },
+              "signalType": {
+                "pattern": "^[a-z][a-z0-9.-]*/v[1-9][0-9]*$",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "signalType"
+            ],
+            "type": "object"
+          },
+          "maxItems": 64,
+          "type": "array"
+        },
+        "roleRef": {
+          "pattern": "^[a-z][a-z0-9-]{0,63}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "layer",
+        "roleRef",
+        "capabilityRef",
+        "inputPorts",
+        "outputPorts",
+        "integration"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec"
+  ],
+  "type": "object"
+}

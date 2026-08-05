@@ -13,7 +13,26 @@ from typing import NoReturn
 import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
-SCHEMAS = {"architecture", "layer", "role", "policy", "compile-order", "compiled-bundle"}
+SCHEMAS = {
+    "activation-scenario",
+    "architecture",
+    "clock",
+    "compile-order",
+    "compiled-bundle",
+    "compiled-connectome",
+    "homeostat",
+    "layer",
+    "neural-architecture",
+    "neural-trace",
+    "neuron",
+    "plasticity-proposal",
+    "policy",
+    "receptor-binding",
+    "regulator",
+    "role",
+    "support",
+    "synapse",
+}
 REQUIREMENT_MARKER = re.compile(r"(?m)^\s*-\s+\*\*(REQ-[A-Z0-9]+-[0-9]{3})(?::\*\*|\*\*:)[ \t]+(\S.*)$")
 REQUIREMENT_CANDIDATE = re.compile(r"(?m)^\s*(?:[-*+]|[0-9]+[.)])\s+\*\*REQ-")
 

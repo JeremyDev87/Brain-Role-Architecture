@@ -1,0 +1,15 @@
+apiVersion: brain-role.dev/v1alpha1
+kind: ReceptorBinding
+metadata:
+  id: planner-pressure-receptor
+  version: 0.2.0
+  classification: PUBLIC
+spec:
+  targetNeuron: planner
+  regulatorRef: resource-pressure
+  effects:
+  - parameter: activationThreshold
+    operation: add
+    value: 1.0
+    min: 0.0
+    max: 2.0

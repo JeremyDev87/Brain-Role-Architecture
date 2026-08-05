@@ -1,0 +1,112 @@
+{
+  "$id": "https://brain-role.dev/schemas/v1alpha1/synapse.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "apiVersion": {
+      "const": "brain-role.dev/v1alpha1"
+    },
+    "kind": {
+      "const": "SynapseManifest"
+    },
+    "metadata": {
+      "additionalProperties": false,
+      "properties": {
+        "classification": {
+          "const": "PUBLIC"
+        },
+        "id": {
+          "pattern": "^[a-z][a-z0-9-]{0,63}$",
+          "type": "string"
+        },
+        "version": {
+          "pattern": "^0\\.2\\.[0-9]+$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "classification"
+      ],
+      "type": "object"
+    },
+    "spec": {
+      "additionalProperties": false,
+      "properties": {
+        "delayTicks": {
+          "maximum": 1000000,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "effect": {
+          "enum": [
+            "excite",
+            "inhibit"
+          ]
+        },
+        "from": {
+          "additionalProperties": false,
+          "properties": {
+            "neuron": {
+              "pattern": "^[a-z][a-z0-9-]{0,63}$",
+              "type": "string"
+            },
+            "port": {
+              "pattern": "^[A-Za-z][A-Za-z0-9._-]{0,127}$",
+              "type": "string"
+            }
+          },
+          "required": [
+            "neuron",
+            "port"
+          ],
+          "type": "object"
+        },
+        "signalType": {
+          "pattern": "^[a-z][a-z0-9.-]*/v[1-9][0-9]*$",
+          "type": "string"
+        },
+        "strength": {
+          "maximum": 1000.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "to": {
+          "additionalProperties": false,
+          "properties": {
+            "neuron": {
+              "pattern": "^[a-z][a-z0-9-]{0,63}$",
+              "type": "string"
+            },
+            "port": {
+              "pattern": "^[A-Za-z][A-Za-z0-9._-]{0,127}$",
+              "type": "string"
+            }
+          },
+          "required": [
+            "neuron",
+            "port"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "from",
+        "to",
+        "signalType",
+        "effect",
+        "strength",
+        "delayTicks"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec"
+  ],
+  "type": "object"
+}

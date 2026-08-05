@@ -8,7 +8,7 @@
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB.svg)](pyproject.toml)
 [![许可证：Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-D22128.svg)](LICENSE)
 
-**PRE_RELEASE · 源代码候选版本 0.1.0 · 尚未发布**
+**PRE_RELEASE · 源代码候选版本 0.2.0 · 尚未发布**
 
 Brain-Role Architecture 是一种可验证、可感知角色的架构，用于治理 AI 智能体的不变量、
 持久状态、风险、工作流、人格与目标，同时避免混淆责任关系与执行顺序。
@@ -125,7 +125,7 @@ make verify
 
 ## 项目状态
 
-`0.1.0` 是实验性的源代码候选版本。本项目不将其表示为注册表中的软件包、Git 标签、
+`0.2.0` 是实验性的源代码候选版本。本项目不将其表示为注册表中的软件包、Git 标签、
 GitHub Release 或部署版本。在规范仍处于预发布阶段期间，兼容性可能发生变化。
 请参阅 [CHANGELOG.md](CHANGELOG.md)。
 

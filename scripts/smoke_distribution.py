@@ -50,6 +50,18 @@ def main() -> None:
             "brain_role/schemas/v1alpha1/policy.schema.json",
             "brain_role/schemas/v1alpha1/compile-order.schema.json",
             "brain_role/schemas/v1alpha1/compiled-bundle.schema.json",
+            "brain_role/schemas/v1alpha1/neural-architecture.schema.json",
+            "brain_role/schemas/v1alpha1/neuron.schema.json",
+            "brain_role/schemas/v1alpha1/synapse.schema.json",
+            "brain_role/schemas/v1alpha1/regulator.schema.json",
+            "brain_role/schemas/v1alpha1/receptor-binding.schema.json",
+            "brain_role/schemas/v1alpha1/homeostat.schema.json",
+            "brain_role/schemas/v1alpha1/support.schema.json",
+            "brain_role/schemas/v1alpha1/clock.schema.json",
+            "brain_role/schemas/v1alpha1/plasticity-proposal.schema.json",
+            "brain_role/schemas/v1alpha1/compiled-connectome.schema.json",
+            "brain_role/schemas/v1alpha1/activation-scenario.schema.json",
+            "brain_role/schemas/v1alpha1/neural-trace.schema.json",
         }
         if not required.issubset(names):
             raise SystemExit("DIST_SMOKE_FAIL wheel schema set incomplete")
@@ -74,8 +86,12 @@ def main() -> None:
             raise SystemExit("DIST_SMOKE_FAIL isolated wheel install")
         instance = temp_path / "instance"
         shutil.copytree(ROOT / "examples" / "minimal-public", instance)
+        neural_instance = temp_path / "neural-instance"
+        shutil.copytree(ROOT / "examples" / "neuroendocrine-public", neural_instance)
         output = temp_path / "rendered"
         compiled = temp_path / "compiled.json"
+        connectome = temp_path / "connectome.json"
+        trace = temp_path / "trace.json"
         env = os.environ.copy()
         env.pop("PYTHONPATH", None)
         executable = venv_command(venv, "brain-role")
@@ -95,8 +111,31 @@ def main() -> None:
             temp_path,
             env,
         )
+        validate_neural = run(
+            [str(executable), "validate-neural", str(neural_instance), "--format", "json"],
+            temp_path,
+            env,
+        )
+        compile_connectome = run(
+            [str(executable), "compile-connectome", str(neural_instance), "--output", str(connectome)],
+            temp_path,
+            env,
+        )
+        simulate = run(
+            [
+                str(executable),
+                "simulate",
+                str(connectome),
+                "--scenario",
+                str(neural_instance / "scenario.yaml"),
+                "--output",
+                str(trace),
+            ],
+            temp_path,
+            env,
+        )
         rendered = output / "prefill_messages.json"
-        if version.returncode != 0 or version.stdout != "brain-role 0.1.0\n":
+        if version.returncode != 0 or version.stdout != "brain-role 0.2.0\n":
             raise SystemExit("DIST_SMOKE_FAIL installed console version surface")
         if validate.returncode != 0 or '"valid":true' not in validate.stdout:
             raise SystemExit("DIST_SMOKE_FAIL installed console validation surface")
@@ -110,6 +149,18 @@ def main() -> None:
         payload = json.loads(rendered.read_text(encoding="utf-8"))
         if not isinstance(payload, list) or not payload or payload[0].get("role") != "system":
             raise SystemExit("DIST_SMOKE_FAIL installed render artifact")
+        if validate_neural.returncode != 0 or '"specVersion":"0.2.0"' not in validate_neural.stdout:
+            raise SystemExit("DIST_SMOKE_FAIL installed neural validation surface")
+        if compile_connectome.returncode != 0 or not connectome.is_file():
+            raise SystemExit("DIST_SMOKE_FAIL installed connectome compile surface")
+        connectome_payload = json.loads(connectome.read_text(encoding="utf-8"))
+        if connectome_payload.get("kind") != "CompiledConnectome":
+            raise SystemExit("DIST_SMOKE_FAIL installed connectome artifact")
+        if simulate.returncode != 0 or not trace.is_file():
+            raise SystemExit("DIST_SMOKE_FAIL installed simulation surface")
+        trace_payload = json.loads(trace.read_text(encoding="utf-8"))
+        if trace_payload.get("kind") != "NeuralTrace" or not trace_payload.get("events"):
+            raise SystemExit("DIST_SMOKE_FAIL installed neural trace artifact")
     with tarfile.open(sdists[0], "r:gz") as archive:
         names = archive.getnames()
         required_suffixes = {
@@ -121,6 +172,8 @@ def main() -> None:
             "/SPEC.md",
             "/schemas/v1alpha1/architecture.schema.json",
             "/schemas/v1alpha1/compiled-bundle.schema.json",
+            "/schemas/v1alpha1/compiled-connectome.schema.json",
+            "/schemas/v1alpha1/neural-trace.schema.json",
             "/docs/assets/brain-role-meme.png",
         }
         missing = sorted(
@@ -134,7 +187,8 @@ def main() -> None:
             raise SystemExit("DIST_SMOKE_FAIL sdist meme bytes differ from source")
     print(
         f"DIST_SMOKE_OK wheel={wheel.name} sdist={sdists[0].name} "
-        "fresh_install=yes console=version,validate,compile,render isolated_cwd=yes"
+        "fresh_install=yes console=version,validate,compile,render,validate-neural,compile-connectome,simulate "
+        "isolated_cwd=yes"
     )
 
 

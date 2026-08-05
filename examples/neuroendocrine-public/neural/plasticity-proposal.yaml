@@ -1,0 +1,14 @@
+apiVersion: brain-role.dev/v1alpha1
+kind: PlasticityProposal
+metadata:
+  id: reduce-sensory-gain
+  version: 0.2.0
+  classification: PUBLIC
+spec:
+  targetSynapse: sensory-to-planner
+  change:
+    parameter: strength
+    from: 1.0
+    to: 0.9
+  evidence: synthetic-overactivation-observation
+  rollback: restore-strength-1.0

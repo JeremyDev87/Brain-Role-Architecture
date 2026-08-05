@@ -1,0 +1,10 @@
+apiVersion: brain-role.dev/v1alpha1
+kind: PolicyManifest
+metadata:
+  id: p0-protection
+  version: 0.1.0
+  classification: PUBLIC
+spec:
+  denyRoleWrites: [P0]
+  denySelfEscalation: true
+  secretRefPattern: "^env://[A-Z][A-Z0-9_]{2,127}$"

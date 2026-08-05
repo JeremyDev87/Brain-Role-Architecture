@@ -1,0 +1,19 @@
+apiVersion: brain-role.dev/v1alpha1
+kind: NeuronManifest
+metadata:
+  id: planner
+  version: 0.2.0
+  classification: PUBLIC
+spec:
+  layer: P4
+  roleRef: synthetic-operator
+  capabilityRef: workflow.execute
+  inputPorts:
+  - name: signalIn
+    signalType: task.request/v1
+  outputPorts:
+  - name: result
+    signalType: task.reviewed/v1
+  integration:
+    strategy: any
+    activationThreshold: 1.0
