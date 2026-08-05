@@ -77,12 +77,15 @@ uv run brain-role validate examples/minimal-public --format json
 {"errors":[],"specVersion":"0.1.0","valid":true}
 ```
 
-渲染一个确定性的 Hermes 参考包，并运行仓库的所有验证门禁：
+编译一个确定性的中立包，渲染 Hermes 参考包，并运行仓库的所有验证门禁：
 
 ```bash
+uv run brain-role compile examples/minimal-public --output .artifacts/compiled.json
 uv run brain-role render hermes examples/minimal-public --output .artifacts/hermes
 make verify
 ```
+
+`compile` 生成具有显式层顺序和稳定角色/策略顺序的规范 JSON 文件，不添加源路径、凭据或运行时激活数据。
 
 `render hermes` 只会在所选输出目录下写入文件。它**不会**激活 Hermes、修改配置，也不会触碰
 `SOUL.md`、`USER.md`、`MEMORY.md` 或 `~/.hermes`。

@@ -65,6 +65,7 @@ Requisitos y dependencias del entorno se resuelven mediante `uv`. Desde la raíz
 ```bash
 uv sync --all-groups
 uv run brain-role validate examples/minimal-public --format json
+uv run brain-role compile examples/minimal-public --output .artifacts/compiled.json
 uv run brain-role render hermes examples/minimal-public --output .artifacts/hermes
 make verify
 ```
@@ -77,8 +78,9 @@ make verify
 
 1. `uv sync --all-groups` sincroniza los grupos de dependencias necesarios para trabajar y verificar el código fuente.
 2. `uv run brain-role validate examples/minimal-public --format json` valida el ejemplo público mínimo y emite el resultado en JSON.
-3. `uv run brain-role render hermes examples/minimal-public --output .artifacts/hermes` genera el artefacto de referencia de Hermes dentro de `.artifacts/hermes`.
-4. `make verify` ejecuta la puerta de verificación definida por el repositorio.
+3. `uv run brain-role compile examples/minimal-public --output .artifacts/compiled.json` genera un JSON canónico con orden explícito, sin rutas de origen, credenciales ni activación del runtime.
+4. `uv run brain-role render hermes examples/minimal-public --output .artifacts/hermes` genera el artefacto de referencia de Hermes dentro de `.artifacts/hermes`.
+5. `make verify` ejecuta la puerta de verificación definida por el repositorio.
 
 `render hermes` solo genera archivos dentro del directorio de salida seleccionado. No activa Hermes, no cambia su configuración y no modifica `SOUL.md`, `USER.md`, `MEMORY.md` ni `~/.hermes`.
 

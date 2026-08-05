@@ -79,12 +79,16 @@ uv run brain-role validate examples/minimal-public --format json
 {"errors":[],"specVersion":"0.1.0","valid":true}
 ```
 
-決定論的な Hermes 参照バンドルを生成し、リポジトリの全ゲートを実行します。
+決定論的な中立バンドルをコンパイルし、Hermes 参照バンドルを生成して、リポジトリの全ゲートを実行します。
 
 ```bash
+uv run brain-role compile examples/minimal-public --output .artifacts/compiled.json
 uv run brain-role render hermes examples/minimal-public --output .artifacts/hermes
 make verify
 ```
+
+`compile` は明示的なレイヤー順と安定した role/policy 順を持つ canonical JSON を生成し、
+source path、credential、runtime activation 情報を追加しません。
 
 `render hermes` は指定した出力ディレクトリの下にだけ書き込みます。Hermes の有効化や設定変更は行わず、
 `SOUL.md`、`USER.md`、`MEMORY.md`、`~/.hermes`には触れません。

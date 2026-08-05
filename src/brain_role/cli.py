@@ -8,6 +8,7 @@ from typing import Never
 
 from brain_role import __version__
 from brain_role.adapters.hermes import render_prefill
+from brain_role.compiler import compile_bundle, write_compiled_bundle
 from brain_role.errors import InputFailure
 from brain_role.models import ValidationResult
 from brain_role.report import json_report, text_report
@@ -35,6 +36,10 @@ def build_parser() -> argparse.ArgumentParser:
     validate = subparsers.add_parser("validate", help="validate an instance")
     validate.add_argument("instance", type=Path)
     validate.add_argument("--format", choices=("text", "json"), default="text")
+
+    compile_command = subparsers.add_parser("compile", help="compile a canonical bundle artifact")
+    compile_command.add_argument("instance", type=Path)
+    compile_command.add_argument("--output", type=Path, required=True)
 
     render = subparsers.add_parser("render", help="render a read-only adapter artifact")
     render_sub = render.add_subparsers(dest="adapter", required=True)
@@ -64,6 +69,14 @@ def main(argv: Sequence[str] | None = None) -> int:
     if not result.valid or result.bundle is None:
         _print_result(result, "text")
         return 1
+    if args.command == "compile":
+        try:
+            filename, digest = write_compiled_bundle(compile_bundle(result.bundle), args.output)
+        except (InputFailure, OSError):
+            sys.stderr.write("E_OUTPUT: unable to write compiled output\n")
+            return 2
+        sys.stdout.write(f"COMPILED file={filename} sha256={digest}\n")
+        return 0
     try:
         filename, digest = render_prefill(result.bundle, args.output)
     except (InputFailure, OSError):

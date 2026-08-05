@@ -51,6 +51,7 @@ README_TOKENS = (
     "SPEC.md",
     "docs/assets/brain-role-meme.png",
     "uv run brain-role validate",
+    "uv run brain-role compile",
     '{"errors":[],"specVersion":"0.1.0","valid":true}',
     "make verify",
 )

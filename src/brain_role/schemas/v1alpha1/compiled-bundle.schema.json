@@ -1,0 +1,258 @@
+{
+  "$defs": {
+    "compileOrder": {
+      "items": {
+        "enum": [
+          "P0",
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "P5",
+          "P6"
+        ]
+      },
+      "maxItems": 7,
+      "minItems": 7,
+      "prefixItems": [
+        {
+          "const": "P0"
+        }
+      ],
+      "type": "array",
+      "uniqueItems": true
+    },
+    "metadata": {
+      "additionalProperties": false,
+      "properties": {
+        "architectureId": {
+          "pattern": "^bra-[a-z0-9-]{3,60}$",
+          "type": "string"
+        },
+        "classification": {
+          "const": "PUBLIC"
+        },
+        "id": {
+          "pattern": "^[a-z][a-z0-9-]{2,63}$",
+          "type": "string"
+        },
+        "version": {
+          "pattern": "^0\\.1\\.[0-9]+$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "architectureId",
+        "version",
+        "classification"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "https://brain-role.dev/schemas/v1alpha1/compiled-bundle.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "apiVersion": {
+      "const": "brain-role.dev/v1alpha1"
+    },
+    "compileOrder": {
+      "$ref": "#/$defs/compileOrder"
+    },
+    "kind": {
+      "const": "CompiledBrainRole"
+    },
+    "layers": {
+      "allOf": [
+        {
+          "contains": {
+            "properties": {
+              "spec": {
+                "properties": {
+                  "layer": {
+                    "const": "P0"
+                  }
+                },
+                "required": [
+                  "layer"
+                ]
+              }
+            },
+            "required": [
+              "spec"
+            ]
+          },
+          "maxContains": 1,
+          "minContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "spec": {
+                "properties": {
+                  "layer": {
+                    "const": "P1"
+                  }
+                },
+                "required": [
+                  "layer"
+                ]
+              }
+            },
+            "required": [
+              "spec"
+            ]
+          },
+          "maxContains": 1,
+          "minContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "spec": {
+                "properties": {
+                  "layer": {
+                    "const": "P2"
+                  }
+                },
+                "required": [
+                  "layer"
+                ]
+              }
+            },
+            "required": [
+              "spec"
+            ]
+          },
+          "maxContains": 1,
+          "minContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "spec": {
+                "properties": {
+                  "layer": {
+                    "const": "P3"
+                  }
+                },
+                "required": [
+                  "layer"
+                ]
+              }
+            },
+            "required": [
+              "spec"
+            ]
+          },
+          "maxContains": 1,
+          "minContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "spec": {
+                "properties": {
+                  "layer": {
+                    "const": "P4"
+                  }
+                },
+                "required": [
+                  "layer"
+                ]
+              }
+            },
+            "required": [
+              "spec"
+            ]
+          },
+          "maxContains": 1,
+          "minContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "spec": {
+                "properties": {
+                  "layer": {
+                    "const": "P5"
+                  }
+                },
+                "required": [
+                  "layer"
+                ]
+              }
+            },
+            "required": [
+              "spec"
+            ]
+          },
+          "maxContains": 1,
+          "minContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "spec": {
+                "properties": {
+                  "layer": {
+                    "const": "P6"
+                  }
+                },
+                "required": [
+                  "layer"
+                ]
+              }
+            },
+            "required": [
+              "spec"
+            ]
+          },
+          "maxContains": 1,
+          "minContains": 1
+        }
+      ],
+      "items": {
+        "$ref": "layer.schema.json"
+      },
+      "maxItems": 7,
+      "minItems": 7,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "metadata": {
+      "$ref": "#/$defs/metadata"
+    },
+    "policies": {
+      "items": {
+        "$ref": "policy.schema.json"
+      },
+      "maxItems": 32,
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "roles": {
+      "items": {
+        "$ref": "role.schema.json"
+      },
+      "maxItems": 64,
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "compileOrder",
+    "layers",
+    "roles",
+    "policies"
+  ],
+  "title": "Compiled Brain-Role Bundle",
+  "type": "object",
+  "x-brain-role-cross-field-constraint": "layers[*].spec.layer MUST equal compileOrder[*], and every declared dependency MUST precede its layer; enforce with brain_role.compiler.validate_compiled_bundle."
+}

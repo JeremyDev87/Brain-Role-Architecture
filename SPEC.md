@@ -62,8 +62,16 @@ P4 workflows and orchestration, P5 persona and communication, and P6 goals and d
 - **REQ-PUBLIC-003:** Secret values MUST NOT appear. A non-secret indirection such as
   `secretRef: env://VARIABLE_NAME` MAY be declared.
 
-## 7. Validator and adapter
+## 7. Compiler, validator, and adapter
 
+- **REQ-COMPILE-001:** A compiled bundle MUST contain only `apiVersion`, `kind`, source metadata,
+  explicit compile order, and the validated layer, role, and policy documents; it MUST NOT add source
+  paths, credentials, runtime activation data, or undeclared extension fields.
+- **REQ-COMPILE-002:** Layers MUST follow explicit compile order, roles and policies MUST sort by
+  `metadata.id`, and JSON serialization MUST be deterministic UTF-8 with sorted keys and one final newline.
+- **REQ-COMPILE-003:** `brain-role compile` MUST validate before writing, preserve any existing output on
+  validation failure, reject runtime-home, native Hermes, and symlink destinations, atomically replace a
+  successful file, and report its filename and SHA-256 digest.
 - **REQ-CLI-001:** Validation MUST be deterministic, offline, side-effect-free, and sorted by stable
   `(path, code, pointer, message)` order.
 - **REQ-CLI-002:** Exit status MUST be 0 for conformance, 1 for conformance failure, and 2 for CLI,

@@ -40,3 +40,18 @@ def test_release_checker_detects_version_drift(tmp_path: Path) -> None:
     )
     failures = checker.check(target)
     assert "src/brain_role/__init__.py: version '0.1.0' != '0.1.1'" in failures
+
+
+def test_release_checker_requires_compile_cli_contract(tmp_path: Path) -> None:
+    target = tmp_path / "repository"
+    shutil.copytree(
+        ROOT,
+        target,
+        ignore=shutil.ignore_patterns(".git", ".venv", ".artifacts", "__pycache__"),
+    )
+    cli_reference = target / "docs" / "reference" / "cli.md"
+    cli_reference.write_text(
+        cli_reference.read_text(encoding="utf-8").replace("brain-role compile <instance>", "compile omitted"),
+        encoding="utf-8",
+    )
+    assert "docs/reference/cli.md: release contract missing brain-role compile <instance>" in checker.check(target)
