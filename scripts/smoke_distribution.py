@@ -56,7 +56,7 @@ def main() -> None:
         if any(name.startswith(("tests/", "examples/")) for name in names):
             raise SystemExit("DIST_SMOKE_FAIL wheel includes test/example material")
     with tempfile.TemporaryDirectory(prefix="brain-role-wheel-") as temp:
-        temp_path = Path(temp)
+        temp_path = Path(temp).resolve()
         venv = temp_path / "venv"
         create = run([sys.executable, "-m", "venv", str(venv)], temp_path, os.environ.copy())
         if create.returncode != 0:

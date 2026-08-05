@@ -26,11 +26,7 @@ def safe_output_path(output: Path) -> Path:
         if any(ord(character) < 32 or ord(character) == 127 for character in lexical.name):
             raise InputFailure("output filename contains a forbidden control character")
         cursor = Path(lexical.anchor)
-        parts = lexical.parts[1:]
-        if parts:
-            cursor = (cursor / parts[0]).resolve(strict=False)
-            parts = parts[1:]
-        for part in parts:
+        for part in lexical.parts[1:]:
             cursor = cursor / part
             if cursor.is_symlink():
                 raise InputFailure("output symlink is forbidden")
