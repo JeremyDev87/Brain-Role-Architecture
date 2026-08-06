@@ -16,9 +16,9 @@ durable state, risk, workflows, persona, and goals without confusing responsibil
 > **One rule survives every rewrite:** P0 is the only absolute invariant. P1-P6 can change only through
 > explicit ownership, approval, provenance, rollback, and effective-time contracts.
 
-![A cartoon office inside a brain: P6 throws new goals while P0 calmly guards the invariant gate](docs/assets/brain-role-meme.png)
+![Brain-Role poster: Neural orthogonal band, P0-P6 Brain plane, Actor/Role plane, Compilation plane](docs/assets/brain-role-meme.png)
 
-*P6 has another brilliant new direction. P0 has heard this before.*
+*Four visual zones: responsibilities, capabilities, deterministic build, and orthogonal modulation.*
 
 ## Why this exists
 
@@ -55,9 +55,9 @@ See [the three-plane explanation](docs/explanation/three-planes.md).
 
 ## Architecture at a glance
 
-![Overview of the Brain, Actor/Role, Compilation, and orthogonal Neural Runtime planes](docs/assets/brain-role-overview.svg)
+![Brain-Role structure map with P0-P6, Role plane, Compilation DAG, Neural circuit](docs/assets/brain-role-overview.svg)
 
-*P0-P6 define responsibility; Actor/Role defines capability; the Compilation plane defines explicit transformation order.*
+*The icons show responsibility, capability, build order, and modulation without turning P0-P6 into a pipeline.*
 
 The additive 0.2.x neural extension is orthogonal to all three: typed Functional Neurons and Synapses carry
 execution signals, while explicit receptors, homeostats, support contracts, and logical clocks provide bounded
@@ -103,7 +103,7 @@ make verify
 
 ## Validation and artifact flow
 
-![Deterministic validation, compilation, and simulation flow with deployment and publication outside the boundary](docs/assets/brain-role-flow.svg)
+![brain-role CLI flow to compiled.json connectome.json trace.json](docs/assets/brain-role-flow.svg)
 
 *Validation produces inspectable artifacts; it does not deploy, publish, or change external runtime state.*
 

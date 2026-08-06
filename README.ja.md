@@ -16,9 +16,9 @@ Brain-Role Architecture は、AI エージェントの不変条件、永続状�
 > **どれだけ書き換えても残る一つの規則:** 絶対不変なのは P0 だけです。P1-P6 は、明示的な所有者、
 > 承認、来歴、ロールバック、発効時刻の契約を通じてのみ変更できます。
 
-![脳内オフィスで P6 が新しい目標をまき散らす一方、P0 が落ち着いて不変条件のゲートを守る漫画](docs/assets/brain-role-meme.png)
+![Brain-Role poster: Neural orthogonal band, P0-P6 Brain plane, Actor/Role plane, Compilation plane](docs/assets/brain-role-meme.png)
 
-*P6 にまた素晴らしい新方針が生まれました。P0 はもう慣れています。*
+*責任・能力・決定論的ビルド・直交モジュレーションを四つの視覚領域に分けます。*
 
 ## なぜ必要なのか
 
@@ -55,9 +55,9 @@ P 番号が表すのは **責任と権限** であり、ランタイムの実行
 
 ## アーキテクチャの全体像
 
-![Brain、Actor/Role、Compilation、および直交する Neural Runtime プレーンの構成図](docs/assets/brain-role-overview.svg)
+![Brain-Role structure map with P0-P6, Role plane, Compilation DAG, Neural circuit](docs/assets/brain-role-overview.svg)
 
-*P0-P6 は責任を、Actor/Role は能力を、Compilation プレーンは明示的な変換順序を定義します。*
+*アイコンは P0-P6 をパイプライン化せず、責任・能力・ビルド順序・モジュレーションを示します。*
 
 ## 含まれるもの
 
@@ -93,7 +93,7 @@ make verify
 
 ## 検証と成果物のフロー
 
-![決定論的な検証・コンパイル・シミュレーションの流れと、デプロイ・公開の境界](docs/assets/brain-role-flow.svg)
+![brain-role CLI flow to compiled.json connectome.json trace.json](docs/assets/brain-role-flow.svg)
 
 *検証は確認可能な成果物を生成しますが、外部ランタイムのデプロイ、公開、状態変更は行いません。*
 `compile` は明示的なレイヤー順と安定した role/policy 順を持つ canonical JSON を生成し、

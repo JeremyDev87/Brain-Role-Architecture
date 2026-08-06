@@ -14,9 +14,9 @@ Brain-Role Architecture es una arquitectura verificable y consciente de los role
 
 > P0 es el único invariante absoluto. P1-P6 son capas de responsabilidad con mutabilidad controlada y contratos explícitos de propiedad, aprobación, procedencia, reversión y momento de entrada en vigor.
 
-![Meme de Brain-Role Architecture: separar responsabilidades, roles y compilación](docs/assets/brain-role-meme.png)
+![Brain-Role poster: Neural orthogonal band, P0-P6 Brain plane, Actor/Role plane, Compilation plane](docs/assets/brain-role-meme.png)
 
-*Una arquitectura clara separa qué puede cambiar, quién puede cambiarlo y cómo se convierte en una configuración ejecutable.*
+*Cuatro zonas visuales separan responsabilidad, capacidad, compilación determinista y modulación ortogonal.*
 
 ## Por qué existe este proyecto
 
@@ -52,9 +52,9 @@ Separar los planos evita inferir permisos a partir de una capa, confundir un rol
 
 ## Vista general de la arquitectura
 
-![Diagrama de los planos Brain, Actor/Role, Compilation y la extensión Neural Runtime ortogonal](docs/assets/brain-role-overview.svg)
+![Brain-Role structure map with P0-P6, Role plane, Compilation DAG, Neural circuit](docs/assets/brain-role-overview.svg)
 
-*P0-P6 define responsabilidades; Actor/Role define capacidades; el plano de compilación define el orden explícito de transformación.*
+*Los iconos muestran responsabilidad, capacidad, orden de compilación y modulación sin convertir P0-P6 en una canalización.*
 
 ## Qué incluye
 
@@ -82,7 +82,7 @@ make verify
 
 ## Flujo de validación y artefactos
 
-![Flujo determinista de validación, compilación y simulación con los límites de despliegue y publicación](docs/assets/brain-role-flow.svg)
+![brain-role CLI flow to compiled.json connectome.json trace.json](docs/assets/brain-role-flow.svg)
 
 *La validación produce artefactos inspeccionables; no despliega, publica ni modifica el estado de un runtime externo.*
 1. `uv sync --all-groups` sincroniza los grupos de dependencias necesarios para trabajar y verificar el código fuente.

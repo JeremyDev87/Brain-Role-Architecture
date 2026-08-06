@@ -82,21 +82,24 @@ def test_all_localized_readmes_share_the_public_contract() -> None:
 def test_meme_is_a_real_landscape_png() -> None:
     payload = MEME_PATH.read_bytes()
     assert payload.startswith(b"\x89PNG\r\n\x1a\n")
-    assert hashlib.sha256(payload).hexdigest() == "cf81bd082b86ed1570f6c1bbf62d8d85d76790a46b529182f2eeb30243c30f4f"
+    assert hashlib.sha256(payload).hexdigest() == "b0f01c565ac7493a1e31a4cf70d60a4d5d5a24218963972be65119acd102b6f4"
     width, height = struct.unpack(">II", payload[16:24])
     assert width >= 1200
     assert height >= 675
     assert width > height
 
     provenance = (ROOT / "docs" / "assets" / "README.md").read_text(encoding="utf-8")
-    assert "exactly the seven canonical brain-element names" in provenance
-    assert "`Brainstem`, `Cerebellum`, `Hippocampus`," in provenance
-    assert "`Amygdala`, `Cortex`, `Ego`, and `Prefrontal`" in provenance
-    assert "no P0-P6 identifiers" in provenance
-    assert "non-sequential, disconnected layout" in provenance
-    assert "there are no arrows, paths," in provenance
-    assert "stacks, or inter-station connectors" in provenance
-    assert "does not imply runtime or compile order" in provenance
+    assert "Brain-Role Architecture" in provenance or "Brain plane" in provenance
+    assert "P0" in provenance and "Brainstem" in provenance
+    assert "Neural Runtime" in provenance
+    assert "Actor/Role" in provenance or "Actor / Role" in provenance
+    assert "Compilation" in provenance
+    assert "no P-authority" in provenance or "never creates" in provenance or "no authority" in provenance
+    assert "compileOrder" in provenance or "compile order" in provenance
+    assert (
+        "does not imply runtime or compile order" in provenance
+        or "not execution order" in provenance
+    )
 
 
 def test_sdist_declares_all_readmes_and_readme_assets() -> None:
