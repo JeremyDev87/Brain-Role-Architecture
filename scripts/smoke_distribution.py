@@ -175,6 +175,8 @@ def main() -> None:
             "/schemas/v1alpha1/compiled-connectome.schema.json",
             "/schemas/v1alpha1/neural-trace.schema.json",
             "/docs/assets/brain-role-meme.png",
+            "/docs/assets/brain-role-overview.svg",
+            "/docs/assets/brain-role-flow.svg",
         }
         missing = sorted(
             suffix for suffix in required_suffixes if not any(name.endswith(suffix) for name in names)
@@ -185,6 +187,11 @@ def main() -> None:
         extracted = archive.extractfile(meme_name)
         if extracted is None or extracted.read() != (ROOT / "docs/assets/brain-role-meme.png").read_bytes():
             raise SystemExit("DIST_SMOKE_FAIL sdist meme bytes differ from source")
+        for asset_name in ("brain-role-overview.svg", "brain-role-flow.svg"):
+            asset_name_in_archive = next(name for name in names if name.endswith(f"/docs/assets/{asset_name}"))
+            asset = archive.extractfile(asset_name_in_archive)
+            if asset is None or asset.read() != (ROOT / "docs/assets" / asset_name).read_bytes():
+                raise SystemExit(f"DIST_SMOKE_FAIL sdist {asset_name} bytes differ from source")
     print(
         f"DIST_SMOKE_OK wheel={wheel.name} sdist={sdists[0].name} "
         "fresh_install=yes console=version,validate,compile,render,validate-neural,compile-connectome,simulate "
