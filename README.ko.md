@@ -16,9 +16,9 @@ Brain-Role Architecture는 AI 에이전트의 불변 규칙, 지속 상태, 위�
 > **모든 재작성 뒤에도 남는 한 가지 규칙:** P0만 절대 불변입니다. P1-P6는 명시적인 소유권,
 > 승인, 출처, 롤백, 효력 시점 계약을 통해서만 변경할 수 있습니다.
 
-![뇌 속 사무실에서 P6는 새 목표를 뿌리고 P0는 침착하게 불변 규칙 관문을 지키는 만화](docs/assets/brain-role-meme.png)
+![Brain-Role poster: Neural orthogonal band, P0-P6 Brain plane, Actor/Role plane, Compilation plane](docs/assets/brain-role-meme.png)
 
-*P6에게 또 멋진 새 방향이 생겼습니다. P0는 이미 여러 번 겪었습니다.*
+*책임·역량·결정론적 빌드·직교 조절을 네 시각 구역으로 구분합니다.*
 
 ## 왜 필요한가
 
@@ -55,9 +55,9 @@ P 번호는 **책임과 권한**을 나타내며 런타임 실행 순서나 컴�
 
 ## 한눈에 보는 구성
 
-![Brain, Actor/Role, Compilation 및 직교하는 Neural Runtime 평면 구성도](docs/assets/brain-role-overview.svg)
+![Brain-Role structure map with P0-P6, Role plane, Compilation DAG, Neural circuit](docs/assets/brain-role-overview.svg)
 
-*P0-P6는 책임을, Actor/Role은 역량을, Compilation 평면은 명시적인 변환 순서를 정의합니다.*
+*아이콘은 P0-P6를 파이프라인으로 만들지 않고 책임·역량·빌드 순서·조절을 보여 줍니다.*
 
 ## 포함 사항
 
@@ -93,7 +93,7 @@ make verify
 
 ## 검증 및 산출물 흐름
 
-![결정론적 검증·컴파일·시뮬레이션 흐름과 배포·게시 경계](docs/assets/brain-role-flow.svg)
+![brain-role CLI flow to compiled.json connectome.json trace.json](docs/assets/brain-role-flow.svg)
 
 *검증은 확인 가능한 산출물을 만들지만 외부 runtime을 배포·게시하거나 상태를 변경하지 않습니다.*
 `compile`은 명시적 레이어 순서와 안정적인 role/policy 순서를 가진 canonical JSON 파일을 생성하며,
