@@ -38,6 +38,11 @@
   <text class="title" x="48" y="52">Brain-Role Architecture · deterministic validation flow</text>
   <text class="subtitle" x="48" y="82">Public synthetic inputs become inspectable artifacts; validation never implies activation or publication.</text>
 
+  <!-- Boundary callout in the header band so fan-out edges never read as entering it. -->
+  <rect class="blocked-box" x="780" y="96" width="452" height="48"/>
+  <text class="blocked-title" x="800" y="116">NOT part of this flow</text>
+  <text class="blocked-text" x="1000" y="116">activate · deploy · publish · ~/.hermes</text>
+
   <text class="lane" x="48" y="130">SOURCE &amp; SAFETY</text>
   <text class="lane" x="48" y="332">COMPILATION &amp; SIMULATION</text>
   <text class="lane" x="48" y="590">OUTPUT &amp; BOUNDARY</text>
@@ -66,9 +71,11 @@
   <path class="arrow" d="M 558 212 L 628 212"/>
   <path class="arrow" d="M 858 212 L 928 212"/>
 
-  <path class="branch" d="M 1053 270 C 1053 315 360 292 360 362"/>
-  <path class="branch" d="M 1053 270 C 1053 315 690 292 690 362"/>
-  <path class="arrow" d="M 858 420 L 888 420"/>
+  <!-- Fan-out from verified input into every compile/render/simulate stage. -->
+  <path class="branch" d="M 1053 270 C 780 320 173 320 173 362"/>
+  <path class="branch" d="M 1053 270 C 860 320 453 320 453 362"/>
+  <path class="branch" d="M 1053 270 C 980 320 733 320 733 362"/>
+  <path class="branch" d="M 1053 270 C 1053 318 1033 340 1033 362"/>
 
   <rect class="stage" x="48" y="362" width="250" height="116"/>
   <text class="stage-title" x="70" y="396">compile</text>
@@ -107,11 +114,6 @@
   <rect class="stage-green" x="888" y="608" width="290" height="84"/>
   <text class="stage-green-title" x="910" y="642">trace.json</text>
   <text class="stage-text" x="910" y="666">deterministic event trace</text>
-
-  <rect class="blocked-box" x="928" y="286" width="250" height="54"/>
-  <text class="blocked-title" x="950" y="310">NOT part of this flow</text>
-  <text class="blocked-text" x="950" y="329">activate · deploy · publish</text>
-  <path class="blocked-arrow" d="M 1053 340 L 1053 362"/>
 
   <line x1="48" y1="720" x2="1232" y2="720" stroke="#cbd5e1"/>
   <text class="strong" x="48" y="744">Guarantee boundary:</text>
