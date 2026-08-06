@@ -161,20 +161,13 @@ def test_safe_output_path_rejects_first_path_component_symlink() -> None:
         output_safety.safe_output_path(Path("/tmp") / "compiled.json")
 
 
-def test_compile_rejects_runtime_native_and_symlink_outputs(
-    monkeypatch: pytest.MonkeyPatch,
+def test_compile_rejects_native_and_symlink_outputs(
     example_root: Path,
     tmp_path: Path,
 ) -> None:
     module, document = compile_example(example_root)
-    output_safety = importlib.import_module("brain_role.output_safety")
-    fake_home = tmp_path / "home"
-    fake_home.mkdir()
-    monkeypatch.setattr(output_safety.Path, "home", classmethod(lambda cls: fake_home))
 
     for target in (
-        fake_home / ".hermes" / "compiled.json",
-        fake_home / ".HERMES" / "compiled.json",
         tmp_path / "MEMORY.md",
         tmp_path / "memory.md",
     ):

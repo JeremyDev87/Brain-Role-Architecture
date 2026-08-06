@@ -6,9 +6,10 @@ new architecture identity and use an owner-controlled out-of-band migration with
 
 ## 0.1.x governance compatibility
 
-The `0.2.0` package continues to validate `0.1.x` BrainArchitecture manifests and emits their legacy
-validation report as `specVersion=0.1.0`. `CompiledBrainRole` canonical bytes, SHA receipts, `compile`, and
-`render hermes` stay unchanged for an unchanged `0.1.x` instance.
+The `0.3.0` package continues to validate `0.1.x` BrainArchitecture manifests and emits their legacy
+validation report as `specVersion=0.1.0`. `CompiledBrainRole` canonical bytes, SHA receipts, and `compile`
+stay unchanged for an unchanged `0.1.x` instance. The provider-specific exporter and its CLI surface were
+removed as a breaking change; no migration of governance manifests is required.
 
 ## 0.2.x neural extension
 

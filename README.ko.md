@@ -8,7 +8,7 @@
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB.svg)](pyproject.toml)
 [![라이선스: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-D22128.svg)](LICENSE)
 
-**PRE_RELEASE · 소스 후보 0.2.0 · 미출시**
+**PRE_RELEASE · 소스 후보 0.3.0 · 미출시**
 
 Brain-Role Architecture는 AI 에이전트의 불변 규칙, 지속 상태, 위험, 워크플로, 페르소나,
 목표를 책임과 실행 순서를 혼동하지 않고 통제하기 위한 검증 가능한 역할 기반 아키텍처입니다.
@@ -64,7 +64,6 @@ P 번호는 **책임과 권한**을 나타내며 런타임 실행 순서나 컴�
 - 규범 명세와 Draft 2020-12 JSON Schema
 - 결정론적 오프라인 `brain-role` 검증 CLI
 - 합성 기반의 유효/무효 적합성 fixture
-- 읽기 전용 Hermes `prefill_messages_file` 참조 exporter
 - 공개/비공개 경계 검사와 위협 모델
 - 단위, 스키마 동기화, 문서, 배포 패키지 smoke 검증
 
@@ -85,25 +84,20 @@ uv run brain-role validate examples/minimal-public --format json
 {"errors":[],"specVersion":"0.1.0","valid":true}
 ```
 
-결정론적 중립 번들을 컴파일하고 Hermes 참조 번들을 생성한 뒤 저장소의 전체 검증을 실행합니다.
+결정론적 중립 산출물을 컴파일하고 저장소의 전체 검증을 실행합니다.
 
 ```bash
 uv run brain-role compile examples/minimal-public --output .artifacts/compiled.json
-uv run brain-role render hermes examples/minimal-public --output .artifacts/hermes
 make verify
 ```
 
 ## 검증 및 산출물 흐름
 
-![결정론적 검증·컴파일·렌더링·시뮬레이션 흐름과 활성화·게시 경계](docs/assets/brain-role-flow.svg)
+![결정론적 검증·컴파일·시뮬레이션 흐름과 배포·게시 경계](docs/assets/brain-role-flow.svg)
 
-*검증은 확인 가능한 산출물을 만들지만 Hermes 활성화, 배포, 게시 또는 runtime home 변경을 수행하지 않습니다.*
-
+*검증은 확인 가능한 산출물을 만들지만 외부 runtime을 배포·게시하거나 상태를 변경하지 않습니다.*
 `compile`은 명시적 레이어 순서와 안정적인 role/policy 순서를 가진 canonical JSON 파일을 생성하며,
 source 경로·credential·runtime activation 정보를 추가하지 않습니다.
-
-`render hermes`는 선택한 출력 디렉터리 아래에만 파일을 만듭니다. Hermes를 활성화하거나 설정을
-변경하지 않으며 `SOUL.md`, `USER.md`, `MEMORY.md`, `~/.hermes`를 건드리지 않습니다.
 
 ## 적합한 용도
 
@@ -116,7 +110,7 @@ source 경로·credential·runtime activation 정보를 추가하지 않습니�
 
 - 호스팅형 에이전트 런타임이나 오케스트레이션 서비스
 - 자기 수정형 메모리 시스템
-- 실제 Hermes 설치를 배포, 게시, 활성화, 변경할 권한
+- 외부 runtime을 배포, 게시, 활성화하거나 변경할 권한
 - 실제 프로필, 세션, 자격증명, 비공개 URL, 개인정보 보관소
 
 ## 문서 지도
@@ -140,7 +134,7 @@ source 경로·credential·runtime activation 정보를 추가하지 않습니�
 
 ## 프로젝트 상태
 
-`0.2.0`은 실험적 소스 후보입니다. 레지스트리 패키지, Git 태그, GitHub Release, 배포본으로
+`0.3.0`은 실험적 소스 후보입니다. 레지스트리 패키지, Git 태그, GitHub Release, 배포본으로
 표시되지 않습니다. 명세가 사전 출시 상태인 동안 호환성이 변경될 수 있습니다.
 [CHANGELOG.md](CHANGELOG.md)를 참고하십시오.
 

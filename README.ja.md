@@ -8,7 +8,7 @@
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB.svg)](pyproject.toml)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-D22128.svg)](LICENSE)
 
-**PRE_RELEASE · ソース候補 0.2.0 · 未公開**
+**PRE_RELEASE · ソース候補 0.3.0 · 未公開**
 
 Brain-Role Architecture は、AI エージェントの不変条件、永続状態、リスク、ワークフロー、
 ペルソナ、目標を、責任と実行順序を混同せずに統制するための検証可能なロール指向アーキテクチャです。
@@ -64,7 +64,6 @@ P 番号が表すのは **責任と権限** であり、ランタイムの実行
 - 規範仕様と Draft 2020-12 JSON Schema
 - 決定論的でオフラインの `brain-role` 検証 CLI
 - 合成された有効/無効の適合性 fixture
-- 読み取り専用 Hermes `prefill_messages_file` 参照 exporter
 - 公開/非公開境界チェックと脅威モデル
 - 単体、スキーマ同期、文書、配布パッケージの smoke 検証
 
@@ -85,25 +84,20 @@ uv run brain-role validate examples/minimal-public --format json
 {"errors":[],"specVersion":"0.1.0","valid":true}
 ```
 
-決定論的な中立バンドルをコンパイルし、Hermes 参照バンドルを生成して、リポジトリの全ゲートを実行します。
+決定論的な中立成果物をコンパイルし、リポジトリの全ゲートを実行します。
 
 ```bash
 uv run brain-role compile examples/minimal-public --output .artifacts/compiled.json
-uv run brain-role render hermes examples/minimal-public --output .artifacts/hermes
 make verify
 ```
 
 ## 検証と成果物のフロー
 
-![決定論的な検証・コンパイル・レンダー・シミュレーションの流れと、アクティベーション・公開の境界](docs/assets/brain-role-flow.svg)
+![決定論的な検証・コンパイル・シミュレーションの流れと、デプロイ・公開の境界](docs/assets/brain-role-flow.svg)
 
-*検証は確認可能な成果物を生成しますが、Hermes の有効化、デプロイ、公開、実行環境の変更は行いません。*
-
+*検証は確認可能な成果物を生成しますが、外部ランタイムのデプロイ、公開、状態変更は行いません。*
 `compile` は明示的なレイヤー順と安定した role/policy 順を持つ canonical JSON を生成し、
 source path、credential、runtime activation 情報を追加しません。
-
-`render hermes` は指定した出力ディレクトリの下にだけ書き込みます。Hermes の有効化や設定変更は行わず、
-`SOUL.md`、`USER.md`、`MEMORY.md`、`~/.hermes`には触れません。
 
 ## 適した用途
 
@@ -116,7 +110,7 @@ source path、credential、runtime activation 情報を追加しません。
 
 - ホスト型エージェントランタイムやオーケストレーションサービス
 - 自己変更型メモリシステム
-- 稼働中の Hermes をデプロイ、公開、有効化、変更する権限
+- 稼働中の外部ランタイムをデプロイ、公開、有効化、変更する権限
 - 実在のプロフィール、セッション、認証情報、非公開 URL、個人データの保管場所
 
 ## ドキュメントマップ
@@ -140,7 +134,7 @@ source path、credential、runtime activation 情報を追加しません。
 
 ## プロジェクトの状態
 
-`0.2.0` は実験的なソース候補です。レジストリパッケージ、Git tag、GitHub Release、デプロイとして
+`0.3.0` は実験的なソース候補です。レジストリパッケージ、Git tag、GitHub Release、デプロイとして
 表明されていません。仕様がプレリリースの間は互換性が変わる可能性があります。
 [CHANGELOG.md](CHANGELOG.md)を参照してください。
 

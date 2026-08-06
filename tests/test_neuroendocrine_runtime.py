@@ -11,7 +11,6 @@ from typing import Any
 import pytest
 import yaml
 
-from brain_role.adapters.hermes import render_prefill
 from brain_role.compiler import compile_bundle, encode_compiled_bundle
 from brain_role.errors import InputFailure
 from brain_role.neural_compiler import compile_connectome, encode_connectome
@@ -271,16 +270,12 @@ def _scenario() -> dict[str, Any]:
     }
 
 
-def test_existing_artifacts_remain_exact_oracles(example_root: Path, tmp_path: Path) -> None:
+def test_existing_artifacts_remain_exact_oracles(example_root: Path) -> None:
     result = validate_instance(example_root)
     assert result.valid and result.bundle is not None
     compiled = encode_compiled_bundle(compile_bundle(result.bundle))
     assert len(compiled) == 5592
     assert hashlib.sha256(compiled).hexdigest() == "fe7630cd67f25d5d7e33d9a5e8629f791dcf85a9ad85fbf427a9a95f3fc4044d"
-    rendered = tmp_path / "rendered"
-    filename, digest = render_prefill(result.bundle, rendered)
-    assert filename == "prefill_messages.json"
-    assert digest == "6241a63a2f6c8dbc99a044f65d3040a05331cb7926e1ca75d1a2c81c73863a6d"
 
 
 def test_connectome_is_valid_canonical_and_path_independent(example_root: Path, tmp_path: Path) -> None:

@@ -35,11 +35,11 @@ def test_release_checker_detects_version_drift(tmp_path: Path) -> None:
     )
     pyproject = target / "pyproject.toml"
     pyproject.write_text(
-        pyproject.read_text(encoding="utf-8").replace('version = "0.2.0"', 'version = "0.2.1"', 1),
+        pyproject.read_text(encoding="utf-8").replace('version = "0.3.0"', 'version = "0.3.1"', 1),
         encoding="utf-8",
     )
     failures = checker.check(target)
-    assert "src/brain_role/__init__.py: version '0.2.0' != '0.2.1'" in failures
+    assert "src/brain_role/__init__.py: version '0.3.0' != '0.3.1'" in failures
 
 
 def test_release_checker_requires_compile_cli_contract(tmp_path: Path) -> None:

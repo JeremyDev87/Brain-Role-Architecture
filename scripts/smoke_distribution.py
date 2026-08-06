@@ -88,7 +88,6 @@ def main() -> None:
         shutil.copytree(ROOT / "examples" / "minimal-public", instance)
         neural_instance = temp_path / "neural-instance"
         shutil.copytree(ROOT / "examples" / "neuroendocrine-public", neural_instance)
-        output = temp_path / "rendered"
         compiled = temp_path / "compiled.json"
         connectome = temp_path / "connectome.json"
         trace = temp_path / "trace.json"
@@ -103,11 +102,6 @@ def main() -> None:
         )
         compile_result = run(
             [str(executable), "compile", str(instance), "--output", str(compiled)],
-            temp_path,
-            env,
-        )
-        render = run(
-            [str(executable), "render", "hermes", str(instance), "--output", str(output)],
             temp_path,
             env,
         )
@@ -134,8 +128,7 @@ def main() -> None:
             temp_path,
             env,
         )
-        rendered = output / "prefill_messages.json"
-        if version.returncode != 0 or version.stdout != "brain-role 0.2.0\n":
+        if version.returncode != 0 or version.stdout != "brain-role 0.3.0\n":
             raise SystemExit("DIST_SMOKE_FAIL installed console version surface")
         if validate.returncode != 0 or '"valid":true' not in validate.stdout:
             raise SystemExit("DIST_SMOKE_FAIL installed console validation surface")
@@ -144,11 +137,6 @@ def main() -> None:
         compiled_payload = json.loads(compiled.read_text(encoding="utf-8"))
         if compiled_payload.get("kind") != "CompiledBrainRole":
             raise SystemExit("DIST_SMOKE_FAIL installed compile artifact")
-        if render.returncode != 0 or not rendered.is_file():
-            raise SystemExit("DIST_SMOKE_FAIL installed console render surface")
-        payload = json.loads(rendered.read_text(encoding="utf-8"))
-        if not isinstance(payload, list) or not payload or payload[0].get("role") != "system":
-            raise SystemExit("DIST_SMOKE_FAIL installed render artifact")
         if validate_neural.returncode != 0 or '"specVersion":"0.2.0"' not in validate_neural.stdout:
             raise SystemExit("DIST_SMOKE_FAIL installed neural validation surface")
         if compile_connectome.returncode != 0 or not connectome.is_file():
@@ -194,7 +182,7 @@ def main() -> None:
                 raise SystemExit(f"DIST_SMOKE_FAIL sdist {asset_name} bytes differ from source")
     print(
         f"DIST_SMOKE_OK wheel={wheel.name} sdist={sdists[0].name} "
-        "fresh_install=yes console=version,validate,compile,render,validate-neural,compile-connectome,simulate "
+        "fresh_install=yes console=version,validate,compile,validate-neural,compile-connectome,simulate "
         "isolated_cwd=yes"
     )
 

@@ -8,7 +8,7 @@
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB.svg)](pyproject.toml)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-D22128.svg)](LICENSE)
 
-**PRE_RELEASE · source candidate 0.2.0 · not published**
+**PRE_RELEASE · source candidate 0.3.0 · not published**
 
 Brain-Role Architecture is a verifiable, role-aware architecture for governing AI-agent invariants,
 durable state, risk, workflows, persona, and goals without confusing responsibility with execution order.
@@ -70,7 +70,6 @@ modulation. None of activation, strength, concentration, receptor count, or grap
 - Deterministic `CompiledConnectome` compiler and bounded offline neural simulator
 - Receptor-bounded regulation, homeostasis, support, logical-clock, and proposal-only plasticity contracts
 - Synthetic valid and invalid conformance fixtures
-- Read-only Hermes `prefill_messages_file` reference exporter
 - Public/private boundary checks and a threat model
 - Unit, schema-sync, documentation, and distribution smoke verification
 
@@ -91,11 +90,10 @@ Expected result:
 {"errors":[],"specVersion":"0.1.0","valid":true}
 ```
 
-Compile a deterministic neutral bundle, render a Hermes reference bundle, and run every repository gate:
+Compile deterministic neutral artifacts and run every repository gate:
 
 ```bash
 uv run brain-role compile examples/minimal-public --output .artifacts/compiled.json
-uv run brain-role render hermes examples/minimal-public --output .artifacts/hermes
 uv run brain-role validate-neural examples/neuroendocrine-public
 uv run brain-role compile-connectome examples/neuroendocrine-public --output .artifacts/connectome.json
 uv run brain-role simulate .artifacts/connectome.json \
@@ -105,15 +103,12 @@ make verify
 
 ## Validation and artifact flow
 
-![Deterministic validation, compilation, rendering, and simulation flow with activation and publication outside the boundary](docs/assets/brain-role-flow.svg)
+![Deterministic validation, compilation, and simulation flow with deployment and publication outside the boundary](docs/assets/brain-role-flow.svg)
 
-*Validation produces inspectable artifacts; it does not activate Hermes, deploy, publish, or change a runtime home.*
+*Validation produces inspectable artifacts; it does not deploy, publish, or change external runtime state.*
 
 `compile` writes a canonical JSON file with explicit layer order and stable role/policy ordering. It adds no
 source paths, credentials, or runtime activation data.
-
-`render hermes` writes only beneath the selected output directory. It does **not** activate Hermes, change
-configuration, or touch `SOUL.md`, `USER.md`, `MEMORY.md`, or `~/.hermes`.
 
 ## Use it for
 
@@ -126,7 +121,7 @@ configuration, or touch `SOUL.md`, `USER.md`, `MEMORY.md`, or `~/.hermes`.
 
 - A hosted agent runtime or orchestration service
 - A self-modifying memory system
-- Authorization to deploy, publish, activate, or mutate a live Hermes installation
+- Authorization to deploy, publish, activate, or mutate an external runtime
 - A container for real profiles, sessions, credentials, private URLs, or personal data
 
 ## Documentation map
@@ -152,7 +147,7 @@ and must not echo private absolute paths or secret values.
 
 ## Project status
 
-Version `0.2.0` is an experimental source candidate. It is not represented as a package on a registry, a Git
+Version `0.3.0` is an experimental source candidate. It is not represented as a package on a registry, a Git
 tag, a GitHub Release, or a deployment. Compatibility may change while the specification remains pre-release.
 See [CHANGELOG.md](CHANGELOG.md).
 

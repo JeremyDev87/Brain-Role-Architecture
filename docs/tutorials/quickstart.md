@@ -1,9 +1,9 @@
-# Tutorial: validate and export a synthetic instance
+# Tutorial: validate and compile a synthetic instance
 
 1. Install the declared environment: `uv sync --all-groups`.
 2. Run `uv run brain-role validate examples/minimal-public --format json`.
 3. Expect exit 0 and `"valid":true`.
-4. Run `uv run brain-role render hermes examples/minimal-public --output .artifacts/hermes`.
-5. Inspect `.artifacts/hermes/prefill_messages.json`.
+4. Run `uv run brain-role compile examples/minimal-public --output .artifacts/compiled.json`.
+5. Inspect `.artifacts/compiled.json` and its reported SHA-256 digest.
 
-The exporter only writes that selected output tree. It does not activate or configure Hermes.
+The compiler writes only the selected deterministic artifact and does not activate or configure an external runtime.

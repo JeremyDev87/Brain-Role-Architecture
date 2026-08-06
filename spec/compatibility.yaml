@@ -1,5 +1,5 @@
-specVersion: 0.2.0
-packageVersion: 0.2.0
+specVersion: 0.3.0
+packageVersion: 0.3.0
 schemaNamespace: brain-role.dev/v1alpha1
 legacyManifestVersion: 0.1.x
 neuralManifestVersion: 0.2.x

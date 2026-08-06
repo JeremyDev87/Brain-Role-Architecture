@@ -1,4 +1,4 @@
-# Brain-Role Architecture Specification 0.2.0
+# Brain-Role Architecture Specification 0.3.0
 
 Status: **PRE_RELEASE**
 Schema namespace: `brain-role.dev/v1alpha1`
@@ -62,7 +62,7 @@ P4 workflows and orchestration, P5 persona and communication, and P6 goals and d
 - **REQ-PUBLIC-003:** Secret values MUST NOT appear. A non-secret indirection such as
   `secretRef: env://VARIABLE_NAME` MAY be declared.
 
-## 7. Compiler, validator, and adapter
+## 7. Compiler and validator
 
 - **REQ-COMPILE-001:** A compiled bundle MUST contain only `apiVersion`, `kind`, source metadata,
   explicit compile order, and the validated layer, role, and policy documents; it MUST NOT add source
@@ -70,7 +70,7 @@ P4 workflows and orchestration, P5 persona and communication, and P6 goals and d
 - **REQ-COMPILE-002:** Layers MUST follow explicit compile order, roles and policies MUST sort by
   `metadata.id`, and JSON serialization MUST be deterministic UTF-8 with sorted keys and one final newline.
 - **REQ-COMPILE-003:** `brain-role compile` MUST validate before writing, preserve any existing output on
-  validation failure, reject runtime-home, native Hermes, and symlink destinations, atomically replace a
+  validation failure, reject forbidden native-file and symlink destinations, atomically replace a
   successful file, and report its filename and SHA-256 digest.
 - **REQ-CLI-001:** Validation MUST be deterministic, offline, side-effect-free, and sorted by stable
   `(path, code, pointer, message)` order.
@@ -78,13 +78,10 @@ P4 workflows and orchestration, P5 persona and communication, and P6 goals and d
   input, or I/O failure.
 - **REQ-CLI-003:** Error output MUST use instance-relative paths and MUST NOT echo private absolute paths
   or secret values.
-- **REQ-HERMES-001:** The Hermes adapter MUST only generate deterministic
-  `prefill_messages_file`-compatible JSON beneath the selected output directory.
-- **REQ-HERMES-002:** The Hermes adapter MUST NOT activate a runtime or mutate native memory/config files.
 
 ## 8. Version and publication
 
-Package, specification, and compatibility metadata are `0.2.0` and experimental. Governance manifests remain
+Package, specification, and compatibility metadata are `0.3.0` and experimental. Governance manifests remain
 compatible with `0.1.x`; neural manifests require `0.2.x`. Passing `make verify` MUST NOT be interpreted as
 permission to commit, push, publish, release, deploy, or change visibility.
 
@@ -139,7 +136,8 @@ The reference simulator additionally enforces `minLevel <= initialLevel <= maxLe
 
 ## 13. Compatibility and CLI
 
-- **REQ-COMPAT-001:** For an unchanged `0.1.x` governance instance, legacy validation reports,
-  `CompiledBrainRole` bytes/SHA, and Hermes adapter artifact bytes/SHA MUST remain unchanged.
+- **REQ-COMPAT-001:** For an unchanged `0.1.x` governance instance, legacy validation reports and
+  `CompiledBrainRole` bytes/SHA MUST remain unchanged. The removed provider-specific exporter is not part of
+  the 0.3.0 compatibility surface.
 - **REQ-CLI-004:** `validate-neural`, `compile-connectome`, and `simulate` MUST preserve the existing exit-code,
   output-safety, no-secret-echo, canonical serialization, and SHA-receipt conventions.
