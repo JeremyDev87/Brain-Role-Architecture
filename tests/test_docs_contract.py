@@ -65,6 +65,7 @@ def test_all_localized_readmes_share_the_public_contract() -> None:
         assert text.startswith(LOCALE_MARKER)
         assert f"**{LOCALE_LABELS[name]}**" in text
         assert P0_ONLY_MARKERS[name] in text
+        assert all(marker in text for marker in check_docs.LOCALIZED_IMAGE_ALT_MARKERS[name])
         assert all(claim not in text for claim in FORBIDDEN_PRECEDENCE_CLAIMS)
         for other in README_NAMES:
             if other != name:

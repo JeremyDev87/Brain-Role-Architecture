@@ -14,7 +14,7 @@ Brain-Role Architecture es una arquitectura verificable y consciente de los role
 
 > P0 es el único invariante absoluto. P1-P6 son capas de responsabilidad con mutabilidad controlada y contratos explícitos de propiedad, aprobación, procedencia, reversión y momento de entrada en vigor.
 
-![Brain-Role poster: Neural orthogonal band, P0-P6 Brain plane, Actor/Role plane, Compilation plane](docs/assets/brain-role-meme.png)
+![Póster de Brain-Role con la banda Neural ortogonal, el plano Brain P0-P6 y los planos Actor/Role y Compilation](docs/assets/brain-role-meme.png)
 
 *Cuatro zonas visuales separan responsabilidad, capacidad, compilación determinista y modulación ortogonal.*
 
@@ -52,7 +52,7 @@ Separar los planos evita inferir permisos a partir de una capa, confundir un rol
 
 ## Vista general de la arquitectura
 
-![Brain-Role structure map with P0-P6, Role plane, Compilation DAG, Neural circuit](docs/assets/brain-role-overview.svg)
+![Mapa estructural de Brain-Role con P0-P6, Actor/Role, el DAG de Compilation y el circuito Neural](docs/assets/brain-role-overview.svg)
 
 *Los iconos muestran responsabilidad, capacidad, orden de compilación y modulación sin convertir P0-P6 en una canalización.*
 
@@ -82,7 +82,7 @@ make verify
 
 ## Flujo de validación y artefactos
 
-![brain-role CLI flow to compiled.json connectome.json trace.json](docs/assets/brain-role-flow.svg)
+![Flujo de la CLI brain-role desde el public bundle hasta compiled.json, connectome.json y trace.json](docs/assets/brain-role-flow.svg)
 
 *La validación produce artefactos inspeccionables; no despliega, publica ni modifica el estado de un runtime externo.*
 1. `uv sync --all-groups` sincroniza los grupos de dependencias necesarios para trabajar y verificar el código fuente.

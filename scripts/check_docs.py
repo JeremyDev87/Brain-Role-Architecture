@@ -31,6 +31,13 @@ P0_ONLY_MARKERS = {
     "README.es.md": "P0 es el único invariante absoluto",
     "README.ja.md": "絶対不変なのは P0 だけです",
 }
+LOCALIZED_IMAGE_ALT_MARKERS = {
+    "README.md": ("Brain-Role poster:", "Brain-Role structure map", "brain-role CLI flow"),
+    "README.ko.md": ("네 구역과 P0-P6", "Brain-Role 구조도", "brain-role CLI 흐름"),
+    "README.zh-CN.md": ("Brain-Role 海报", "Brain-Role 结构图", "brain-role CLI 流程"),
+    "README.es.md": ("Póster de Brain-Role", "Mapa estructural de Brain-Role", "Flujo de la CLI brain-role"),
+    "README.ja.md": ("Brain-Role ポスター", "Brain-Role 構造図", "brain-role CLI フロー"),
+}
 FORBIDDEN_PRECEDENCE_CLAIMS = (
     "cannot weaken lower-layer contracts",
     "bounded by P0-P5",
@@ -111,6 +118,9 @@ def main() -> None:
             failures.append(f"{name}: current locale is not emphasized")
         if P0_ONLY_MARKERS[name] not in text:
             failures.append(f"{name}: P0-only invariance contract missing")
+        for marker in LOCALIZED_IMAGE_ALT_MARKERS[name]:
+            if marker not in text:
+                failures.append(f"{name}: localized image alt text missing {marker}")
         for other in README_NAMES:
             if other != name and f"]({other})" not in text:
                 failures.append(f"{name}: locale link missing {other}")
