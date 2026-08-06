@@ -8,7 +8,7 @@
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB.svg)](pyproject.toml)
 [![许可证：Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-D22128.svg)](LICENSE)
 
-**PRE_RELEASE · 源代码候选版本 0.2.0 · 尚未发布**
+**PRE_RELEASE · 源代码候选版本 0.3.0 · 尚未发布**
 
 Brain-Role Architecture 是一种可验证、可感知角色的架构，用于治理 AI 智能体的不变量、
 持久状态、风险、工作流、人格与目标，同时避免混淆责任关系与执行顺序。
@@ -62,7 +62,6 @@ P 编号表示的是**责任与权限**，并不代表运行时顺序或编译�
 - 规范性说明与 Draft 2020-12 JSON Schema
 - 确定性、离线的 `brain-role` 验证器 CLI
 - 由合成数据构成的有效和无效一致性测试夹具
-- 只读的 Hermes `prefill_messages_file` 参考导出器
 - 公开/私有边界检查与威胁模型
 - 单元测试、Schema 同步检查、文档检查和发行包冒烟验证
 
@@ -83,24 +82,20 @@ uv run brain-role validate examples/minimal-public --format json
 {"errors":[],"specVersion":"0.1.0","valid":true}
 ```
 
-编译一个确定性的中立包，渲染 Hermes 参考包，并运行仓库的所有验证门禁：
+编译确定性的中立产物，并运行仓库的所有验证门禁：
 
 ```bash
 uv run brain-role compile examples/minimal-public --output .artifacts/compiled.json
-uv run brain-role render hermes examples/minimal-public --output .artifacts/hermes
 make verify
 ```
 
 ## 验证与产物流
 
-![确定性验证、编译、渲染和模拟流程，以及激活与发布边界](docs/assets/brain-role-flow.svg)
+![确定性验证、编译和模拟流程，以及部署与发布边界](docs/assets/brain-role-flow.svg)
 
-*验证会生成可检查的产物，但不会激活 Hermes、部署、发布或修改运行时目录。*
+*验证会生成可检查的产物，但不会部署、发布或修改外部运行时状态。*
 
 `compile` 生成具有显式层顺序和稳定角色/策略顺序的规范 JSON 文件，不添加源路径、凭据或运行时激活数据。
-
-`render hermes` 只会在所选输出目录下写入文件。它**不会**激活 Hermes、修改配置，也不会触碰
-`SOUL.md`、`USER.md`、`MEMORY.md` 或 `~/.hermes`。
 
 ## 适用场景
 
@@ -113,7 +108,7 @@ make verify
 
 - 托管式智能体运行时或编排服务
 - 自我修改的记忆系统
-- 对真实 Hermes 安装进行部署、发布、激活或修改的授权
+- 对外部运行时进行部署、发布、激活或修改的授权
 - 用来存放真实个人资料、会话、凭据、私有 URL 或个人数据的容器
 
 ## 文档索引
@@ -137,7 +132,7 @@ make verify
 
 ## 项目状态
 
-`0.2.0` 是实验性的源代码候选版本。本项目不将其表示为注册表中的软件包、Git 标签、
+`0.3.0` 是实验性的源代码候选版本。本项目不将其表示为注册表中的软件包、Git 标签、
 GitHub Release 或部署版本。在规范仍处于预发布阶段期间，兼容性可能发生变化。
 请参阅 [CHANGELOG.md](CHANGELOG.md)。
 

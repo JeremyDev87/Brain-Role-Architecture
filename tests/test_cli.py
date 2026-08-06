@@ -102,4 +102,4 @@ def test_cli_does_not_echo_secret_pointer_key(instance_copy: Path) -> None:
 def test_cli_version() -> None:
     result = run_cli("--version")
     assert result.returncode == 0
-    assert result.stdout == "brain-role 0.2.0\n"
+    assert result.stdout == "brain-role 0.3.0\n"

@@ -7,7 +7,6 @@ from pathlib import Path
 from typing import Never
 
 from brain_role import __version__
-from brain_role.adapters.hermes import render_prefill
 from brain_role.compiler import compile_bundle, write_compiled_bundle
 from brain_role.errors import InputFailure
 from brain_role.models import ValidationResult
@@ -61,14 +60,6 @@ def build_parser() -> argparse.ArgumentParser:
     simulate.add_argument("--scenario", type=Path, required=True)
     simulate.add_argument("--output", type=Path, required=True)
 
-    render = subparsers.add_parser("render", help="render a read-only adapter artifact")
-    render_sub = render.add_subparsers(dest="adapter", required=True)
-    hermes = render_sub.add_parser(
-        "hermes",
-        help="render Hermes prefill_messages_file JSON",
-    )
-    hermes.add_argument("instance", type=Path)
-    hermes.add_argument("--output", type=Path, required=True)
     return parser
 
 
@@ -141,10 +132,4 @@ def main(argv: Sequence[str] | None = None) -> int:
             return 2
         sys.stdout.write(f"COMPILED file={filename} sha256={digest}\n")
         return 0
-    try:
-        filename, digest = render_prefill(result.bundle, args.output)
-    except (InputFailure, OSError):
-        sys.stderr.write("E_OUTPUT: unable to write adapter output\n")
-        return 2
-    sys.stdout.write(f"RENDERED adapter=hermes file={filename} sha256={digest}\n")
-    return 0
+    raise AssertionError(f"unhandled command: {args.command}")

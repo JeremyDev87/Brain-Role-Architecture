@@ -8,7 +8,7 @@
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB.svg)](pyproject.toml)
 [![Licencia: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-D22128.svg)](LICENSE)
 
-**PRE_RELEASE · candidato de código fuente 0.2.0 · no publicado**
+**PRE_RELEASE · candidato de código fuente 0.3.0 · no publicado**
 
 Brain-Role Architecture es una arquitectura verificable y consciente de los roles para gobernar los invariantes, el estado, los flujos de trabajo, la personalidad y los objetivos de agentes de IA desde P0 hasta P6.
 
@@ -61,7 +61,6 @@ Separar los planos evita inferir permisos a partir de una capa, confundir un rol
 - Especificación normativa y JSON Schemas Draft 2020-12.
 - CLI de validación `brain-role`, determinista y sin conexión.
 - Fixtures sintéticos de conformidad, tanto válidos como inválidos.
-- Exportador de referencia de solo lectura para `prefill_messages_file` de Hermes.
 - Límite público/privado, modelo de amenazas, pruebas y verificación de humo del paquete.
 
 ## Inicio rápido
@@ -72,7 +71,6 @@ Requisitos y dependencias del entorno se resuelven mediante `uv`. Desde la raíz
 uv sync --all-groups
 uv run brain-role validate examples/minimal-public --format json
 uv run brain-role compile examples/minimal-public --output .artifacts/compiled.json
-uv run brain-role render hermes examples/minimal-public --output .artifacts/hermes
 make verify
 ```
 
@@ -84,17 +82,13 @@ make verify
 
 ## Flujo de validación y artefactos
 
-![Flujo determinista de validación, compilación, renderizado y simulación con los límites de activación y publicación](docs/assets/brain-role-flow.svg)
+![Flujo determinista de validación, compilación y simulación con los límites de despliegue y publicación](docs/assets/brain-role-flow.svg)
 
-*La validación produce artefactos inspeccionables; no activa Hermes, despliega, publica ni modifica hogares de ejecución.*
-
+*La validación produce artefactos inspeccionables; no despliega, publica ni modifica el estado de un runtime externo.*
 1. `uv sync --all-groups` sincroniza los grupos de dependencias necesarios para trabajar y verificar el código fuente.
 2. `uv run brain-role validate examples/minimal-public --format json` valida el ejemplo público mínimo y emite el resultado en JSON.
 3. `uv run brain-role compile examples/minimal-public --output .artifacts/compiled.json` genera un JSON canónico con orden explícito, sin rutas de origen, credenciales ni activación del runtime.
-4. `uv run brain-role render hermes examples/minimal-public --output .artifacts/hermes` genera el artefacto de referencia de Hermes dentro de `.artifacts/hermes`.
-5. `make verify` ejecuta la puerta de verificación definida por el repositorio.
-
-`render hermes` solo genera archivos dentro del directorio de salida seleccionado. No activa Hermes, no cambia su configuración y no modifica `SOUL.md`, `USER.md`, `MEMORY.md` ni `~/.hermes`.
+4. `make verify` ejecuta la puerta de verificación definida por el repositorio.
 
 ## Casos de uso
 
@@ -105,7 +99,7 @@ Brain-Role Architecture resulta útil para:
 - mantener memoria, procedimientos, personalidad y objetivos bajo políticas de cambio auditables;
 - modelar capacidades, permisos, entradas, salidas y rutas de escalamiento por rol;
 - compilar una arquitectura mediante dependencias declaradas, sin deducir el orden a partir de P0-P6;
-- generar artefactos de referencia de Hermes sin modificar un entorno de ejecución activo.
+- generar artefactos de referencia deterministas sin modificar un entorno de ejecución externo.
 
 ## Lo que no es
 
@@ -114,10 +108,10 @@ Este proyecto no pretende:
 - definir P0-P6 como fases de tiempo de ejecución o compilación;
 - convertir P1-P6 en invariantes absolutos;
 - sustituir la especificación normativa por documentación explicativa;
-- activar, reconfigurar o mutar automáticamente una instalación de Hermes;
-- acceder a la red, ejecutar código dinámico o escribir en hogares de ejecución como `~/.hermes`;
+- activar, reconfigurar o mutar automáticamente un entorno de ejecución externo;
+- acceder a la red, ejecutar código dinámico o escribir en hogares de ejecución;
 - autorizar commits, pushes, lanzamientos, publicaciones, despliegues o cambios de visibilidad del repositorio;
-- afirmar que existe una etiqueta, un lanzamiento o un paquete de registro publicado para `0.2.0`.
+- afirmar que existe una etiqueta, un lanzamiento o un paquete de registro publicado para `0.3.0`.
 
 ## Mapa de documentación
 
@@ -139,13 +133,13 @@ Si una explicación de cualquiera de estos documentos entra en conflicto con `SP
 
 El repositorio público debe contener únicamente esquemas genéricos y fixtures sintéticos. No deben incorporarse canon personal, perfiles reales, sesiones, credenciales, URL privadas, identificadores de cuenta ni rutas de directorios personales.
 
-El validador y los adaptadores están diseñados para funcionar sin conexión y de forma determinista. No deben añadir acceso a la red, ejecución dinámica de código ni mutaciones de hogares de ejecución como `~/.hermes`.
+El validador, el compilador y el simulador funcionan sin conexión y de forma determinista. No deben añadir acceso a la red, ejecución dinámica de código ni mutaciones de entornos de ejecución externos.
 
 Antes de compartir un ejemplo o una incidencia, sustituye cualquier dato privado por datos sintéticos y revisa [`SECURITY.md`](SECURITY.md). La validación estructural no convierte material privado en material seguro para publicación.
 
 ## Estado del proyecto
 
-El proyecto se encuentra en estado **PRE_RELEASE** como candidato de código fuente `0.2.0` y **no está publicado**. Esta designación describe el estado del código fuente; no representa una etiqueta, un lanzamiento ni un paquete disponible en un registro.
+El proyecto se encuentra en estado **PRE_RELEASE** como candidato de código fuente `0.3.0` y **no está publicado**. Esta designación describe el estado del código fuente; no representa una etiqueta, un lanzamiento ni un paquete disponible en un registro.
 
 La interfaz, los esquemas y la documentación pueden seguir evolucionando dentro de los límites establecidos por `SPEC.md`. No se deben inferir garantías de publicación a partir del número de versión.
 
@@ -164,6 +158,6 @@ Una validación correcta o una ejecución satisfactoria de `make verify` aporta 
 
 ## Límite de publicación y licencia
 
-Superar la validación **no** autoriza un commit de Git, push, lanzamiento, publicación de paquetes, despliegue ni cambio de visibilidad del repositorio. Ninguna etiqueta, lanzamiento o paquete de registro está representado por la versión de código fuente `0.2.0`.
+Superar la validación **no** autoriza un commit de Git, push, lanzamiento, publicación de paquetes, despliegue ni cambio de visibilidad del repositorio. Ninguna etiqueta, lanzamiento o paquete de registro está representado por la versión de código fuente `0.3.0`.
 
 El proyecto está licenciado bajo Apache-2.0. Consulta [`LICENSE`](LICENSE) y [`NOTICE`](NOTICE).

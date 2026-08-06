@@ -28,8 +28,7 @@ requirements:
   REQ-CLI-001: tests/test_cli.py::test_cli_valid_json_is_byte_deterministic
   REQ-CLI-002: tests/test_cli.py::test_cli_conformance_failure_is_exit_one
   REQ-CLI-003: tests/test_cli.py::test_cli_input_failure_is_exit_two_without_path_echo
-  REQ-HERMES-001: tests/test_hermes_adapter.py::test_hermes_export_is_deterministic_and_prefill_compatible
-  REQ-HERMES-002: tests/test_hermes_adapter.py::test_runtime_home_output_is_rejected
+
   REQ-NEURAL-001: tests/test_neuroendocrine_runtime.py::test_connectome_is_valid_canonical_and_path_independent
   REQ-NEURAL-002: tests/test_neuroendocrine_runtime.py::test_semantic_validation_rejects_signal_drift_and_authority_effect
   REQ-CONNECTOME-001: tests/test_neuroendocrine_runtime.py::test_connectome_is_valid_canonical_and_path_independent

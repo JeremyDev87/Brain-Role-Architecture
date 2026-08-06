@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="760" viewBox="0 0 1280 760" role="img" aria-labelledby="title desc">
   <title id="title">Brain-Role Architecture validation and compilation flow</title>
-  <desc id="desc">A deterministic offline flow from a synthetic public bundle through public-boundary checks and validation into compilation, Hermes rendering, neural compilation and simulation, producing artifacts without activating Hermes, deploying, publishing, or changing runtime homes.</desc>
+  <desc id="desc">A deterministic offline flow from a synthetic public bundle through public-boundary checks and validation into governance compilation, neural compilation and bounded simulation, producing inspectable artifacts without deploying, publishing, or changing external runtime state.</desc>
   <defs>
     <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
       <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#0f172a" flood-opacity="0.14"/>
@@ -28,7 +28,6 @@
       .blocked-box { fill: #fff1f2; stroke: #be123c; stroke-width: 2; stroke-dasharray: 8 5; rx: 16; }
       .blocked-title { font: 700 16px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; fill: #9f1239; }
       .blocked-text { font: 400 13px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; fill: #9f1239; }
-      .blocked-arrow { stroke: #be123c; stroke-width: 2; stroke-dasharray: 7 5; fill: none; marker-end: url(#blocked); }
       .note { font: 400 13px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; fill: #475569; }
       .strong { font: 700 14px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; fill: #0f172a; }
     </style>
@@ -36,12 +35,11 @@
 
   <rect class="bg" width="1280" height="760"/>
   <text class="title" x="48" y="52">Brain-Role Architecture · deterministic validation flow</text>
-  <text class="subtitle" x="48" y="82">Public synthetic inputs become inspectable artifacts; validation never implies activation or publication.</text>
+  <text class="subtitle" x="48" y="82">Public synthetic inputs become inspectable artifacts; validation never implies deployment or publication.</text>
 
-  <!-- Boundary callout in the header band so fan-out edges never read as entering it. -->
   <rect class="blocked-box" x="780" y="96" width="452" height="48"/>
   <text class="blocked-title" x="800" y="116">NOT part of this flow</text>
-  <text class="blocked-text" x="1000" y="116">activate · deploy · publish · ~/.hermes</text>
+  <text class="blocked-text" x="1000" y="116">deploy · publish · external runtime mutation</text>
 
   <text class="lane" x="48" y="130">SOURCE &amp; SAFETY</text>
   <text class="lane" x="48" y="332">COMPILATION &amp; SIMULATION</text>
@@ -64,58 +62,47 @@
 
   <rect class="stage-green" x="928" y="154" width="250" height="116"/>
   <text class="stage-green-title" x="950" y="188">Verified input</text>
-  <text class="stage-text" x="950" y="212">safe to compile or render</text>
-  <text class="stage-text" x="950" y="234">no runtime activation implied</text>
+  <text class="stage-text" x="950" y="212">safe to compile or simulate</text>
+  <text class="stage-text" x="950" y="234">no external mutation implied</text>
 
   <path class="arrow" d="M 258 212 L 328 212"/>
   <path class="arrow" d="M 558 212 L 628 212"/>
   <path class="arrow" d="M 858 212 L 928 212"/>
 
-  <!-- Fan-out from verified input into every compile/render/simulate stage. -->
-  <path class="branch" d="M 1053 270 C 780 320 173 320 173 362"/>
-  <path class="branch" d="M 1053 270 C 860 320 453 320 453 362"/>
-  <path class="branch" d="M 1053 270 C 980 320 733 320 733 362"/>
-  <path class="branch" d="M 1053 270 C 1053 318 1033 340 1033 362"/>
+  <path class="branch" d="M 1053 270 C 850 320 213 320 213 362"/>
+  <path class="branch" d="M 1053 270 C 1053 320 640 320 640 362"/>
+  <path class="branch" d="M 1053 270 C 1120 320 1067 340 1067 362"/>
 
-  <rect class="stage" x="48" y="362" width="250" height="116"/>
+  <rect class="stage" x="48" y="362" width="330" height="116"/>
   <text class="stage-title" x="70" y="396">compile</text>
   <text class="stage-text" x="70" y="420">neutral canonical JSON</text>
   <text class="stage-text" x="70" y="442">explicit layer order &amp; stable sorting</text>
 
-  <rect class="stage" x="328" y="362" width="250" height="116"/>
-  <text class="stage-title" x="350" y="396">render hermes</text>
-  <text class="stage-text" x="350" y="420">reference bundle only</text>
-  <text class="stage-text" x="350" y="442">writes selected output directory</text>
+  <rect class="stage" x="475" y="362" width="330" height="116"/>
+  <text class="stage-title" x="497" y="396">compile-connectome</text>
+  <text class="stage-text" x="497" y="420">after validate-neural</text>
+  <text class="stage-text" x="497" y="442">authority remains separate</text>
 
-  <rect class="stage" x="608" y="362" width="250" height="116"/>
-  <text class="stage-title" x="630" y="396">compile-connectome</text>
-  <text class="stage-text" x="630" y="420">after validate-neural</text>
-  <text class="stage-text" x="630" y="442">authority remains separate</text>
+  <rect class="stage" x="902" y="362" width="330" height="116"/>
+  <text class="stage-title" x="924" y="396">simulate</text>
+  <text class="stage-text" x="924" y="420">logical scenario + bounded trace</text>
+  <text class="stage-text" x="924" y="442">no wall-clock or live runtime state</text>
 
-  <rect class="stage" x="888" y="362" width="290" height="116"/>
-  <text class="stage-title" x="910" y="396">simulate</text>
-  <text class="stage-text" x="910" y="420">logical scenario + bounded trace</text>
-  <text class="stage-text" x="910" y="442">no wall-clock or live runtime state</text>
+  <path class="arrow" d="M 213 478 C 213 535 213 535 213 608"/>
+  <path class="arrow" d="M 640 478 C 640 535 640 535 640 608"/>
+  <path class="arrow" d="M 1067 478 C 1067 535 1067 535 1067 608"/>
 
-  <path class="arrow" d="M 173 478 C 173 535 173 535 173 608"/>
-  <path class="arrow" d="M 453 478 C 453 535 453 535 453 608"/>
-  <path class="arrow" d="M 733 478 C 733 535 733 535 733 608"/>
-  <path class="arrow" d="M 1033 478 C 1033 535 1033 535 1033 608"/>
-
-  <rect class="stage-green" x="48" y="608" width="250" height="84"/>
+  <rect class="stage-green" x="48" y="608" width="330" height="84"/>
   <text class="stage-green-title" x="70" y="642">compiled.json</text>
-  <text class="stage-text" x="70" y="666">canonical artifact</text>
-  <rect class="stage-green" x="328" y="608" width="250" height="84"/>
-  <text class="stage-green-title" x="350" y="642">.artifacts/hermes</text>
-  <text class="stage-text" x="350" y="666">reference output</text>
-  <rect class="stage-green" x="608" y="608" width="250" height="84"/>
-  <text class="stage-green-title" x="630" y="642">connectome.json</text>
-  <text class="stage-text" x="630" y="666">compiled neural graph</text>
-  <rect class="stage-green" x="888" y="608" width="290" height="84"/>
-  <text class="stage-green-title" x="910" y="642">trace.json</text>
-  <text class="stage-text" x="910" y="666">deterministic event trace</text>
+  <text class="stage-text" x="70" y="666">canonical governance artifact</text>
+  <rect class="stage-green" x="475" y="608" width="330" height="84"/>
+  <text class="stage-green-title" x="497" y="642">connectome.json</text>
+  <text class="stage-text" x="497" y="666">compiled neural graph</text>
+  <rect class="stage-green" x="902" y="608" width="330" height="84"/>
+  <text class="stage-green-title" x="924" y="642">trace.json</text>
+  <text class="stage-text" x="924" y="666">deterministic event trace</text>
 
   <line x1="48" y1="720" x2="1232" y2="720" stroke="#cbd5e1"/>
   <text class="strong" x="48" y="744">Guarantee boundary:</text>
-  <text class="note" x="240" y="744">make verify proves repository contracts; it does not authorize Git, release, deployment, activation, or visibility changes.</text>
+  <text class="note" x="240" y="744">make verify proves repository contracts; it does not authorize Git, release, deployment, or visibility changes.</text>
 </svg>

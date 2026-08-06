@@ -6,7 +6,7 @@ An original, AI-assisted editorial cartoon for the multilingual project READMEs.
 responsibility layers into a deliberately absurd office inside a brain: Prefrontal keeps producing new goals
 while Brainstem calmly protects the invariant boundary.
 
-- **Generation route:** OpenAI through the pinned Hermes still-image route
+- **Generation route:** OpenAI through the pinned project image route
 - **Provider:** `openai-codex`
 - **Model:** `gpt-image-2-medium`
 - **Mode:** image-to-image signage edit from the prior OpenAI-generated project artifact
@@ -41,7 +41,7 @@ The diagram is an editorial documentation asset, not a normative replacement for
 
 ### `brain-role-flow.svg`
 
-A deterministic validation, compilation, rendering, and simulation flow. It shows public-boundary checks and the
-artifact outputs while keeping Hermes activation, deployment, publication, and runtime-home mutation outside the flow.
+A deterministic validation, compilation, and simulation flow. It shows public-boundary checks and the artifact
+outputs while keeping deployment, publication, and external runtime mutation outside the flow.
 Both diagrams are UTF-8 SVG files with embedded `<title>` and `<desc>` metadata; no external fonts, URLs, scripts,
 private paths, credentials, or third-party assets are referenced.

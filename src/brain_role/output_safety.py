@@ -31,15 +31,10 @@ def safe_output_path(output: Path) -> Path:
             if cursor.is_symlink():
                 raise InputFailure("output symlink is forbidden")
         resolved = lexical.resolve(strict=False)
-        home_runtime = Path.home().joinpath(".hermes").resolve()
     except InputFailure:
         raise
     except OSError as exc:
         raise InputFailure("unable to resolve output") from exc
-    resolved_key = str(resolved).casefold()
-    runtime_key = str(home_runtime).casefold()
-    if resolved_key == runtime_key or resolved_key.startswith(runtime_key + os.sep.casefold()):
-        raise InputFailure("Hermes runtime home is not a valid output destination")
     if resolved.name.casefold() in {name.casefold() for name in _FORBIDDEN_NATIVE}:
         raise InputFailure("native memory/config files are not valid output destinations")
     return resolved
