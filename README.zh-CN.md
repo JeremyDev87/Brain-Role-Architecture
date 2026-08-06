@@ -16,7 +16,7 @@ Brain-Role Architecture 是一种可验证、可感知角色的架构，用于�
 > **无论如何重写，始终保留一条规则：**P0 是唯一的绝对不变量。P1-P6 只能通过明确的
 > 所有权、审批、来源、回滚和生效时间契约进行变更。
 
-![Brain-Role poster: Neural orthogonal band, P0-P6 Brain plane, Actor/Role plane, Compilation plane](docs/assets/brain-role-meme.png)
+![Brain-Role 海报：Neural 正交区域、P0-P6 Brain 平面、Actor/Role 平面与 Compilation 平面](docs/assets/brain-role-meme.png)
 
 *四个可视区域分别表示责任、能力、确定性构建与正交调节。*
 
@@ -53,7 +53,7 @@ P 编号表示的是**责任与权限**，并不代表运行时顺序或编译�
 
 ## 架构一览
 
-![Brain-Role structure map with P0-P6, Role plane, Compilation DAG, Neural circuit](docs/assets/brain-role-overview.svg)
+![区分 P0-P6、Actor/Role、Compilation DAG 与 Neural 回路的 Brain-Role 结构图](docs/assets/brain-role-overview.svg)
 
 *图标展示责任、能力、构建顺序和调节，但不会把 P0-P6 画成流水线。*
 
@@ -91,7 +91,7 @@ make verify
 
 ## 验证与产物流
 
-![brain-role CLI flow to compiled.json connectome.json trace.json](docs/assets/brain-role-flow.svg)
+![从 public bundle 到 compiled.json、connectome.json 与 trace.json 的 brain-role CLI 流程](docs/assets/brain-role-flow.svg)
 
 *验证会生成可检查的产物，但不会部署、发布或修改外部运行时状态。*
 
