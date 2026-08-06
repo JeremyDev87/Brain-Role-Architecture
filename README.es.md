@@ -50,6 +50,12 @@ El proyecto separa tres conceptos que a menudo se confunden:
 
 Separar los planos evita inferir permisos a partir de una capa, confundir un rol con una política o asumir que P0-P6 determina el orden de compilación o de ejecución.
 
+## Vista general de la arquitectura
+
+![Diagrama de los planos Brain, Actor/Role, Compilation y la extensión Neural Runtime ortogonal](docs/assets/brain-role-overview.svg)
+
+*P0-P6 define responsabilidades; Actor/Role define capacidades; el plano de compilación define el orden explícito de transformación.*
+
 ## Qué incluye
 
 - Especificación normativa y JSON Schemas Draft 2020-12.
@@ -75,6 +81,12 @@ make verify
 ```json
 {"errors":[],"specVersion":"0.1.0","valid":true}
 ```
+
+## Flujo de validación y artefactos
+
+![Flujo determinista de validación, compilación, renderizado y simulación con los límites de activación y publicación](docs/assets/brain-role-flow.svg)
+
+*La validación produce artefactos inspeccionables; no activa Hermes, despliega, publica ni modifica hogares de ejecución.*
 
 1. `uv sync --all-groups` sincroniza los grupos de dependencias necesarios para trabajar y verificar el código fuente.
 2. `uv run brain-role validate examples/minimal-public --format json` valida el ejemplo público mínimo y emite el resultado en JSON.

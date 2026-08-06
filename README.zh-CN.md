@@ -51,6 +51,12 @@ P 编号表示的是**责任与权限**，并不代表运行时顺序或编译�
 将这三个平面分开，可以防止某个角色仅仅因为最先或最后运行就获得额外权限。
 请参阅[三个平面的说明](docs/explanation/three-planes.md)。
 
+## 架构一览
+
+![Brain、Actor/Role、Compilation 以及正交 Neural Runtime 平面的架构图](docs/assets/brain-role-overview.svg)
+
+*P0-P6 定义责任，Actor/Role 定义能力，Compilation 平面定义显式转换顺序。*
+
 ## 包含内容
 
 - 规范性说明与 Draft 2020-12 JSON Schema
@@ -84,6 +90,12 @@ uv run brain-role compile examples/minimal-public --output .artifacts/compiled.j
 uv run brain-role render hermes examples/minimal-public --output .artifacts/hermes
 make verify
 ```
+
+## 验证与产物流
+
+![确定性验证、编译、渲染和模拟流程，以及激活与发布边界](docs/assets/brain-role-flow.svg)
+
+*验证会生成可检查的产物，但不会激活 Hermes、部署、发布或修改运行时目录。*
 
 `compile` 生成具有显式层顺序和稳定角色/策略顺序的规范 JSON 文件，不添加源路径、凭据或运行时激活数据。
 

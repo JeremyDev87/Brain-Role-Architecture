@@ -53,6 +53,12 @@ P numbers describe **responsibility and authority**, not runtime or compile orde
 Keeping these planes separate prevents a role from gaining authority merely because it runs first or last.
 See [the three-plane explanation](docs/explanation/three-planes.md).
 
+## Architecture at a glance
+
+![Overview of the Brain, Actor/Role, Compilation, and orthogonal Neural Runtime planes](docs/assets/brain-role-overview.svg)
+
+*P0-P6 define responsibility; Actor/Role defines capability; the Compilation plane defines explicit transformation order.*
+
 The additive 0.2.x neural extension is orthogonal to all three: typed Functional Neurons and Synapses carry
 execution signals, while explicit receptors, homeostats, support contracts, and logical clocks provide bounded
 modulation. None of activation, strength, concentration, receptor count, or graph centrality creates authority.
@@ -96,6 +102,12 @@ uv run brain-role simulate .artifacts/connectome.json \
   --scenario examples/neuroendocrine-public/scenario.yaml --output .artifacts/trace.json
 make verify
 ```
+
+## Validation and artifact flow
+
+![Deterministic validation, compilation, rendering, and simulation flow with activation and publication outside the boundary](docs/assets/brain-role-flow.svg)
+
+*Validation produces inspectable artifacts; it does not activate Hermes, deploy, publish, or change a runtime home.*
 
 `compile` writes a canonical JSON file with explicit layer order and stable role/policy ordering. It adds no
 source paths, credentials, or runtime activation data.

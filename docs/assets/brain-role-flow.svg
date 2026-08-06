@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="760" viewBox="0 0 1280 760" role="img" aria-labelledby="title desc">
+  <title id="title">Brain-Role Architecture validation and compilation flow</title>
+  <desc id="desc">A deterministic offline flow from a synthetic public bundle through public-boundary checks and validation into compilation, Hermes rendering, neural compilation and simulation, producing artifacts without activating Hermes, deploying, publishing, or changing runtime homes.</desc>
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#0f172a" flood-opacity="0.14"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="blocked" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#be123c"/>
+    </marker>
+    <style>
+      .bg { fill: #f8fafc; }
+      .title { font: 700 30px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; fill: #0f172a; }
+      .subtitle { font: 400 16px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; fill: #475569; }
+      .stage { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; rx: 16; filter: url(#shadow); }
+      .stage-blue { fill: #eff6ff; stroke: #2563eb; stroke-width: 2; rx: 16; filter: url(#shadow); }
+      .stage-green { fill: #f0fdf4; stroke: #16a34a; stroke-width: 2; rx: 16; filter: url(#shadow); }
+      .stage-title { font: 700 16px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; fill: #0f172a; }
+      .stage-text { font: 400 13px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; fill: #475569; }
+      .stage-blue-title { font: 700 16px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; fill: #1d4ed8; }
+      .stage-green-title { font: 700 16px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; fill: #15803d; }
+      .lane { font: 700 14px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; fill: #64748b; letter-spacing: 1px; }
+      .arrow { stroke: #2563eb; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+      .branch { stroke: #2563eb; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+      .blocked-box { fill: #fff1f2; stroke: #be123c; stroke-width: 2; stroke-dasharray: 8 5; rx: 16; }
+      .blocked-title { font: 700 16px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; fill: #9f1239; }
+      .blocked-text { font: 400 13px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; fill: #9f1239; }
+      .blocked-arrow { stroke: #be123c; stroke-width: 2; stroke-dasharray: 7 5; fill: none; marker-end: url(#blocked); }
+      .note { font: 400 13px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; fill: #475569; }
+      .strong { font: 700 14px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; fill: #0f172a; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1280" height="760"/>
+  <text class="title" x="48" y="52">Brain-Role Architecture · deterministic validation flow</text>
+  <text class="subtitle" x="48" y="82">Public synthetic inputs become inspectable artifacts; validation never implies activation or publication.</text>
+
+  <text class="lane" x="48" y="130">SOURCE &amp; SAFETY</text>
+  <text class="lane" x="48" y="332">COMPILATION &amp; SIMULATION</text>
+  <text class="lane" x="48" y="590">OUTPUT &amp; BOUNDARY</text>
+
+  <rect class="stage" x="48" y="154" width="210" height="116"/>
+  <text class="stage-title" x="70" y="188">PUBLIC bundle</text>
+  <text class="stage-text" x="70" y="212">synthetic fixtures only</text>
+  <text class="stage-text" x="70" y="234">schemas · manifests · scenario</text>
+
+  <rect class="stage-blue" x="328" y="154" width="230" height="116"/>
+  <text class="stage-blue-title" x="350" y="188">Boundary check</text>
+  <text class="stage-text" x="350" y="212">private paths · secrets ·</text>
+  <text class="stage-text" x="350" y="234">non-public material rejected</text>
+
+  <rect class="stage-blue" x="628" y="154" width="230" height="116"/>
+  <text class="stage-blue-title" x="650" y="188">Validate</text>
+  <text class="stage-text" x="650" y="212">offline · deterministic ·</text>
+  <text class="stage-text" x="650" y="234">side-effect-free contract checks</text>
+
+  <rect class="stage-green" x="928" y="154" width="250" height="116"/>
+  <text class="stage-green-title" x="950" y="188">Verified input</text>
+  <text class="stage-text" x="950" y="212">safe to compile or render</text>
+  <text class="stage-text" x="950" y="234">no runtime activation implied</text>
+
+  <path class="arrow" d="M 258 212 L 328 212"/>
+  <path class="arrow" d="M 558 212 L 628 212"/>
+  <path class="arrow" d="M 858 212 L 928 212"/>
+
+  <path class="branch" d="M 1053 270 C 1053 315 360 292 360 362"/>
+  <path class="branch" d="M 1053 270 C 1053 315 690 292 690 362"/>
+  <path class="arrow" d="M 858 420 L 888 420"/>
+
+  <rect class="stage" x="48" y="362" width="250" height="116"/>
+  <text class="stage-title" x="70" y="396">compile</text>
+  <text class="stage-text" x="70" y="420">neutral canonical JSON</text>
+  <text class="stage-text" x="70" y="442">explicit layer order &amp; stable sorting</text>
+
+  <rect class="stage" x="328" y="362" width="250" height="116"/>
+  <text class="stage-title" x="350" y="396">render hermes</text>
+  <text class="stage-text" x="350" y="420">reference bundle only</text>
+  <text class="stage-text" x="350" y="442">writes selected output directory</text>
+
+  <rect class="stage" x="608" y="362" width="250" height="116"/>
+  <text class="stage-title" x="630" y="396">compile-connectome</text>
+  <text class="stage-text" x="630" y="420">after validate-neural</text>
+  <text class="stage-text" x="630" y="442">authority remains separate</text>
+
+  <rect class="stage" x="888" y="362" width="290" height="116"/>
+  <text class="stage-title" x="910" y="396">simulate</text>
+  <text class="stage-text" x="910" y="420">logical scenario + bounded trace</text>
+  <text class="stage-text" x="910" y="442">no wall-clock or live runtime state</text>
+
+  <path class="arrow" d="M 173 478 C 173 535 173 535 173 608"/>
+  <path class="arrow" d="M 453 478 C 453 535 453 535 453 608"/>
+  <path class="arrow" d="M 733 478 C 733 535 733 535 733 608"/>
+  <path class="arrow" d="M 1033 478 C 1033 535 1033 535 1033 608"/>
+
+  <rect class="stage-green" x="48" y="608" width="250" height="84"/>
+  <text class="stage-green-title" x="70" y="642">compiled.json</text>
+  <text class="stage-text" x="70" y="666">canonical artifact</text>
+  <rect class="stage-green" x="328" y="608" width="250" height="84"/>
+  <text class="stage-green-title" x="350" y="642">.artifacts/hermes</text>
+  <text class="stage-text" x="350" y="666">reference output</text>
+  <rect class="stage-green" x="608" y="608" width="250" height="84"/>
+  <text class="stage-green-title" x="630" y="642">connectome.json</text>
+  <text class="stage-text" x="630" y="666">compiled neural graph</text>
+  <rect class="stage-green" x="888" y="608" width="290" height="84"/>
+  <text class="stage-green-title" x="910" y="642">trace.json</text>
+  <text class="stage-text" x="910" y="666">deterministic event trace</text>
+
+  <rect class="blocked-box" x="928" y="286" width="250" height="54"/>
+  <text class="blocked-title" x="950" y="310">NOT part of this flow</text>
+  <text class="blocked-text" x="950" y="329">activate · deploy · publish</text>
+  <path class="blocked-arrow" d="M 1053 340 L 1053 362"/>
+
+  <line x1="48" y1="720" x2="1232" y2="720" stroke="#cbd5e1"/>
+  <text class="strong" x="48" y="744">Guarantee boundary:</text>
+  <text class="note" x="240" y="744">make verify proves repository contracts; it does not authorize Git, release, deployment, activation, or visibility changes.</text>
+</svg>

@@ -53,6 +53,12 @@ P 番号が表すのは **責任と権限** であり、ランタイムの実行
 ロールが先または後に実行されるという理由だけで権限を得ないよう、この三つを分離します。
 [三つのプレーンの解説](docs/explanation/three-planes.md)も参照してください。
 
+## アーキテクチャの全体像
+
+![Brain、Actor/Role、Compilation、および直交する Neural Runtime プレーンの構成図](docs/assets/brain-role-overview.svg)
+
+*P0-P6 は責任を、Actor/Role は能力を、Compilation プレーンは明示的な変換順序を定義します。*
+
 ## 含まれるもの
 
 - 規範仕様と Draft 2020-12 JSON Schema
@@ -86,6 +92,12 @@ uv run brain-role compile examples/minimal-public --output .artifacts/compiled.j
 uv run brain-role render hermes examples/minimal-public --output .artifacts/hermes
 make verify
 ```
+
+## 検証と成果物のフロー
+
+![決定論的な検証・コンパイル・レンダー・シミュレーションの流れと、アクティベーション・公開の境界](docs/assets/brain-role-flow.svg)
+
+*検証は確認可能な成果物を生成しますが、Hermes の有効化、デプロイ、公開、実行環境の変更は行いません。*
 
 `compile` は明示的なレイヤー順と安定した role/policy 順を持つ canonical JSON を生成し、
 source path、credential、runtime activation 情報を追加しません。

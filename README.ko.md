@@ -53,6 +53,12 @@ P 번호는 **책임과 권한**을 나타내며 런타임 실행 순서나 컴�
 역할이 먼저 또는 나중에 실행된다는 이유만으로 권한을 얻지 않도록 세 평면을 분리합니다.
 [세 평면 설명](docs/explanation/three-planes.md)을 참고하십시오.
 
+## 한눈에 보는 구성
+
+![Brain, Actor/Role, Compilation 및 직교하는 Neural Runtime 평면 구성도](docs/assets/brain-role-overview.svg)
+
+*P0-P6는 책임을, Actor/Role은 역량을, Compilation 평면은 명시적인 변환 순서를 정의합니다.*
+
 ## 포함 사항
 
 - 규범 명세와 Draft 2020-12 JSON Schema
@@ -86,6 +92,12 @@ uv run brain-role compile examples/minimal-public --output .artifacts/compiled.j
 uv run brain-role render hermes examples/minimal-public --output .artifacts/hermes
 make verify
 ```
+
+## 검증 및 산출물 흐름
+
+![결정론적 검증·컴파일·렌더링·시뮬레이션 흐름과 활성화·게시 경계](docs/assets/brain-role-flow.svg)
+
+*검증은 확인 가능한 산출물을 만들지만 Hermes 활성화, 배포, 게시 또는 runtime home 변경을 수행하지 않습니다.*
 
 `compile`은 명시적 레이어 순서와 안정적인 role/policy 순서를 가진 canonical JSON 파일을 생성하며,
 source 경로·credential·runtime activation 정보를 추가하지 않습니다.

@@ -50,6 +50,8 @@ README_TOKENS = (
     "0.2.0",
     "SPEC.md",
     "docs/assets/brain-role-meme.png",
+    "docs/assets/brain-role-overview.svg",
+    "docs/assets/brain-role-flow.svg",
     "uv run brain-role validate",
     "uv run brain-role compile",
     '{"errors":[],"specVersion":"0.1.0","valid":true}',
@@ -64,6 +66,8 @@ ASSET_PROVENANCE_TOKENS = (
     "there are no arrows, paths,",
     "stacks, or inter-station connectors",
     "does not imply runtime or compile order",
+    "brain-role-overview.svg",
+    "brain-role-flow.svg",
 )
 
 

@@ -30,3 +30,18 @@ The seven stations use an intentionally non-sequential, disconnected layout: the
 stacks, or inter-station connectors. The brain-element names identify responsibility stations; their placement
 does not imply runtime or compile order. Dependencies remain an explicitly declared DAG as defined by
 [`SPEC.md`](../../SPEC.md).
+
+The repository also contains two authored, text-bearing SVG diagrams used by the multilingual READMEs:
+
+### `brain-role-overview.svg`
+
+A deterministic architecture overview of the Brain, Actor/Role, Compilation, and orthogonal Neural Runtime planes.
+It explicitly states that P0 is the only absolute invariant and that P numbers do not imply execution or compile order.
+The diagram is an editorial documentation asset, not a normative replacement for `SPEC.md`.
+
+### `brain-role-flow.svg`
+
+A deterministic validation, compilation, rendering, and simulation flow. It shows public-boundary checks and the
+artifact outputs while keeping Hermes activation, deployment, publication, and runtime-home mutation outside the flow.
+Both diagrams are UTF-8 SVG files with embedded `<title>` and `<desc>` metadata; no external fonts, URLs, scripts,
+private paths, credentials, or third-party assets are referenced.
