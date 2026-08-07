@@ -166,6 +166,27 @@ def test_diff_rejects_brainstem_mutation(anatomical_example_root: Path, tmp_path
     assert any(finding.code == "E_CHANGE_BRAINSTEM" for finding in report.findings)
 
 
+def test_diff_rejects_v1alpha1_p0_mutation_even_with_control_advances(
+    example_root: Path,
+    tmp_path: Path,
+) -> None:
+    baseline_doc: dict[str, Any] = _compiled_document(example_root)
+    baseline = _artifact(tmp_path, "baseline-v1alpha1.json", baseline_doc)
+
+    candidate_doc: dict[str, Any] = copy.deepcopy(baseline_doc)
+    p0 = _find_by_component(candidate_doc["layers"], "spec.layer", "P0")
+    p0["spec"]["responsibilities"] = [*p0["spec"]["responsibilities"], "p0-escape-probe"]
+    p0["metadata"]["version"] = _bump_patch(str(p0["metadata"]["version"]))
+    p0["spec"]["changeControl"]["effectiveAt"] = "2099-01-01T00:00:00Z"
+    candidate_doc["metadata"]["version"] = _bump_patch(str(candidate_doc["metadata"]["version"]))
+    candidate = _artifact(tmp_path, "p0-escape.json", candidate_doc)
+
+    report = compare_compiled_bundles(baseline, candidate)
+    assert not report.allowed
+    assert any(finding.code == "E_CHANGE_BRAINSTEM" for finding in report.findings)
+    assert not any(finding.code == "OK_CONTROLLED_LAYER_UPDATE" for finding in report.findings)
+
+
 def test_diff_allows_controlled_layer_semantic_change(anatomical_example_root: Path, tmp_path: Path) -> None:
     baseline_doc: dict[str, Any] = _compiled_document(anatomical_example_root)
     baseline = _artifact(tmp_path, "baseline.json", baseline_doc)
