@@ -79,7 +79,9 @@ def validate_graph(bundle: InstanceBundle) -> list[ValidationIssue]:
         issues.append(
             ValidationIssue(
                 bundle.compile_order_path,
-                "E_COMPILE_INVARIANT_FIRST",
+                "E_COMPILE_P0_FIRST"
+                if contract.api_version.endswith("v1alpha1")
+                else "E_COMPILE_INVARIANT_FIRST",
                 "/order/0",
                 f"{contract.invariant} must compile first",
             )

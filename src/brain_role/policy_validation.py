@@ -156,7 +156,7 @@ def validate_policy(bundle: InstanceBundle) -> list[ValidationIssue]:
         issues.append(
             ValidationIssue(
                 bundle.architecture_path,
-                "E_POLICY_INVARIANT",
+                "E_POLICY_P0" if contract.api_version.endswith("v1alpha1") else "E_POLICY_INVARIANT",
                 "/policies",
                 f"a {contract.invariant} protection policy is required",
             )
