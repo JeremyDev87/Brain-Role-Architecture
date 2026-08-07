@@ -8,6 +8,7 @@ from datetime import UTC, datetime
 from brain_role.change_report import ChangeFinding, ChangeReport
 from brain_role.compiled_loader import CompiledBundleArtifact, validate_compiled_bundle_document
 from brain_role.errors import InputFailure
+from brain_role.layer_contract import contract_for_api_version
 from brain_role.models import Document
 
 
@@ -125,7 +126,12 @@ def _change_control(layer: Document) -> dict[str, object]:
     return value if isinstance(value, dict) else {}
 
 
-def _compare_layers(baseline: Document, candidate: Document, findings: list[ChangeFinding]) -> bool:
+def _compare_layers(
+    baseline: Document,
+    candidate: Document,
+    findings: list[ChangeFinding],
+    invariant_layer: str,
+) -> bool:
     baseline_layers = _by_layer(baseline)
     candidate_layers = _by_layer(candidate)
     semantic_change = False
@@ -136,7 +142,7 @@ def _compare_layers(baseline: Document, candidate: Document, findings: list[Chan
                 _component_findings("layer", layer_id, "deny", "E_CHANGE_LAYER_MISSING", "layer set changed")
             )
             continue
-        if layer_id == "brainstem":
+        if layer_id == invariant_layer:
             if _canonical(base_layer) != _canonical(cand_layer):
                 findings.append(
                     _component_findings(
@@ -144,7 +150,7 @@ def _compare_layers(baseline: Document, candidate: Document, findings: list[Chan
                         layer_id,
                         "deny",
                         "E_CHANGE_BRAINSTEM",
-                        "brainstem must not change",
+                        "invariant layer must not change",
                     )
                 )
             continue
@@ -242,6 +248,10 @@ def compare_compiled_bundles(baseline: CompiledBundleArtifact, candidate: Compil
         )
         return _build_report(baseline, candidate, findings)
 
+    contract = contract_for_api_version(baseline_identity[0])
+    if contract is None:
+        raise InputFailure("compiled bundle has an unsupported apiVersion")
+
     baseline_compile_order = baseline.document.get("compileOrder", [])
     candidate_compile_order = candidate.document.get("compileOrder", [])
     if baseline_compile_order != candidate_compile_order:
@@ -255,7 +265,12 @@ def compare_compiled_bundles(baseline: CompiledBundleArtifact, candidate: Compil
             )
         )
 
-    semantic_change = _compare_layers(baseline.document, candidate.document, findings)
+    semantic_change = _compare_layers(
+        baseline.document,
+        candidate.document,
+        findings,
+        contract.invariant,
+    )
     _compare_exact_collection(
         "role",
         _by_id(baseline.document, "roles"),
