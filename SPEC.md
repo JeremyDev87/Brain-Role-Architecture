@@ -79,14 +79,24 @@ Cerebral Cortex workflows and orchestration, Default Mode Network persona and co
 - **REQ-CLI-003:** Error output MUST use instance-relative paths and MUST NOT echo private absolute paths
   or secret values.
 
-## 8. Version and publication
+## 8. Controlled mutation diff gate
+
+- **REQ-CHANGE-001:** `brain-role diff` MUST require matching `apiVersion` and architecture identity and MUST fail closed on identity drift.
+- **REQ-CHANGE-002:** Brainstem content MUST compare by exact canonical bytes and MUST reject any byte change.
+- **REQ-CHANGE-003:** Controlled layers MAY change only when semantic content changes and the layer version,
+  architecture version, and `changeControl.effectiveAt` all advance strictly.
+- **REQ-CHANGE-004:** Role, policy, and compile-order changes MUST be rejected as unsupported for C3-a.
+- **REQ-CHANGE-005:** Change reports MUST be deterministic, public-safe, and free of raw file paths or payload echoes.
+- **REQ-CHANGE-006:** `brain-role diff` MUST exit 0 for allowed or unchanged results, 1 for policy violations, and 2 for input or CLI failures.
+
+## 9. Version and publication
 
 Package, specification, and compatibility metadata are `0.4.0` and experimental. Governance manifests remain
 compatible with `0.1.x`; neural manifests require `0.2.x`. Passing `make verify` MUST NOT be interpreted as
 permission to commit, push, publish, release, deploy, or change visibility.
 
 
-## 9. Orthogonal neural plane
+## 10. Orthogonal neural plane
 
 The neural plane is execution topology, not an authority hierarchy. A Functional Neuron is a role capability
 bound to typed ports in a circuit; it is not a Role, Skill, Wiki node, or new Brain authority layer. A Synapse is an internal
@@ -99,7 +109,7 @@ port binding and is not a Hexagonal Adapter.
 - **REQ-CONNECTOME-001:** `CompiledConnectome` MUST be deterministically derived, sorted, path-independent, and
   bound to the canonical `CompiledBrainRole` bytes by SHA-256 without becoming an authority source.
 
-## 10. Bounded neural simulation
+## 11. Bounded neural simulation
 
 - **REQ-RUNTIME-001:** Simulation MUST be offline and deterministic, MUST treat capability references as data,
   MUST NOT execute dynamic code, and MUST emit an immutable canonical `NeuralTrace`.
@@ -110,7 +120,7 @@ port binding and is not a Hexagonal Adapter.
   requires every declared input port to receive a signal in the tick and the summed amplitude to meet the
   threshold; and `threshold` fires when the summed amplitude meets the threshold.
 
-## 11. Regulatory and homeostatic planes
+## 12. Regulatory and homeostatic planes
 
 - **REQ-MOD-001:** A regulator MAY adjust only the schema-closed runtime parameters
   `activationThreshold` and `signalGain` through bounded receptor effects. It MUST NOT carry business payloads
@@ -123,7 +133,7 @@ The reference simulator additionally enforces `minLevel <= initialLevel <= maxLe
 - **REQ-HOMEOSTAT-001:** A homeostat MUST observe a declared metric, compare it with an acceptable range, and
   set only a bounded declared regulator level through deterministic negative-feedback input.
 
-## 12. Support, clock, and plasticity control
+## 13. Support, clock, and plasticity control
 
 - **REQ-SUPPORT-001:** Support manifests MAY declare observe, throttle, retry, or quarantine-propose actions.
   The 0.2.0 reference simulator MUST emit observation evidence only when `observe` is declared, MUST record every
@@ -134,7 +144,7 @@ The reference simulator additionally enforces `minLevel <= initialLevel <= maxLe
 - **REQ-PLASTICITY-001:** Plasticity MUST begin as a provenance-bearing proposal with rollback. The reference
   simulator MUST record but MUST NOT apply a proposal or rewrite topology.
 
-## 13. Compatibility and CLI
+## 14. Compatibility and CLI
 
 - **REQ-COMPAT-001:** For an unchanged `0.1.x` governance instance, legacy validation reports and
   `CompiledBrainRole` bytes/SHA MUST remain unchanged. The removed provider-specific exporter is not part of

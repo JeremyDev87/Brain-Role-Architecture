@@ -25,6 +25,7 @@ SCHEMAS = {
     "neural-architecture",
     "neural-trace",
     "neuron",
+    "change-report",
     "plasticity-proposal",
     "policy",
     "receptor-binding",

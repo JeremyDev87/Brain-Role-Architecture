@@ -63,6 +63,7 @@ def check(root: Path) -> list[str]:
             "brain-role --version",
             "brain-role validate <instance>",
             "brain-role compile <instance>",
+            "brain-role diff <baseline> <candidate>",
         ),
         "docs/release-checklist.md": (
             "make verify",

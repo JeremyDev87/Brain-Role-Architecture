@@ -5,12 +5,16 @@
 - `brain-role --version`
 - `brain-role validate <instance> [--format text|json]`
 - `brain-role compile <instance> --output <file>`
+- `brain-role diff <baseline> <candidate> [--format text|json]`
 
+`compile` validates the source instance first and writes nothing on conformance failure. A successful compile
+atomically replaces the selected file and prints `COMPILED file=<name> sha256=<digest>`. Forbidden native-file
+and symlink destinations are rejected. An unchanged `0.1.x` instance retains its `specVersion=0.1.0`
+validation report and exact compiled artifact bytes.
 
-`compile` validates first and writes nothing on conformance failure. A successful compile atomically replaces
-the selected file and prints `COMPILED file=<name> sha256=<digest>`. Forbidden native-file and symlink
-destinations are rejected. An unchanged `0.1.x` instance retains its `specVersion=0.1.0` validation report and
-exact compiled artifact bytes.
+`diff` compares two canonical compiled artifacts and prints a deterministic change report. Exit 0 means
+identical or allowed controlled mutation, exit 1 means policy violation, and exit 2 means CLI, input, or I/O
+failure. The report never echoes absolute paths, raw component payloads, or secret values.
 
 ## Neural 0.2.x additive surface
 

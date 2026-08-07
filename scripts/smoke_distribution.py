@@ -62,6 +62,8 @@ def main() -> None:
             "brain_role/schemas/v1alpha1/compiled-connectome.schema.json",
             "brain_role/schemas/v1alpha1/activation-scenario.schema.json",
             "brain_role/schemas/v1alpha1/neural-trace.schema.json",
+            "brain_role/schemas/v1alpha1/change-report.schema.json",
+            "brain_role/schemas/v1alpha2/change-report.schema.json",
         }
         if not required.issubset(names):
             raise SystemExit("DIST_SMOKE_FAIL wheel schema set incomplete")
@@ -105,6 +107,11 @@ def main() -> None:
             temp_path,
             env,
         )
+        diff_result = run(
+            [str(executable), "diff", str(compiled), str(compiled), "--format", "json"],
+            temp_path,
+            env,
+        )
         validate_neural = run(
             [str(executable), "validate-neural", str(neural_instance), "--format", "json"],
             temp_path,
@@ -137,6 +144,9 @@ def main() -> None:
         compiled_payload = json.loads(compiled.read_text(encoding="utf-8"))
         if compiled_payload.get("kind") != "CompiledBrainRole":
             raise SystemExit("DIST_SMOKE_FAIL installed compile artifact")
+        diff_payload = json.loads(diff_result.stdout) if diff_result.returncode == 0 else {}
+        if diff_payload.get("kind") != "ChangeReport" or diff_payload.get("allowed") is not True:
+            raise SystemExit("DIST_SMOKE_FAIL installed diff surface")
         if validate_neural.returncode != 0 or '"specVersion":"0.2.0"' not in validate_neural.stdout:
             raise SystemExit("DIST_SMOKE_FAIL installed neural validation surface")
         if compile_connectome.returncode != 0 or not connectome.is_file():
@@ -162,6 +172,8 @@ def main() -> None:
             "/schemas/v1alpha1/compiled-bundle.schema.json",
             "/schemas/v1alpha1/compiled-connectome.schema.json",
             "/schemas/v1alpha1/neural-trace.schema.json",
+            "/schemas/v1alpha1/change-report.schema.json",
+            "/schemas/v1alpha2/change-report.schema.json",
             "/docs/assets/brain-role-meme.png",
             "/docs/assets/brain-role-overview.svg",
             "/docs/assets/brain-role-flow.svg",
@@ -182,7 +194,7 @@ def main() -> None:
                 raise SystemExit(f"DIST_SMOKE_FAIL sdist {asset_name} bytes differ from source")
     print(
         f"DIST_SMOKE_OK wheel={wheel.name} sdist={sdists[0].name} "
-        "fresh_install=yes console=version,validate,compile,validate-neural,compile-connectome,simulate "
+        "fresh_install=yes console=version,validate,compile,diff,validate-neural,compile-connectome,simulate "
         "isolated_cwd=yes"
     )
 
