@@ -58,7 +58,7 @@ def check(root: Path) -> list[str]:
             "No tag, release, or registry publication exists yet.",
         ),
         "SECURITY.md": (f"`{project_version}`", "PRE_RELEASE", "Validation does not grant publication authority."),
-        "spec/versioning-and-migration.md": ("0.x line is experimental", "P0 semantic changes"),
+        "spec/versioning-and-migration.md": ("0.x line is experimental", "Brainstem semantic changes"),
         "docs/reference/cli.md": (
             "brain-role --version",
             "brain-role validate <instance>",

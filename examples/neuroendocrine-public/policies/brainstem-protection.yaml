@@ -1,0 +1,10 @@
+apiVersion: brain-role.dev/v1alpha2
+kind: PolicyManifest
+metadata:
+  id: brainstem-protection
+  version: 0.1.0
+  classification: PUBLIC
+spec:
+  denyRoleWrites: [brainstem]
+  denySelfEscalation: true
+  secretRefPattern: "^env://[A-Z][A-Z0-9_]{2,127}$"

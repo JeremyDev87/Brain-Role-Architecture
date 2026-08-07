@@ -1,4 +1,4 @@
-apiVersion: brain-role.dev/v1alpha1
+apiVersion: brain-role.dev/v1alpha2
 kind: HomeostatManifest
 metadata:
   id: queue-controller

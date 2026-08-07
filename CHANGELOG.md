@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.3.0] - PRE_RELEASE
+## [0.4.0] - PRE_RELEASE
 
 Breaking PRE_RELEASE candidate that removes the provider-specific exporter so the public architecture
 surface stays provider-neutral.
@@ -24,7 +24,7 @@ Unreleased additive source candidate introducing an authority-orthogonal neural 
 
 ## [0.1.0] - PRE_RELEASE
 
-Unreleased source candidate establishing the normative P0-P6 model, schemas, validator, conformance
+Unreleased source candidate establishing the normative Brainstem through Prefrontal Cortex model, schemas, validator, conformance
 fixtures, threat model, and verification gates.
 
 - Hardened the public boundary against non-canonical IPv4, encoded localhost, and malformed URL authorities.

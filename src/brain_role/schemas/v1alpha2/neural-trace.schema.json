@@ -1,0 +1,209 @@
+{
+  "$id": "https://brain-role.dev/schemas/v1alpha2/neural-trace.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "apiVersion": {
+      "const": "brain-role.dev/v1alpha2"
+    },
+    "connectomeSha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "events": {
+      "items": {
+        "oneOf": [
+          {
+            "additionalProperties": false,
+            "properties": {
+              "actions": {
+                "contains": {
+                  "const": "observe"
+                },
+                "items": {
+                  "enum": [
+                    "observe",
+                    "throttle",
+                    "retry",
+                    "quarantine-propose"
+                  ]
+                },
+                "minContains": 1,
+                "type": "array",
+                "uniqueItems": true
+              },
+              "sequence": {
+                "minimum": 0,
+                "type": "integer"
+              },
+              "support": {
+                "pattern": "^[a-z][a-z0-9-]{0,63}$",
+                "type": "string"
+              },
+              "targets": {
+                "items": {
+                  "pattern": "^[a-z][a-z0-9-]{0,63}$",
+                  "type": "string"
+                },
+                "type": "array",
+                "uniqueItems": true
+              },
+              "tick": {
+                "minimum": 0,
+                "type": "integer"
+              },
+              "type": {
+                "const": "support_observed"
+              }
+            },
+            "required": [
+              "sequence",
+              "tick",
+              "type",
+              "support",
+              "actions",
+              "targets"
+            ]
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "enum": [
+                  "throttle",
+                  "retry",
+                  "quarantine-propose"
+                ]
+              },
+              "applied": {
+                "const": false
+              },
+              "sequence": {
+                "minimum": 0,
+                "type": "integer"
+              },
+              "support": {
+                "pattern": "^[a-z][a-z0-9-]{0,63}$",
+                "type": "string"
+              },
+              "targets": {
+                "items": {
+                  "pattern": "^[a-z][a-z0-9-]{0,63}$",
+                  "type": "string"
+                },
+                "type": "array",
+                "uniqueItems": true
+              },
+              "tick": {
+                "minimum": 0,
+                "type": "integer"
+              },
+              "type": {
+                "const": "support_action_proposed"
+              }
+            },
+            "required": [
+              "sequence",
+              "tick",
+              "type",
+              "support",
+              "action",
+              "targets",
+              "applied"
+            ]
+          },
+          {
+            "properties": {
+              "type": {
+                "enum": [
+                  "clock_phase",
+                  "homeostat_observed",
+                  "regulator_level",
+                  "receptor_applied",
+                  "neuron_blocked",
+                  "neuron_fired",
+                  "synapse_transmitted",
+                  "plasticity_proposed"
+                ]
+              }
+            },
+            "required": [
+              "type"
+            ]
+          }
+        ],
+        "properties": {
+          "sequence": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "tick": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "type": {
+            "enum": [
+              "clock_phase",
+              "homeostat_observed",
+              "regulator_level",
+              "receptor_applied",
+              "neuron_blocked",
+              "neuron_fired",
+              "synapse_transmitted",
+              "support_observed",
+              "support_action_proposed",
+              "plasticity_proposed"
+            ]
+          }
+        },
+        "required": [
+          "sequence",
+          "tick",
+          "type"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "kind": {
+      "const": "NeuralTrace"
+    },
+    "metadata": {
+      "additionalProperties": false,
+      "properties": {
+        "classification": {
+          "const": "PUBLIC"
+        },
+        "id": {
+          "pattern": "^[a-z][a-z0-9-]{0,63}$",
+          "type": "string"
+        },
+        "version": {
+          "pattern": "^0\\.2\\.[0-9]+$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "classification"
+      ],
+      "type": "object"
+    },
+    "termination": {
+      "enum": [
+        "maxTicks",
+        "maxEvents"
+      ]
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "connectomeSha256",
+    "termination",
+    "events"
+  ],
+  "type": "object"
+}

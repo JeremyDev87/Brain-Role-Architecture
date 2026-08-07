@@ -1,0 +1,20 @@
+apiVersion: brain-role.dev/v1alpha2
+kind: LayerManifest
+metadata:
+  id: hippocampus-layer
+  version: 0.1.0
+  classification: PUBLIC
+spec:
+  layer: hippocampus
+  status: active
+  mutability: controlled
+  owner: synthetic-architecture-maintainers
+  classification: PUBLIC
+  responsibilities:
+    - synthetic-durable-state-contract
+  dependencies: [brainstem]
+  changeControl:
+    approval: maintainer-review
+    provenance: spec://layers/hippocampus
+    rollback: restore-prior-reviewed-manifest
+    effectiveAt: "2026-07-31T00:00:00Z"

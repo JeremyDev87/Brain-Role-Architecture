@@ -1,11 +1,11 @@
-apiVersion: brain-role.dev/v1alpha1
+apiVersion: brain-role.dev/v1alpha2
 kind: NeuronManifest
 metadata:
   id: reviewer
   version: 0.2.0
   classification: PUBLIC
 spec:
-  layer: P6
+  layer: prefrontal-cortex
   roleRef: synthetic-observer
   capabilityRef: architecture.read
   inputPorts:

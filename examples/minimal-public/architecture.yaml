@@ -1,4 +1,4 @@
-apiVersion: brain-role.dev/v1alpha1
+apiVersion: brain-role.dev/v1alpha2
 kind: BrainArchitecture
 metadata:
   id: minimal-public
@@ -6,16 +6,16 @@ metadata:
   version: 0.1.0
   classification: PUBLIC
 layers:
-  - layers/p0.yaml
-  - layers/p1.yaml
-  - layers/p2.yaml
-  - layers/p3.yaml
-  - layers/p4.yaml
-  - layers/p5.yaml
-  - layers/p6.yaml
+  - layers/brainstem.yaml
+  - layers/cerebellum.yaml
+  - layers/hippocampus.yaml
+  - layers/amygdala.yaml
+  - layers/cerebral-cortex.yaml
+  - layers/default-mode-network.yaml
+  - layers/prefrontal-cortex.yaml
 roles:
   - roles/observer.yaml
   - roles/operator.yaml
 policies:
-  - policies/p0-protection.yaml
+  - policies/brainstem-protection.yaml
 compileOrder: compile-order.yaml

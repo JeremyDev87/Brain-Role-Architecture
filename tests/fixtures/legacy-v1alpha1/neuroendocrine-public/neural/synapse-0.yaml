@@ -1,0 +1,17 @@
+apiVersion: brain-role.dev/v1alpha1
+kind: SynapseManifest
+metadata:
+  id: sensory-to-planner
+  version: 0.2.0
+  classification: PUBLIC
+spec:
+  from:
+    neuron: sensory
+    port: signalOut
+  to:
+    neuron: planner
+    port: signalIn
+  signalType: task.request/v1
+  effect: excite
+  strength: 1.0
+  delayTicks: 1

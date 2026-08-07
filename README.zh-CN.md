@@ -8,15 +8,15 @@
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB.svg)](pyproject.toml)
 [![许可证：Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-D22128.svg)](LICENSE)
 
-**PRE_RELEASE · 源代码候选版本 0.3.0 · 尚未发布**
+**PRE_RELEASE · 源代码候选版本 0.4.0 · 尚未发布**
 
 Brain-Role Architecture 是一种可验证、可感知角色的架构，用于治理 AI 智能体的不变量、
 持久状态、风险、工作流、人格与目标，同时避免混淆责任关系与执行顺序。
 
-> **无论如何重写，始终保留一条规则：**P0 是唯一的绝对不变量。P1-P6 只能通过明确的
+> **无论如何重写，始终保留一条规则：**Brainstem 是唯一的绝对不变量。Cerebellum through Prefrontal Cortex 只能通过明确的
 > 所有权、审批、来源、回滚和生效时间契约进行变更。
 
-![Brain-Role 海报：Neural 正交区域、P0-P6 Brain 平面、Actor/Role 平面与 Compilation 平面](docs/assets/brain-role-meme.png)
+![Brain-Role 海报：Neural 正交区域、Brainstem through Prefrontal Cortex Brain 平面、Actor/Role 平面与 Compilation 平面](docs/assets/brain-role-meme.png)
 
 *四个可视区域分别表示责任、能力、确定性构建与正交调节。*
 
@@ -28,17 +28,17 @@ Brain-Role Architecture 是一种可验证、可感知角色的架构，用于�
 
 本 README 用于介绍项目；[SPEC.md](SPEC.md) 仍是规范性契约，并优先于所有解释性文档。
 
-## 责任拓扑：P0-P6
+## 责任拓扑：Brainstem through Prefrontal Cortex
 
 | 层级 | 责任 | 变更契约 |
 | --- | --- | --- |
-| **P0** | 真实/不捏造、安全/安保、来源/无损、确定性转换 | **绝对不变量。**任何更高层或角色都不得覆盖它。 |
-| **P1** | 可重复的自动化与调度 | 受控；可以保留。 |
-| **P2** | 持久状态与记忆 | 在明确的所有权和来源记录下受控。 |
-| **P3** | 风险与冲突登记 | 受控；可以保留。 |
-| **P4** | 工作流与编排 | 受控、可审查且可回滚。 |
-| **P5** | 人格与沟通行为 | 依据明确的变更控制元数据进行管理。 |
-| **P6** | 目标与方向 | 依据明确的变更控制元数据进行管理。 |
+| **Brainstem** | 真实/不捏造、安全/安保、来源/无损、确定性转换 | **绝对不变量。**任何更高层或角色都不得覆盖它。 |
+| **Cerebellum** | 可重复的自动化与调度 | 受控；可以保留。 |
+| **Hippocampus** | 持久状态与记忆 | 在明确的所有权和来源记录下受控。 |
+| **Amygdala** | 风险与冲突登记 | 受控；可以保留。 |
+| **Cerebral Cortex** | 工作流与编排 | 受控、可审查且可回滚。 |
+| **Default Mode Network** | 人格与沟通行为 | 依据明确的变更控制元数据进行管理。 |
+| **Prefrontal Cortex** | 目标与方向 | 依据明确的变更控制元数据进行管理。 |
 
 P 编号表示的是**责任与权限**，并不代表运行时顺序或编译顺序。
 
@@ -46,16 +46,16 @@ P 编号表示的是**责任与权限**，并不代表运行时顺序或编译�
 
 1. **Brain 平面**——责任、权限与变更规则。
 2. **Actor/Role 平面**——能力、输入/输出、权限、状态范围与升级机制。
-3. **Compilation 平面**——显式的依赖 DAG 与显式的编译顺序，二者都独立于 P 编号。
+3. **Compilation 平面**——显式的依赖 DAG 与显式的编译顺序，二者都独立于解剖学责任名称。
 
 将这三个平面分开，可以防止某个角色仅仅因为最先或最后运行就获得额外权限。
 请参阅[三个平面的说明](docs/explanation/three-planes.md)。
 
 ## 架构一览
 
-![区分 P0-P6、Actor/Role、Compilation DAG 与 Neural 回路的 Brain-Role 结构图](docs/assets/brain-role-overview.svg)
+![区分 Brainstem through Prefrontal Cortex、Actor/Role、Compilation DAG 与 Neural 回路的 Brain-Role 结构图](docs/assets/brain-role-overview.svg)
 
-*图标展示责任、能力、构建顺序和调节，但不会把 P0-P6 画成流水线。*
+*图标展示责任、能力、构建顺序和调节，但不会把 Brainstem through Prefrontal Cortex 画成流水线。*
 
 ## 包含内容
 
@@ -132,7 +132,7 @@ make verify
 
 ## 项目状态
 
-`0.3.0` 是实验性的源代码候选版本。本项目不将其表示为注册表中的软件包、Git 标签、
+`0.4.0` 是实验性的源代码候选版本。本项目不将其表示为注册表中的软件包、Git 标签、
 GitHub Release 或部署版本。在规范仍处于预发布阶段期间，兼容性可能发生变化。
 请参阅 [CHANGELOG.md](CHANGELOG.md)。
 
@@ -151,3 +151,21 @@ make verify
 deployment、activation 或更改仓库可见性。这些操作分别由所有者独立控制和决定。
 
 本项目采用 Apache-2.0 许可证。请参阅 [LICENSE](LICENSE) 和 [NOTICE](NOTICE)。
+
+## Neural Runtime 元素
+
+Neural Runtime 是正交的执行与证据平面，不会产生 Brain 或 Role 权限。
+
+| 元素 | 作用 |
+| --- | --- |
+| **Functional Neuron** | 绑定能力、具有类型化端口和显式阈值的处理节点。 |
+| **Synapse** | 具有兴奋/抑制效果、强度和逻辑延迟的类型化连接。 |
+| **Regulator** | 带衰减和 TTL 的有界调节值；没有 Receptor 就不起作用。 |
+| **Receptor** | 在边界内把 Regulator 映射到 Neuron 的阈值或增益。 |
+| **Homeostat** | 基于指标和目标范围的有界负反馈。 |
+| **Support** | 观察健康状态，只提出 throttle、retry 或 quarantine 建议。 |
+| **Logical Clock** | 没有真实时钟权限的确定性 tick 阶段。 |
+| **Plasticity Proposal** | 含证据和 rollback、但不会由模拟应用的变更提案。 |
+| **ActivationScenario** | 声明合成信号、指标以及 tick/event 上限。 |
+| **CompiledConnectome** | 确定性的规范回路投影，不是权限来源。 |
+| **NeuralTrace** | 包含激活、调节、建议与停止原因的不可变执行证据。 |

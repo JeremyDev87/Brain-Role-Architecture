@@ -2,13 +2,13 @@
 
 ## Protected assets
 
-P0 semantics, architecture identity, role permission boundaries, provenance, rollback metadata, public
+Brainstem semantics, architecture identity, role permission boundaries, provenance, rollback metadata, public
 package contents, and the operator-selected export directory.
 
 ## Threats and controls
 
 1. Prompt or knowledge injection: manifests are data, never dynamically executed.
-2. Priority inversion: P0 writes and higher-layer overrides are rejected.
+2. Priority inversion: Brainstem writes and higher-layer overrides are rejected.
 3. Confused deputy: roles use deny-by-default explicit read/write/forbidden sets.
 4. Self-escalation: self targets and self-escalation flags are rejected.
 5. Memory poisoning: provenance and controlled change metadata are required.

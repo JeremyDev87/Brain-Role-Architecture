@@ -1,7 +1,9 @@
-specVersion: 0.3.0
-packageVersion: 0.3.0
-schemaNamespace: brain-role.dev/v1alpha1
+specVersion: 0.4.0
+packageVersion: 0.4.0
+schemaNamespace: brain-role.dev/v1alpha2
+legacySchemaNamespace: brain-role.dev/v1alpha1
 legacyManifestVersion: 0.1.x
+anatomicalManifestVersion: 0.4.x
 neuralManifestVersion: 0.2.x
 legacyCompiledArtifact: CompiledBrainRole
 neuralCompiledArtifact: CompiledConnectome

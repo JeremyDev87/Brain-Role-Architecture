@@ -64,7 +64,7 @@ def test_spec_requirements_match_conformance_map() -> None:
     symbols: dict[Path, set[str]] = {}
     assert len(spec_ids) == len(set(spec_ids))
     assert set(spec_ids) == set(mapping)
-    assert "REQ-P0-001" in spec_ids
+    assert "REQ-BRAINSTEM-001" in spec_ids
     for reference in mapping.values():
         path_text, symbol = reference.split("::", 1)
         validate_test_reference(ROOT, path_text, symbol, collected, symbols)

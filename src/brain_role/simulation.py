@@ -412,7 +412,7 @@ def simulate_connectome(connectome: Document, scenario: Document) -> Document:
             break
 
     trace: Document = {
-        "apiVersion": "brain-role.dev/v1alpha1",
+        "apiVersion": str(scenario.get("apiVersion", connectome.get("apiVersion", "brain-role.dev/v1alpha1"))),
         "kind": "NeuralTrace",
         "metadata": dict(scenario.get("metadata", {})),
         "connectomeSha256": hashlib.sha256(

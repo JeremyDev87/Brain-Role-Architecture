@@ -8,13 +8,13 @@
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB.svg)](pyproject.toml)
 [![Licencia: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-D22128.svg)](LICENSE)
 
-**PRE_RELEASE · candidato de código fuente 0.3.0 · no publicado**
+**PRE_RELEASE · candidato de código fuente 0.4.0 · no publicado**
 
-Brain-Role Architecture es una arquitectura verificable y consciente de los roles para gobernar los invariantes, el estado, los flujos de trabajo, la personalidad y los objetivos de agentes de IA desde P0 hasta P6.
+Brain-Role Architecture es una arquitectura verificable y consciente de los roles para gobernar los invariantes, el estado, los flujos de trabajo, la personalidad y los objetivos de agentes de IA desde Brainstem hasta Prefrontal Cortex.
 
-> P0 es el único invariante absoluto. P1-P6 son capas de responsabilidad con mutabilidad controlada y contratos explícitos de propiedad, aprobación, procedencia, reversión y momento de entrada en vigor.
+> Brainstem es el único invariante absoluto. Cerebellum through Prefrontal Cortex son capas de responsabilidad con mutabilidad controlada y contratos explícitos de propiedad, aprobación, procedencia, reversión y momento de entrada en vigor.
 
-![Póster de Brain-Role con la banda Neural ortogonal, el plano Brain P0-P6 y los planos Actor/Role y Compilation](docs/assets/brain-role-meme.png)
+![Póster de Brain-Role con la banda Neural ortogonal, el plano Brain Brainstem through Prefrontal Cortex y los planos Actor/Role y Compilation](docs/assets/brain-role-meme.png)
 
 *Cuatro zonas visuales separan responsabilidad, capacidad, compilación determinista y modulación ortogonal.*
 
@@ -24,21 +24,21 @@ Las configuraciones de agentes suelen mezclar en un mismo lugar reglas no negoci
 
 Brain-Role Architecture proporciona un vocabulario y contratos verificables para separar esas responsabilidades. Su propósito no es hacer que todas las capas sean inmutables, sino distinguir el único límite absoluto de las capas que pueden evolucionar bajo controles explícitos.
 
-`SPEC.md` sigue siendo la fuente normativa. Este README explica el proyecto, pero no redefine el contrato. Los números P identifican ámbitos de responsabilidad; **no implican orden de ejecución, orden en tiempo de ejecución ni orden de compilación**.
+`SPEC.md` sigue siendo la fuente normativa. Este README explica el proyecto, pero no redefine el contrato. Los nombres anatómicos identifican ámbitos de responsabilidad; **no implican orden de ejecución, orden en tiempo de ejecución ni orden de compilación**.
 
-## Capas de responsabilidad P0-P6
+## Capas de responsabilidad Brainstem through Prefrontal Cortex
 
 | Capa | Responsabilidad principal | Política de cambio |
 |---|---|---|
-| **P0** | Invariantes absolutos | Es la única capa absoluta; no se trata como preferencia, memoria, flujo de trabajo ni objetivo mutable. |
-| **P1** | Automatización | Mutable de forma controlada, con propiedad, aprobación, procedencia, reversión y vigencia explícitas. |
-| **P2** | Memoria duradera | Mutable de forma controlada; conserva estado duradero sin convertirlo en un invariante absoluto. |
-| **P3** | Riesgo y conflictos | Mutable de forma controlada; establece cómo se identifican, escalan y resuelven riesgos o conflictos. |
-| **P4** | Flujos de trabajo | Mutable de forma controlada; describe procedimientos y coordinación operativa. |
-| **P5** | Personalidad y comunicación | Mutable de forma controlada; define voz, estilo y contratos de comunicación. |
-| **P6** | Objetivos | Mutable de forma controlada; expresa resultados deseados sin elevarlos a la categoría de absolutos. |
+| **Brainstem** | Invariantes absolutos | Es la única capa absoluta; no se trata como preferencia, memoria, flujo de trabajo ni objetivo mutable. |
+| **Cerebellum** | Automatización | Mutable de forma controlada, con propiedad, aprobación, procedencia, reversión y vigencia explícitas. |
+| **Hippocampus** | Memoria duradera | Mutable de forma controlada; conserva estado duradero sin convertirlo en un invariante absoluto. |
+| **Amygdala** | Riesgo y conflictos | Mutable de forma controlada; establece cómo se identifican, escalan y resuelven riesgos o conflictos. |
+| **Cerebral Cortex** | Flujos de trabajo | Mutable de forma controlada; describe procedimientos y coordinación operativa. |
+| **Default Mode Network** | Personalidad y comunicación | Mutable de forma controlada; define voz, estilo y contratos de comunicación. |
+| **Prefrontal Cortex** | Objetivos | Mutable de forma controlada; expresa resultados deseados sin elevarlos a la categoría de absolutos. |
 
-P1-P6 no son «menos importantes» por ser mutables: sus cambios deben estar gobernados y ser auditables. Tampoco forman una canalización secuencial. Cualquier dependencia y orden de compilación pertenecen al plano de compilación y deben declararse explícitamente.
+Cerebellum through Prefrontal Cortex no son «menos importantes» por ser mutables: sus cambios deben estar gobernados y ser auditables. Tampoco forman una canalización secuencial. Cualquier dependencia y orden de compilación pertenecen al plano de compilación y deben declararse explícitamente.
 
 ## Tres planos independientes
 
@@ -46,15 +46,15 @@ El proyecto separa tres conceptos que a menudo se confunden:
 
 - **Plano Brain:** responsabilidades, autoridad y reglas de cambio.
 - **Plano Actor/Role:** capacidades, entradas y salidas, permisos y escalamiento.
-- **Plano de compilación:** un DAG de dependencias explícito y un orden de compilación explícito, independiente de los números P.
+- **Plano de compilación:** un DAG de dependencias explícito y un orden de compilación explícito, independiente de los nombres anatómicos de responsabilidad.
 
-Separar los planos evita inferir permisos a partir de una capa, confundir un rol con una política o asumir que P0-P6 determina el orden de compilación o de ejecución.
+Separar los planos evita inferir permisos a partir de una capa, confundir un rol con una política o asumir que Brainstem through Prefrontal Cortex determina el orden de compilación o de ejecución.
 
 ## Vista general de la arquitectura
 
-![Mapa estructural de Brain-Role con P0-P6, Actor/Role, el DAG de Compilation y el circuito Neural](docs/assets/brain-role-overview.svg)
+![Mapa estructural de Brain-Role con Brainstem through Prefrontal Cortex, Actor/Role, el DAG de Compilation y el circuito Neural](docs/assets/brain-role-overview.svg)
 
-*Los iconos muestran responsabilidad, capacidad, orden de compilación y modulación sin convertir P0-P6 en una canalización.*
+*Los iconos muestran responsabilidad, capacidad, orden de compilación y modulación sin convertir Brainstem through Prefrontal Cortex en una canalización.*
 
 ## Qué incluye
 
@@ -98,20 +98,20 @@ Brain-Role Architecture resulta útil para:
 - validar documentos y fixtures de arquitectura antes de integrarlos en otro sistema;
 - mantener memoria, procedimientos, personalidad y objetivos bajo políticas de cambio auditables;
 - modelar capacidades, permisos, entradas, salidas y rutas de escalamiento por rol;
-- compilar una arquitectura mediante dependencias declaradas, sin deducir el orden a partir de P0-P6;
+- compilar una arquitectura mediante dependencias declaradas, sin deducir el orden a partir de Brainstem through Prefrontal Cortex;
 - generar artefactos de referencia deterministas sin modificar un entorno de ejecución externo.
 
 ## Lo que no es
 
 Este proyecto no pretende:
 
-- definir P0-P6 como fases de tiempo de ejecución o compilación;
-- convertir P1-P6 en invariantes absolutos;
+- definir Brainstem through Prefrontal Cortex como fases de tiempo de ejecución o compilación;
+- convertir Cerebellum through Prefrontal Cortex en invariantes absolutos;
 - sustituir la especificación normativa por documentación explicativa;
 - activar, reconfigurar o mutar automáticamente un entorno de ejecución externo;
 - acceder a la red, ejecutar código dinámico o escribir en hogares de ejecución;
 - autorizar commits, pushes, lanzamientos, publicaciones, despliegues o cambios de visibilidad del repositorio;
-- afirmar que existe una etiqueta, un lanzamiento o un paquete de registro publicado para `0.3.0`.
+- afirmar que existe una etiqueta, un lanzamiento o un paquete de registro publicado para `0.4.0`.
 
 ## Mapa de documentación
 
@@ -139,7 +139,7 @@ Antes de compartir un ejemplo o una incidencia, sustituye cualquier dato privado
 
 ## Estado del proyecto
 
-El proyecto se encuentra en estado **PRE_RELEASE** como candidato de código fuente `0.3.0` y **no está publicado**. Esta designación describe el estado del código fuente; no representa una etiqueta, un lanzamiento ni un paquete disponible en un registro.
+El proyecto se encuentra en estado **PRE_RELEASE** como candidato de código fuente `0.4.0` y **no está publicado**. Esta designación describe el estado del código fuente; no representa una etiqueta, un lanzamiento ni un paquete disponible en un registro.
 
 La interfaz, los esquemas y la documentación pueden seguir evolucionando dentro de los límites establecidos por `SPEC.md`. No se deben inferir garantías de publicación a partir del número de versión.
 
@@ -148,7 +148,7 @@ La interfaz, los esquemas y la documentación pueden seguir evolucionando dentro
 Consulta [`CONTRIBUTING.md`](CONTRIBUTING.md) y [`GOVERNANCE.md`](GOVERNANCE.md) antes de proponer cambios. Las contribuciones deben:
 
 - preservar el contrato normativo de `SPEC.md`;
-- mantener P0 como el único invariante absoluto y P1-P6 como responsabilidades con mutabilidad controlada;
+- mantener Brainstem como el único invariante absoluto y Cerebellum through Prefrontal Cortex como responsabilidades con mutabilidad controlada;
 - usar esquemas genéricos y datos sintéticos;
 - conservar el comportamiento determinista y sin conexión del validador y los adaptadores;
 - evitar datos personales, credenciales y demás material privado;
@@ -158,6 +158,24 @@ Una validación correcta o una ejecución satisfactoria de `make verify` aporta 
 
 ## Límite de publicación y licencia
 
-Superar la validación **no** autoriza un commit de Git, push, lanzamiento, publicación de paquetes, despliegue ni cambio de visibilidad del repositorio. Ninguna etiqueta, lanzamiento o paquete de registro está representado por la versión de código fuente `0.3.0`.
+Superar la validación **no** autoriza un commit de Git, push, lanzamiento, publicación de paquetes, despliegue ni cambio de visibilidad del repositorio. Ninguna etiqueta, lanzamiento o paquete de registro está representado por la versión de código fuente `0.4.0`.
 
 El proyecto está licenciado bajo Apache-2.0. Consulta [`LICENSE`](LICENSE) y [`NOTICE`](NOTICE).
+
+## Elementos del Neural Runtime
+
+El Neural Runtime es un plano ortogonal de ejecución y evidencia; nunca crea autoridad Brain o Role.
+
+| Elemento | Función |
+| --- | --- |
+| **Functional Neuron** | Procesador ligado a una capacidad, con puertos tipados y umbrales explícitos. |
+| **Synapse** | Conexión tipada con efecto excitador/inhibidor, fuerza y retardo lógico. |
+| **Regulator** | Modulación acotada con decaimiento y TTL; no actúa sin Receptor. |
+| **Receptor** | Vincula un Regulator al umbral o ganancia de un Neuron dentro de límites. |
+| **Homeostat** | Retroalimentación negativa basada en métricas y rangos objetivo. |
+| **Support** | Observa salud y solo propone throttle, retry o quarantine. |
+| **Logical Clock** | Fases deterministas de ticks sin autoridad de reloj real. |
+| **Plasticity Proposal** | Propuesta con evidencia y rollback que la simulación nunca aplica. |
+| **ActivationScenario** | Señales, métricas y límites explícitos de ticks/eventos. |
+| **CompiledConnectome** | Proyección canónica del circuito; no es fuente de autoridad. |
+| **NeuralTrace** | Evidencia inmutable de activación, modulación, propuestas y parada. |

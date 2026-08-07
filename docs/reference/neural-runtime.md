@@ -4,7 +4,7 @@ The 0.2.x neural extension models execution without changing governance authorit
 
 | Plane | Contract | Authority boundary |
 | --- | --- | --- |
-| Governance | Existing P0-P6, Role, Policy, approval and audit | Sole source of permission and invariants |
+| Governance | Existing Brainstem through Prefrontal Cortex, Role, Policy, approval and audit | Sole source of permission and invariants |
 | Neural fast path | typed ports, immutable signals, Functional Neuron, active Synapse | Cannot create role capabilities or P-layer access |
 | Regulatory | Regulator plus explicit ReceptorBinding | Only bounded threshold/gain changes; no business payload |
 | Homeostatic | metric, acceptable range, controller, regulator level | Deterministic feedback input only |

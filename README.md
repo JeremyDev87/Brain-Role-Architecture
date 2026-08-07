@@ -8,15 +8,15 @@
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB.svg)](pyproject.toml)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-D22128.svg)](LICENSE)
 
-**PRE_RELEASE · source candidate 0.3.0 · not published**
+**PRE_RELEASE · source candidate 0.4.0 · not published**
 
 Brain-Role Architecture is a verifiable, role-aware architecture for governing AI-agent invariants,
 durable state, risk, workflows, persona, and goals without confusing responsibility with execution order.
 
-> **One rule survives every rewrite:** P0 is the only absolute invariant. P1-P6 can change only through
+> **One rule survives every rewrite:** Brainstem is the only absolute invariant. Cerebellum through Prefrontal Cortex can change only through
 > explicit ownership, approval, provenance, rollback, and effective-time contracts.
 
-![Brain-Role poster: Neural orthogonal band, P0-P6 Brain plane, Actor/Role plane, Compilation plane](docs/assets/brain-role-meme.png)
+![Brain-Role poster: Neural orthogonal band, Brainstem through Prefrontal Cortex Brain plane, Actor/Role plane, Compilation plane](docs/assets/brain-role-meme.png)
 
 *Four visual zones: responsibilities, capabilities, deterministic build, and orthogonal modulation.*
 
@@ -30,34 +30,34 @@ machine-checkable, and portable.
 The README explains the project; [SPEC.md](SPEC.md) remains the normative contract and takes precedence over
 all explanatory documentation.
 
-## Responsibility topology: P0-P6
+## Responsibility topology: Brainstem through Prefrontal Cortex
 
 | Layer | Responsibility | Change contract |
 | --- | --- | --- |
-| **P0** | Truth/non-fabrication, safety/security, provenance/no-loss, deterministic transition | **Absolute invariant.** No higher layer or role may override it. |
-| **P1** | Repeatable automation and schedules | Controlled; may be reserved. |
-| **P2** | Durable state and memory | Controlled with explicit ownership and provenance. |
-| **P3** | Risk and conflict registry | Controlled; may be reserved. |
-| **P4** | Workflows and orchestration | Controlled, reviewable, and reversible. |
-| **P5** | Persona and communication behavior | Controlled with explicit change-control metadata. |
-| **P6** | Goals and direction | Controlled with explicit change-control metadata. |
+| **Brainstem** | Truth/non-fabrication, safety/security, provenance/no-loss, deterministic transition | **Absolute invariant.** No higher layer or role may override it. |
+| **Cerebellum** | Repeatable automation and schedules | Controlled; may be reserved. |
+| **Hippocampus** | Durable state and memory | Controlled with explicit ownership and provenance. |
+| **Amygdala** | Risk and conflict registry | Controlled; may be reserved. |
+| **Cerebral Cortex** | Workflows and orchestration | Controlled, reviewable, and reversible. |
+| **Default Mode Network** | Persona and communication behavior | Controlled with explicit change-control metadata. |
+| **Prefrontal Cortex** | Goals and direction | Controlled with explicit change-control metadata. |
 
-P numbers describe **responsibility and authority**, not runtime or compile order.
+Anatomical names describe **responsibility and authority**, not runtime or compile order.
 
 ## Three independent planes
 
 1. **Brain plane** — responsibility, authority, and change rules.
 2. **Actor/Role plane** — capabilities, inputs/outputs, permissions, state scope, and escalation.
-3. **Compilation plane** — an explicit dependency DAG and explicit compile order, independent of P numbers.
+3. **Compilation plane** — an explicit dependency DAG and explicit compile order, independent of anatomical responsibility names.
 
 Keeping these planes separate prevents a role from gaining authority merely because it runs first or last.
 See [the three-plane explanation](docs/explanation/three-planes.md).
 
 ## Architecture at a glance
 
-![Brain-Role structure map with P0-P6, Role plane, Compilation DAG, Neural circuit](docs/assets/brain-role-overview.svg)
+![Brain-Role structure map with Brainstem through Prefrontal Cortex, Role plane, Compilation DAG, Neural circuit](docs/assets/brain-role-overview.svg)
 
-*The icons show responsibility, capability, build order, and modulation without turning P0-P6 into a pipeline.*
+*The icons show responsibility, capability, build order, and modulation without turning Brainstem through Prefrontal Cortex into a pipeline.*
 
 The additive 0.2.x neural extension is orthogonal to all three: typed Functional Neurons and Synapses carry
 execution signals, while explicit receptors, homeostats, support contracts, and logical clocks provide bounded
@@ -147,7 +147,7 @@ and must not echo private absolute paths or secret values.
 
 ## Project status
 
-Version `0.3.0` is an experimental source candidate. It is not represented as a package on a registry, a Git
+Version `0.4.0` is an experimental source candidate. It is not represented as a package on a registry, a Git
 tag, a GitHub Release, or a deployment. Compatibility may change while the specification remains pre-release.
 See [CHANGELOG.md](CHANGELOG.md).
 
@@ -166,3 +166,23 @@ Passing validation or `make verify` does **not** authorize a Git commit, push, r
 deployment, activation, or repository visibility change. Those are separate owner-controlled decisions.
 
 Licensed under Apache-2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE).
+
+## Neural runtime elements
+
+The neural runtime is an orthogonal execution and evidence plane; it never grants Brain or Role authority.
+
+| Element | Role |
+| --- | --- |
+| **Functional Neuron** | Capability-bound processor with typed ports and explicit integration thresholds. |
+| **Synapse** | Typed connection with excitatory/inhibitory effect, strength, and logical delay. |
+| **Regulator** | Bounded modulation value with decay and TTL; it has no effect without a receptor. |
+| **Receptor** | Explicit binding that maps a regulator to a neuron's threshold or gain within limits. |
+| **Homeostat** | Metric-driven negative feedback that proposes bounded regulator adjustments. |
+| **Support** | Observes health and emits proposal-only throttle, retry, or quarantine actions. |
+| **Logical Clock** | Deterministic tick phases with no wall-clock authority. |
+| **Plasticity Proposal** | Evidence and rollback-bearing change proposal that is never applied by simulation. |
+| **ActivationScenario** | Synthetic input signals, metrics, and explicit tick/event bounds. |
+| **CompiledConnectome** | Canonical deterministic circuit projection bound to its Brain artifact, not an authority source. |
+| **NeuralTrace** | Immutable simulation evidence containing activations, modulation, support proposals, and stop reason. |
+
+See the [neuroendocrine walkthrough](examples/neuroendocrine-public/README.md) and [runtime reference](docs/reference/neural-runtime.md).

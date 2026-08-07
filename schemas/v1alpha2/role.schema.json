@@ -1,0 +1,165 @@
+{
+  "$defs": {
+    "layers": {
+      "items": {
+        "enum": [
+          "brainstem",
+          "cerebellum",
+          "hippocampus",
+          "amygdala",
+          "cerebral-cortex",
+          "default-mode-network",
+          "prefrontal-cortex"
+        ]
+      },
+      "maxItems": 7,
+      "type": "array",
+      "uniqueItems": true
+    }
+  },
+  "$id": "https://brain-role.dev/schemas/v1alpha2/role.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "apiVersion": {
+      "const": "brain-role.dev/v1alpha2"
+    },
+    "kind": {
+      "const": "RoleManifest"
+    },
+    "metadata": {
+      "additionalProperties": false,
+      "properties": {
+        "classification": {
+          "const": "PUBLIC"
+        },
+        "id": {
+          "pattern": "^[a-z][a-z0-9-]{2,63}$",
+          "type": "string"
+        },
+        "version": {
+          "pattern": "^0\\.1\\.[0-9]+$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "classification"
+      ],
+      "type": "object"
+    },
+    "spec": {
+      "additionalProperties": false,
+      "properties": {
+        "capabilities": {
+          "items": {
+            "pattern": "^[a-z][a-z0-9.-]+$",
+            "type": "string"
+          },
+          "maxItems": 32,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "escalation": {
+          "maxLength": 128,
+          "minLength": 3,
+          "not": {
+            "const": "self"
+          },
+          "type": "string"
+        },
+        "failureMode": {
+          "enum": [
+            "stop",
+            "degrade-readonly",
+            "escalate"
+          ]
+        },
+        "fallbackPolicy": {
+          "maxLength": 256,
+          "minLength": 3,
+          "type": "string"
+        },
+        "forbiddenLayers": {
+          "$ref": "#/$defs/layers"
+        },
+        "inputs": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 32,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "networkPolicy": {
+          "enum": [
+            "deny",
+            "allowlisted"
+          ]
+        },
+        "outputs": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 32,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "owner": {
+          "maxLength": 128,
+          "minLength": 3,
+          "type": "string"
+        },
+        "purpose": {
+          "maxLength": 256,
+          "minLength": 3,
+          "type": "string"
+        },
+        "readLayers": {
+          "$ref": "#/$defs/layers"
+        },
+        "selfEscalation": {
+          "const": false
+        },
+        "stateScope": {
+          "enum": [
+            "none",
+            "instance",
+            "task"
+          ]
+        },
+        "writeLayers": {
+          "$ref": "#/$defs/layers"
+        }
+      },
+      "required": [
+        "purpose",
+        "owner",
+        "inputs",
+        "outputs",
+        "capabilities",
+        "networkPolicy",
+        "readLayers",
+        "writeLayers",
+        "forbiddenLayers",
+        "stateScope",
+        "escalation",
+        "failureMode",
+        "fallbackPolicy",
+        "selfEscalation"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec"
+  ],
+  "title": "Role Manifest",
+  "type": "object"
+}

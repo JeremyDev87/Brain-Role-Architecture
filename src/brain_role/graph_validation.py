@@ -1,15 +1,16 @@
 from __future__ import annotations
 
 from brain_role.errors import ValidationIssue
+from brain_role.layer_contract import contract_for_architecture
 from brain_role.models import InstanceBundle
-
-LAYERS = ("P0", "P1", "P2", "P3", "P4", "P5", "P6")
 
 
 def validate_graph(bundle: InstanceBundle) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
+    contract = contract_for_architecture(bundle.architecture)
+    layers = contract.layers
     actual = set(bundle.layers)
-    expected = set(LAYERS)
+    expected = set(layers)
     for missing in sorted(expected - actual):
         issues.append(ValidationIssue(bundle.architecture_path, "E_LAYER_MISSING", "/layers", f"missing {missing}"))
     for extra in sorted(actual - expected):
@@ -65,18 +66,23 @@ def validate_graph(bundle: InstanceBundle) -> list[ValidationIssue]:
 
     raw_order = bundle.compile_order.get("order", []) if isinstance(bundle.compile_order, dict) else []
     order = [item for item in raw_order if isinstance(item, str)] if isinstance(raw_order, list) else []
-    if len(order) != len(LAYERS) or set(order) != expected:
+    if len(order) != len(layers) or set(order) != expected:
         issues.append(
             ValidationIssue(
                 bundle.compile_order_path or bundle.architecture_path,
                 "E_COMPILE_SET",
                 "/order",
-                "compile order must contain P0-P6 exactly once",
+                "compile order must contain every contract layer exactly once",
             )
         )
-    elif order[0] != "P0":
+    elif order[0] != contract.invariant:
         issues.append(
-            ValidationIssue(bundle.compile_order_path, "E_COMPILE_P0_FIRST", "/order/0", "P0 must compile first")
+            ValidationIssue(
+                bundle.compile_order_path,
+                "E_COMPILE_INVARIANT_FIRST",
+                "/order/0",
+                f"{contract.invariant} must compile first",
+            )
         )
     else:
         position = {layer_id: index for index, layer_id in enumerate(order)}

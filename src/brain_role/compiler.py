@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from brain_role.errors import InputFailure
+from brain_role.layer_contract import contract_for_api_version
 from brain_role.models import Document, InstanceBundle
 from brain_role.output_safety import atomic_write_bytes
 
@@ -27,7 +28,7 @@ def compile_bundle(bundle: InstanceBundle) -> Document:
     metadata_value = bundle.architecture.get("metadata", {})
     metadata: dict[str, Any] = copy.deepcopy(metadata_value) if isinstance(metadata_value, dict) else {}
     document: Document = {
-        "apiVersion": "brain-role.dev/v1alpha1",
+        "apiVersion": str(bundle.architecture.get("apiVersion", "brain-role.dev/v1alpha1")),
         "kind": "CompiledBrainRole",
         "metadata": metadata,
         "compileOrder": order,
@@ -51,13 +52,16 @@ def validate_compiled_bundle(document: Document) -> None:
     layers = document.get("layers")
     roles = document.get("roles")
     policies = document.get("policies")
-    expected_layers = {"P0", "P1", "P2", "P3", "P4", "P5", "P6"}
+    contract = contract_for_api_version(document.get("apiVersion"))
+    if contract is None:
+        raise InputFailure("compiled bundle has an unsupported apiVersion")
+    expected_layers = set(contract.layers)
     if (
         not isinstance(order, list)
         or not all(isinstance(layer, str) for layer in order)
         or len(order) != 7
         or set(order) != expected_layers
-        or order[0] != "P0"
+        or order[0] != contract.invariant
     ):
         raise InputFailure("compiled bundle has an invalid compile order")
     if not isinstance(layers, list):
