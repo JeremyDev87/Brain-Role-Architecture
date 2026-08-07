@@ -1,0 +1,30 @@
+apiVersion: brain-role.dev/v1alpha2
+kind: LayerManifest
+metadata:
+  id: brainstem-layer
+  version: 0.1.0
+  classification: PUBLIC
+spec:
+  layer: brainstem
+  status: active
+  mutability: immutable
+  owner: synthetic-architecture-maintainers
+  classification: PUBLIC
+  responsibilities:
+    - truth-and-non-fabrication
+    - safety-and-security
+    - provenance-and-no-loss
+    - deterministic-transition
+    - deny-higher-layer-override
+  dependencies: []
+  changeControl:
+    approval: out-of-band-new-identity
+    provenance: spec://layers/brainstem
+    rollback: new-identity-only
+    effectiveAt: "2026-07-31T00:00:00Z"
+  brainstemCore:
+    - truth-non-fabrication
+    - safety-security
+    - provenance-no-loss
+    - deterministic-transition
+    - no-higher-layer-override

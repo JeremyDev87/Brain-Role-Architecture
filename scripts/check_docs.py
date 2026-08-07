@@ -24,16 +24,16 @@ LOCALE_LABELS = {
     "README.es.md": "Español",
     "README.ja.md": "日本語",
 }
-P0_ONLY_MARKERS = {
-    "README.md": "P0 is the only absolute invariant",
-    "README.ko.md": "P0만 절대 불변입니다",
-    "README.zh-CN.md": "P0 是唯一的绝对不变量",
-    "README.es.md": "P0 es el único invariante absoluto",
-    "README.ja.md": "絶対不変なのは P0 だけです",
+INVARIANT_MARKERS = {
+    "README.md": "Brainstem is the only absolute invariant",
+    "README.ko.md": "Brainstem만 절대 불변입니다",
+    "README.zh-CN.md": "Brainstem 是唯一的绝对不变量",
+    "README.es.md": "Brainstem es el único invariante absoluto",
+    "README.ja.md": "絶対不変なのは Brainstem だけです",
 }
 LOCALIZED_IMAGE_ALT_MARKERS = {
     "README.md": ("Brain-Role poster:", "Brain-Role structure map", "brain-role CLI flow"),
-    "README.ko.md": ("네 구역과 P0-P6", "Brain-Role 구조도", "brain-role CLI 흐름"),
+    "README.ko.md": ("네 구역과 Brainstem", "Brain-Role 구조도", "brain-role CLI 흐름"),
     "README.zh-CN.md": ("Brain-Role 海报", "Brain-Role 结构图", "brain-role CLI 流程"),
     "README.es.md": ("Póster de Brain-Role", "Mapa estructural de Brain-Role", "Flujo de la CLI brain-role"),
     "README.ja.md": ("Brain-Role ポスター", "Brain-Role 構造図", "brain-role CLI フロー"),
@@ -54,7 +54,7 @@ FORBIDDEN_PRECEDENCE_CLAIMS = (
 )
 README_TOKENS = (
     "PRE_RELEASE",
-    "0.3.0",
+    "0.4.0",
     "SPEC.md",
     "docs/assets/brain-role-meme.png",
     "docs/assets/brain-role-overview.svg",
@@ -64,10 +64,15 @@ README_TOKENS = (
     '{"errors":[],"specVersion":"0.1.0","valid":true}',
     "make verify",
 )
+NEURAL_RUNTIME_TOKENS = (
+    "Functional Neuron", "Synapse", "Regulator", "Receptor", "Homeostat", "Support",
+    "Logical Clock", "Plasticity Proposal", "ActivationScenario", "CompiledConnectome", "NeuralTrace",
+)
+LEGACY_LAYER_PATTERN = re.compile(r"(?<![A-Za-z0-9])[Pp][0-6](?![A-Za-z0-9])|p[0-6]\.(?:md|ya?ml)")
 ASSET_PROVENANCE_TOKENS = (
     "architecture-specific poster",
     "Neural Runtime 0.2.x",
-    "P0-P6 with brain-element names",
+    "seven anatomical responsibility names",
     "Actor/Role plane",
     "Compilation plane",
     "compileOrder",
@@ -116,8 +121,8 @@ def main() -> None:
             failures.append(f"{name}: locale marker drift")
         if f"**{LOCALE_LABELS[name]}**" not in text:
             failures.append(f"{name}: current locale is not emphasized")
-        if P0_ONLY_MARKERS[name] not in text:
-            failures.append(f"{name}: P0-only invariance contract missing")
+        if INVARIANT_MARKERS[name] not in text:
+            failures.append(f"{name}: Brainstem-only invariance contract missing")
         for marker in LOCALIZED_IMAGE_ALT_MARKERS[name]:
             if marker not in text:
                 failures.append(f"{name}: localized image alt text missing {marker}")
@@ -130,6 +135,19 @@ def main() -> None:
         for token in README_TOKENS:
             if token not in text:
                 failures.append(f"{name}: public contract missing {token}")
+        for token in NEURAL_RUNTIME_TOKENS:
+            if token not in text:
+                failures.append(f"{name}: neural runtime role missing {token}")
+        if LEGACY_LAYER_PATTERN.search(text):
+            failures.append(f"{name}: legacy numbered layer terminology is forbidden")
+    current_surfaces = [
+        ROOT / "SPEC.md",
+        *sorted((ROOT / "docs").rglob("*.md")),
+        *sorted((ROOT / "spec").rglob("*.md")),
+    ]
+    for path in current_surfaces:
+        if LEGACY_LAYER_PATTERN.search(path.read_text(encoding="utf-8")):
+            failures.append(f"{path.relative_to(ROOT)}: legacy numbered layer terminology is forbidden")
     provenance = (ROOT / "docs" / "assets" / "README.md").read_text(encoding="utf-8")
     for token in ASSET_PROVENANCE_TOKENS:
         if token not in provenance:

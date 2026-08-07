@@ -1,4 +1,4 @@
-apiVersion: brain-role.dev/v1alpha1
+apiVersion: brain-role.dev/v1alpha2
 kind: RoleManifest
 metadata:
   id: synthetic-observer
@@ -11,9 +11,9 @@ spec:
   outputs: [conformance-summary]
   capabilities: [architecture.read]
   networkPolicy: deny
-  readLayers: [P0, P1, P2, P3, P4, P5, P6]
+  readLayers: [brainstem, cerebellum, hippocampus, amygdala, cerebral-cortex, default-mode-network, prefrontal-cortex]
   writeLayers: []
-  forbiddenLayers: [P0]
+  forbiddenLayers: [brainstem]
   stateScope: none
   escalation: maintainer-review
   failureMode: stop

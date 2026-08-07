@@ -1,0 +1,42 @@
+{
+  "$id": "https://brain-role.dev/schemas/v1alpha2/compile-order.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "apiVersion": {
+      "const": "brain-role.dev/v1alpha2"
+    },
+    "kind": {
+      "const": "CompileOrder"
+    },
+    "order": {
+      "items": {
+        "enum": [
+          "brainstem",
+          "cerebellum",
+          "hippocampus",
+          "amygdala",
+          "cerebral-cortex",
+          "default-mode-network",
+          "prefrontal-cortex"
+        ]
+      },
+      "maxItems": 7,
+      "minItems": 7,
+      "prefixItems": [
+        {
+          "const": "brainstem"
+        }
+      ],
+      "type": "array",
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "order"
+  ],
+  "title": "Compile Order",
+  "type": "object"
+}

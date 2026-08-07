@@ -5,11 +5,11 @@ from datetime import datetime
 from typing import Any
 
 from brain_role.errors import ValidationIssue
-from brain_role.graph_validation import LAYERS
+from brain_role.layer_contract import contract_for_architecture
 from brain_role.models import InstanceBundle
 from brain_role.public_boundary import inspect_text, is_allowed_reference, is_sensitive_key
 
-P0_CORE = {
+INVARIANT_CORE = {
     "truth-non-fabrication",
     "safety-security",
     "provenance-no-loss",
@@ -49,29 +49,62 @@ def _string_set(value: Any) -> set[str]:
 
 def validate_policy(bundle: InstanceBundle) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
-    p0 = bundle.layers.get("P0")
-    if p0 is not None:
-        spec = _spec(p0)
-        path = bundle.layer_paths["P0"]
+    contract = contract_for_architecture(bundle.architecture)
+    invariant = bundle.layers.get(contract.invariant)
+    if invariant is not None:
+        spec = _spec(invariant)
+        path = bundle.layer_paths[contract.invariant]
+        legacy = contract.api_version.endswith("v1alpha1")
         if spec.get("status") != "active" or spec.get("mutability") != "immutable":
-            issues.append(ValidationIssue(path, "E_P0_IMMUTABLE", "/spec", "P0 must be active and immutable"))
-        core = spec.get("p0Core", [])
-        if not isinstance(core, list) or len(core) != len(P0_CORE) or _string_set(core) != P0_CORE:
-            issues.append(ValidationIssue(path, "E_P0_CORE", "/spec/p0Core", "P0 minimum core is incomplete"))
+            issues.append(
+                ValidationIssue(
+                    path,
+                    "E_P0_IMMUTABLE" if legacy else "E_INVARIANT_IMMUTABLE",
+                    "/spec",
+                    f"{contract.invariant} must be active and immutable",
+                )
+            )
+        core = spec.get(contract.core_field, [])
+        if not isinstance(core, list) or len(core) != len(INVARIANT_CORE) or _string_set(core) != INVARIANT_CORE:
+            issues.append(
+                ValidationIssue(
+                    path,
+                    "E_P0_CORE" if legacy else "E_INVARIANT_CORE",
+                    f"/spec/{contract.core_field}",
+                    f"{contract.core_error_prefix} minimum core is incomplete",
+                )
+            )
         if spec.get("dependencies") != []:
             issues.append(
-                ValidationIssue(path, "E_P0_DEPENDENCY", "/spec/dependencies", "P0 cannot depend on another layer")
+                ValidationIssue(
+                    path,
+                    "E_P0_DEPENDENCY" if legacy else "E_INVARIANT_DEPENDENCY",
+                    "/spec/dependencies",
+                    f"{contract.invariant} cannot depend on another layer",
+                )
             )
 
     for layer_id, document in bundle.layers.items():
         spec = _spec(document)
         path = bundle.layer_paths[layer_id]
-        if layer_id != "P0" and spec.get("mutability") != "controlled":
+        if layer_id != contract.invariant and spec.get("mutability") != "controlled":
             issues.append(
-                ValidationIssue(path, "E_LAYER_MUTABILITY", "/spec/mutability", "P1-P6 must use controlled mutability")
+                ValidationIssue(
+                    path,
+                    "E_LAYER_MUTABILITY",
+                    "/spec/mutability",
+                    "non-invariant layers must use controlled mutability",
+                )
             )
-        if spec.get("status") == "reserved" and layer_id not in {"P1", "P3"}:
-            issues.append(ValidationIssue(path, "E_RESERVED_LAYER", "/spec/status", "only P1 and P3 may be reserved"))
+        if spec.get("status") == "reserved" and layer_id not in contract.reserved:
+            issues.append(
+                ValidationIssue(
+                    path,
+                    "E_RESERVED_LAYER",
+                    "/spec/status",
+                    "only contract-designated layers may be reserved",
+                )
+            )
         change = spec.get("changeControl", {})
         if isinstance(change, dict):
             effective = change.get("effectiveAt")
@@ -94,8 +127,9 @@ def validate_policy(bundle: InstanceBundle) -> list[ValidationIssue]:
         spec = _spec(role)
         writes = _string_set(spec.get("writeLayers"))
         forbidden = _string_set(spec.get("forbiddenLayers"))
-        if "P0" in writes:
-            issues.append(ValidationIssue(path, "E_ROLE_P0_WRITE", "/spec/writeLayers", "roles cannot write P0"))
+        if contract.invariant in writes:
+            code = "E_ROLE_P0_WRITE" if contract.api_version.endswith("v1alpha1") else "E_ROLE_INVARIANT_WRITE"
+            issues.append(ValidationIssue(path, code, "/spec/writeLayers", f"roles cannot write {contract.invariant}"))
         if writes & forbidden:
             issues.append(
                 ValidationIssue(path, "E_ROLE_PERMISSION_CONFLICT", "/spec", "write and forbidden layers overlap")
@@ -110,16 +144,22 @@ def validate_policy(bundle: InstanceBundle) -> list[ValidationIssue]:
             issues.append(
                 ValidationIssue(path, "E_ROLE_SELF_ESCALATION", "/spec/escalation", "self-escalation is forbidden")
             )
-        unknown = (writes | forbidden | _string_set(spec.get("readLayers"))) - set(LAYERS)
+        unknown = (writes | forbidden | _string_set(spec.get("readLayers"))) - set(contract.layers)
         if unknown:
             issues.append(ValidationIssue(path, "E_ROLE_LAYER_UNKNOWN", "/spec", "role references an unknown layer"))
 
     if not any(
-        _spec(policy).get("denySelfEscalation") is True and "P0" in _string_set(_spec(policy).get("denyRoleWrites"))
+        _spec(policy).get("denySelfEscalation") is True
+        and contract.invariant in _string_set(_spec(policy).get("denyRoleWrites"))
         for _, policy in bundle.policies
     ):
         issues.append(
-            ValidationIssue(bundle.architecture_path, "E_POLICY_P0", "/policies", "a P0 protection policy is required")
+            ValidationIssue(
+                bundle.architecture_path,
+                "E_POLICY_INVARIANT",
+                "/policies",
+                f"a {contract.invariant} protection policy is required",
+            )
         )
 
     documents = [

@@ -10,6 +10,11 @@ import yaml
 
 @pytest.fixture
 def example_root() -> Path:
+    return Path(__file__).resolve().parent / "fixtures" / "legacy-v1alpha1" / "minimal-public"
+
+
+@pytest.fixture
+def anatomical_example_root() -> Path:
     return Path(__file__).resolve().parents[1] / "examples" / "minimal-public"
 
 

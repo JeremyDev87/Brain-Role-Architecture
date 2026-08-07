@@ -1,4 +1,4 @@
-# 0.3.0 release-readiness checklist
+# 0.4.0 release-readiness checklist
 
 `make verify` is the single local release-readiness gate for the current command surface. It runs source-bound
 lint, type checks, tests, specification/schema synchronization, public-boundary and documentation checks,

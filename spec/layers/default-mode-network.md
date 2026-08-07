@@ -1,4 +1,4 @@
-# P5 — Ego
+# Default Mode Network — Ego
 
 Persona, tone, and communication. Controlled mutable and behavior-only; it cannot increase authority or
-weaken P0. Locale and accessibility are explicit contracts.
+weaken Brainstem. Locale and accessibility are explicit contracts.

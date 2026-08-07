@@ -1,0 +1,113 @@
+{
+  "$id": "https://brain-role.dev/schemas/v1alpha2/neural-architecture.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "apiVersion": {
+      "const": "brain-role.dev/v1alpha2"
+    },
+    "brainRole": {
+      "pattern": "^[A-Za-z0-9._/-]+\\.ya?ml$",
+      "type": "string"
+    },
+    "clocks": {
+      "items": {
+        "pattern": "^[A-Za-z0-9._/-]+\\.ya?ml$",
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "homeostats": {
+      "items": {
+        "pattern": "^[A-Za-z0-9._/-]+\\.ya?ml$",
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "kind": {
+      "const": "NeuralArchitecture"
+    },
+    "metadata": {
+      "additionalProperties": false,
+      "properties": {
+        "classification": {
+          "const": "PUBLIC"
+        },
+        "id": {
+          "pattern": "^[a-z][a-z0-9-]{0,63}$",
+          "type": "string"
+        },
+        "version": {
+          "pattern": "^0\\.2\\.[0-9]+$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "classification"
+      ],
+      "type": "object"
+    },
+    "neurons": {
+      "items": {
+        "pattern": "^[A-Za-z0-9._/-]+\\.ya?ml$",
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "plasticityProposals": {
+      "items": {
+        "pattern": "^[A-Za-z0-9._/-]+\\.ya?ml$",
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "receptors": {
+      "items": {
+        "pattern": "^[A-Za-z0-9._/-]+\\.ya?ml$",
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "regulators": {
+      "items": {
+        "pattern": "^[A-Za-z0-9._/-]+\\.ya?ml$",
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "supports": {
+      "items": {
+        "pattern": "^[A-Za-z0-9._/-]+\\.ya?ml$",
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "synapses": {
+      "items": {
+        "pattern": "^[A-Za-z0-9._/-]+\\.ya?ml$",
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "brainRole",
+    "neurons",
+    "synapses"
+  ],
+  "type": "object"
+}

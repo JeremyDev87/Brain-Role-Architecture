@@ -1,4 +1,4 @@
-apiVersion: brain-role.dev/v1alpha1
+apiVersion: brain-role.dev/v1alpha2
 kind: ReceptorBinding
 metadata:
   id: planner-pressure-receptor

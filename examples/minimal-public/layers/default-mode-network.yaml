@@ -1,0 +1,20 @@
+apiVersion: brain-role.dev/v1alpha2
+kind: LayerManifest
+metadata:
+  id: default-mode-network-layer
+  version: 0.1.0
+  classification: PUBLIC
+spec:
+  layer: default-mode-network
+  status: active
+  mutability: controlled
+  owner: synthetic-architecture-maintainers
+  classification: PUBLIC
+  responsibilities:
+    - accessible-public-communication
+  dependencies: [brainstem, hippocampus, cerebral-cortex]
+  changeControl:
+    approval: maintainer-review
+    provenance: spec://layers/default-mode-network
+    rollback: restore-prior-reviewed-manifest
+    effectiveAt: "2026-07-31T00:00:00Z"

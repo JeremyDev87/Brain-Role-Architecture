@@ -1,0 +1,26 @@
+apiVersion: brain-role.dev/v1alpha1
+kind: NeuralArchitecture
+metadata:
+  id: synthetic-neuroendocrine-circuit
+  version: 0.2.0
+  classification: PUBLIC
+brainRole: architecture.yaml
+neurons:
+- neural/neuron-reviewer.yaml
+- neural/neuron-planner.yaml
+- neural/neuron-sensory.yaml
+synapses:
+- neural/synapse-1.yaml
+- neural/synapse-0.yaml
+regulators:
+- neural/regulator-pressure.yaml
+receptors:
+- neural/receptor-planner.yaml
+homeostats:
+- neural/homeostat-queue.yaml
+supports:
+- neural/support-observer.yaml
+clocks:
+- neural/clock-cycle.yaml
+plasticityProposals:
+- neural/plasticity-proposal.yaml

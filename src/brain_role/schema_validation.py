@@ -9,6 +9,7 @@ from typing import Any, cast
 from jsonschema import Draft202012Validator, FormatChecker
 
 from brain_role.errors import ValidationIssue
+from brain_role.layer_contract import contract_for_api_version
 from brain_role.public_boundary import inspect_text
 
 _SCHEMA_BY_KIND = {
@@ -43,14 +44,14 @@ def _pointer(parts: Any) -> str:
 
 
 @cache
-def load_schema(name: str) -> dict[str, Any]:
-    package_candidate = resources.files("brain_role").joinpath("schemas", "v1alpha1", name)
+def load_schema(name: str, version: str = "v1alpha1") -> dict[str, Any]:
+    package_candidate = resources.files("brain_role").joinpath("schemas", version, name)
     if package_candidate.is_file():
         return cast(
             dict[str, Any],
             json.loads(package_candidate.read_text(encoding="utf-8")),
         )
-    source_candidate = Path(__file__).resolve().parents[2] / "schemas" / "v1alpha1" / name
+    source_candidate = Path(__file__).resolve().parents[2] / "schemas" / version / name
     return cast(
         dict[str, Any],
         json.loads(source_candidate.read_text(encoding="utf-8")),
@@ -58,13 +59,18 @@ def load_schema(name: str) -> dict[str, Any]:
 
 
 def validate_document(document: dict[str, Any], path: str) -> list[ValidationIssue]:
+    api_version = document.get("apiVersion")
+    contract = contract_for_api_version(api_version)
+    if contract is None:
+        return [ValidationIssue(path, "E_API_VERSION", "/apiVersion", "unsupported apiVersion")]
     kind = document.get("kind")
     if not isinstance(kind, str):
         return [ValidationIssue(path, "E_KIND", "/kind", "unsupported document kind")]
     schema_name = _SCHEMA_BY_KIND.get(kind)
     if schema_name is None:
         return [ValidationIssue(path, "E_KIND", "/kind", "unsupported document kind")]
-    validator = Draft202012Validator(load_schema(schema_name), format_checker=FormatChecker())
+    version = contract.api_version.rsplit("/", 1)[-1]
+    validator = Draft202012Validator(load_schema(schema_name, version), format_checker=FormatChecker())
     issues = [
         ValidationIssue(
             path,

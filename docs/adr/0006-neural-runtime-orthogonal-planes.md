@@ -4,7 +4,7 @@ Status: accepted for the 0.2.0 PRE_RELEASE source candidate.
 
 ## Decision
 
-Keep P0-P6 as the only governance plane. Add a separate neural fast path, receptor-bounded regulatory plane,
+Keep Brainstem through Prefrontal Cortex as the only governance plane. Add a separate neural fast path, receptor-bounded regulatory plane,
 homeostatic feedback plane, support plane, logical clock, and proposal-only plasticity control plane.
 `NeuralArchitecture` references but does not extend `BrainArchitecture`; `CompiledConnectome` binds the
 canonical governance bundle by SHA-256 and carries no new permission.

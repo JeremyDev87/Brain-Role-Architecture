@@ -1,4 +1,4 @@
-# P1 — Cerebellum
+# Cerebellum — Cerebellum
 
 Repeatable automation and scheduled behavior. Controlled mutable; may be reserved. Active instances
 declare deterministic triggers, idempotency, owner, approval, provenance, rollback, and effective time.

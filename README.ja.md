@@ -8,15 +8,15 @@
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB.svg)](pyproject.toml)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-D22128.svg)](LICENSE)
 
-**PRE_RELEASE · ソース候補 0.3.0 · 未公開**
+**PRE_RELEASE · ソース候補 0.4.0 · 未公開**
 
 Brain-Role Architecture は、AI エージェントの不変条件、永続状態、リスク、ワークフロー、
 ペルソナ、目標を、責任と実行順序を混同せずに統制するための検証可能なロール指向アーキテクチャです。
 
-> **どれだけ書き換えても残る一つの規則:** 絶対不変なのは P0 だけです。P1-P6 は、明示的な所有者、
+> **どれだけ書き換えても残る一つの規則:** 絶対不変なのは Brainstem だけです。Cerebellum through Prefrontal Cortex は、明示的な所有者、
 > 承認、来歴、ロールバック、発効時刻の契約を通じてのみ変更できます。
 
-![直交する Neural 領域、P0-P6 の Brain プレーン、Actor/Role と Compilation の各プレーンを示す Brain-Role ポスター](docs/assets/brain-role-meme.png)
+![直交する Neural 領域、Brainstem through Prefrontal Cortex の Brain プレーン、Actor/Role と Compilation の各プレーンを示す Brain-Role ポスター](docs/assets/brain-role-meme.png)
 
 *責任・能力・決定論的ビルド・直交モジュレーションを四つの視覚領域に分けます。*
 
@@ -30,34 +30,34 @@ Brain-Role Architecture は、AI エージェントの不変条件、永続状�
 この README はプロジェクトを説明する文書です。規範的な契約は [SPEC.md](SPEC.md) が保持し、
 すべての説明文書より優先されます。
 
-## 責任トポロジー: P0-P6
+## 責任トポロジー: Brainstem through Prefrontal Cortex
 
 | レイヤー | 責任 | 変更契約 |
 | --- | --- | --- |
-| **P0** | 真実性/非捏造、安全/セキュリティ、来歴/無損失、決定論的遷移 | **絶対不変。** 上位レイヤーやロールは上書きできません。 |
-| **P1** | 反復可能な自動化とスケジュール | 統制された変更対象。予約レイヤーにできます。 |
-| **P2** | 永続状態とメモリ | 明示的な所有者と来歴の下で統制されます。 |
-| **P3** | リスクと競合のレジストリ | 統制された変更対象。予約レイヤーにできます。 |
-| **P4** | ワークフローとオーケストレーション | レビューとロールバックが可能な統制レイヤーです。 |
-| **P5** | ペルソナとコミュニケーション動作 | 明示的な変更統制メタデータの下で管理されます。 |
-| **P6** | 目標と方向性 | 明示的な変更統制メタデータの下で管理されます。 |
+| **Brainstem** | 真実性/非捏造、安全/セキュリティ、来歴/無損失、決定論的遷移 | **絶対不変。** 上位レイヤーやロールは上書きできません。 |
+| **Cerebellum** | 反復可能な自動化とスケジュール | 統制された変更対象。予約レイヤーにできます。 |
+| **Hippocampus** | 永続状態とメモリ | 明示的な所有者と来歴の下で統制されます。 |
+| **Amygdala** | リスクと競合のレジストリ | 統制された変更対象。予約レイヤーにできます。 |
+| **Cerebral Cortex** | ワークフローとオーケストレーション | レビューとロールバックが可能な統制レイヤーです。 |
+| **Default Mode Network** | ペルソナとコミュニケーション動作 | 明示的な変更統制メタデータの下で管理されます。 |
+| **Prefrontal Cortex** | 目標と方向性 | 明示的な変更統制メタデータの下で管理されます。 |
 
-P 番号が表すのは **責任と権限** であり、ランタイムの実行順序やコンパイル順序ではありません。
+解剖学的な名称が表すのは **責任と権限** であり、ランタイムの実行順序やコンパイル順序ではありません。
 
 ## 独立した三つのプレーン
 
 1. **Brain プレーン** — 責任、権限、変更規則
 2. **Actor/Role プレーン** — 能力、入出力、権限、状態スコープ、エスカレーション
-3. **Compilation プレーン** — P 番号から独立した、明示的な依存 DAG とコンパイル順序
+3. **Compilation プレーン** — 解剖学的な責任名から独立した、明示的な依存 DAG とコンパイル順序
 
 ロールが先または後に実行されるという理由だけで権限を得ないよう、この三つを分離します。
 [三つのプレーンの解説](docs/explanation/three-planes.md)も参照してください。
 
 ## アーキテクチャの全体像
 
-![P0-P6、Actor/Role、Compilation DAG、Neural 回路を分離した Brain-Role 構造図](docs/assets/brain-role-overview.svg)
+![Brainstem through Prefrontal Cortex、Actor/Role、Compilation DAG、Neural 回路を分離した Brain-Role 構造図](docs/assets/brain-role-overview.svg)
 
-*アイコンは P0-P6 をパイプライン化せず、責任・能力・ビルド順序・モジュレーションを示します。*
+*アイコンは Brainstem through Prefrontal Cortex をパイプライン化せず、責任・能力・ビルド順序・モジュレーションを示します。*
 
 ## 含まれるもの
 
@@ -134,7 +134,7 @@ source path、credential、runtime activation 情報を追加しません。
 
 ## プロジェクトの状態
 
-`0.3.0` は実験的なソース候補です。レジストリパッケージ、Git tag、GitHub Release、デプロイとして
+`0.4.0` は実験的なソース候補です。レジストリパッケージ、Git tag、GitHub Release、デプロイとして
 表明されていません。仕様がプレリリースの間は互換性が変わる可能性があります。
 [CHANGELOG.md](CHANGELOG.md)を参照してください。
 
@@ -153,3 +153,21 @@ make verify
 activation、リポジトリ可視性の変更を許可しません。これらはそれぞれ所有者が別途決定します。
 
 Apache-2.0 でライセンスされています。[LICENSE](LICENSE) と [NOTICE](NOTICE)を参照してください。
+
+## Neural Runtime の要素
+
+Neural Runtime は直交する実行・証拠プレーンであり、Brain や Role の権限を生成しません。
+
+| 要素 | 役割 |
+| --- | --- |
+| **Functional Neuron** | 型付きポートと明示的なしきい値を持つ能力結合プロセッサです。 |
+| **Synapse** | 興奮/抑制、強度、論理遅延を持つ型付き接続です。 |
+| **Regulator** | 減衰と TTL を持つ制限値で、Receptor なしでは作用しません。 |
+| **Receptor** | Regulator を Neuron のしきい値または gain に制限付きで結合します。 |
+| **Homeostat** | メトリクスを目標範囲へ戻す負帰還です。 |
+| **Support** | 状態を観察し throttle・retry・quarantine を提案するだけです。 |
+| **Logical Clock** | wall-clock 権限を持たない決定論的 tick phase です。 |
+| **Plasticity Proposal** | 証拠と rollback を持ち、simulation が適用しない変更案です。 |
+| **ActivationScenario** | 合成信号、メトリクス、tick/event 上限を宣言します。 |
+| **CompiledConnectome** | 決定論的な回路投影であり、権限源ではありません。 |
+| **NeuralTrace** | 活性化、調節、提案、停止理由を持つ不変実行証拠です。 |

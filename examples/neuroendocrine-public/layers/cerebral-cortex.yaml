@@ -1,0 +1,20 @@
+apiVersion: brain-role.dev/v1alpha2
+kind: LayerManifest
+metadata:
+  id: cerebral-cortex-layer
+  version: 0.1.0
+  classification: PUBLIC
+spec:
+  layer: cerebral-cortex
+  status: active
+  mutability: controlled
+  owner: synthetic-architecture-maintainers
+  classification: PUBLIC
+  responsibilities:
+    - deterministic-workflow-orchestration
+  dependencies: [brainstem, hippocampus]
+  changeControl:
+    approval: maintainer-review
+    provenance: spec://layers/cerebral-cortex
+    rollback: restore-prior-reviewed-manifest
+    effectiveAt: "2026-07-31T00:00:00Z"

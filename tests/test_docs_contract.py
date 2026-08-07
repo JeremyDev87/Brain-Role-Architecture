@@ -34,12 +34,12 @@ LOCALE_LABELS = {
     "README.es.md": "Español",
     "README.ja.md": "日本語",
 }
-P0_ONLY_MARKERS = {
-    "README.md": "P0 is the only absolute invariant",
-    "README.ko.md": "P0만 절대 불변입니다",
-    "README.zh-CN.md": "P0 是唯一的绝对不变量",
-    "README.es.md": "P0 es el único invariante absoluto",
-    "README.ja.md": "絶対不変なのは P0 だけです",
+INVARIANT_MARKERS = {
+    "README.md": "Brainstem is the only absolute invariant",
+    "README.ko.md": "Brainstem만 절대 불변입니다",
+    "README.zh-CN.md": "Brainstem 是唯一的绝对不变量",
+    "README.es.md": "Brainstem es el único invariante absoluto",
+    "README.ja.md": "絶対不変なのは Brainstem だけです",
 }
 FORBIDDEN_PRECEDENCE_CLAIMS = (
     "cannot weaken lower-layer contracts",
@@ -64,7 +64,7 @@ def test_all_localized_readmes_share_the_public_contract() -> None:
         text = (ROOT / name).read_text(encoding="utf-8")
         assert text.startswith(LOCALE_MARKER)
         assert f"**{LOCALE_LABELS[name]}**" in text
-        assert P0_ONLY_MARKERS[name] in text
+        assert INVARIANT_MARKERS[name] in text
         assert all(marker in text for marker in check_docs.LOCALIZED_IMAGE_ALT_MARKERS[name])
         assert all(claim not in text for claim in FORBIDDEN_PRECEDENCE_CLAIMS)
         for other in README_NAMES:
@@ -78,12 +78,14 @@ def test_all_localized_readmes_share_the_public_contract() -> None:
         assert "uv run brain-role compile" in text
         assert EXPECTED_JSON in text
         assert "make verify" in text
+        assert all(token in text for token in check_docs.NEURAL_RUNTIME_TOKENS)
+        assert check_docs.LEGACY_LAYER_PATTERN.search(text) is None
 
 
 def test_meme_is_a_real_landscape_png() -> None:
     payload = MEME_PATH.read_bytes()
     assert payload.startswith(b"\x89PNG\r\n\x1a\n")
-    assert hashlib.sha256(payload).hexdigest() == "b0f01c565ac7493a1e31a4cf70d60a4d5d5a24218963972be65119acd102b6f4"
+    assert hashlib.sha256(payload).hexdigest() == "4fcc65d3d27bfaf6840a4b49533b606c12009a013ef031f20a3e96c686cb2322"
     width, height = struct.unpack(">II", payload[16:24])
     assert width >= 1200
     assert height >= 675
@@ -91,7 +93,7 @@ def test_meme_is_a_real_landscape_png() -> None:
 
     provenance = (ROOT / "docs" / "assets" / "README.md").read_text(encoding="utf-8")
     assert "Brain-Role Architecture" in provenance or "Brain plane" in provenance
-    assert "P0" in provenance and "Brainstem" in provenance
+    assert "Brainstem" in provenance and "Default Mode Network" in provenance
     assert "Neural Runtime" in provenance
     assert "Actor/Role" in provenance or "Actor / Role" in provenance
     assert "Compilation" in provenance

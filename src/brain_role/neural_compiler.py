@@ -91,7 +91,7 @@ def compile_connectome(bundle: NeuralBundle) -> Document:
     architecture_metadata = bundle.brain_role.architecture.get("metadata", {})
     architecture_id = str(architecture_metadata.get("id", "")) if isinstance(architecture_metadata, dict) else ""
     document: Document = {
-        "apiVersion": "brain-role.dev/v1alpha1",
+        "apiVersion": str(bundle.architecture.get("apiVersion", "brain-role.dev/v1alpha1")),
         "kind": "CompiledConnectome",
         "metadata": metadata,
         "brainRole": {

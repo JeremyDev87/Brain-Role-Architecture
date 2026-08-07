@@ -2,11 +2,11 @@ requirements:
   REQ-ARCH-001: tests/test_schema.py::test_valid_example_conforms
   REQ-ARCH-002: tests/test_loader_boundaries.py::test_nonlocal_references_are_rejected
   REQ-ARCH-003: tests/test_schema.py::test_unknown_property_fails_closed
-  REQ-P0-001: tests/test_conformance_cases.py::test_declared_invalid_cases
-  REQ-P0-002: tests/test_conformance_cases.py::test_declared_invalid_cases
-  REQ-P0-003: tests/test_policy.py::test_role_cannot_write_p0
-  REQ-P0-004: tests/test_policy.py::test_role_cannot_write_p0
-  REQ-P0-005: tests/test_schema.py::test_valid_example_conforms
+  REQ-BRAINSTEM-001: tests/test_conformance_cases.py::test_declared_invalid_cases
+  REQ-BRAINSTEM-002: tests/test_conformance_cases.py::test_declared_invalid_cases
+  REQ-BRAINSTEM-003: tests/test_policy.py::test_role_cannot_write_p0
+  REQ-BRAINSTEM-004: tests/test_policy.py::test_role_cannot_write_p0
+  REQ-BRAINSTEM-005: tests/test_schema.py::test_valid_example_conforms
   REQ-LAYER-001: tests/test_schema.py::test_standalone_schema_rejects_mutable_p0
   REQ-LAYER-002: tests/test_schema.py::test_valid_example_conforms
   REQ-LAYER-003: tests/test_schema.py::test_valid_example_conforms

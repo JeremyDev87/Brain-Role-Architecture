@@ -1,19 +1,19 @@
-apiVersion: brain-role.dev/v1alpha1
+apiVersion: brain-role.dev/v1alpha2
 kind: RoleManifest
 metadata:
   id: synthetic-operator
   version: 0.1.0
   classification: PUBLIC
 spec:
-  purpose: Execute bounded synthetic workflows under P0 constraints.
+  purpose: Execute bounded synthetic workflows under brainstem constraints.
   owner: synthetic-architecture-maintainers
   inputs: [approved-goal, validated-state]
   outputs: [provenanced-result]
   capabilities: [state.propose, workflow.execute]
   networkPolicy: deny
-  readLayers: [P0, P2, P4, P6]
-  writeLayers: [P2, P4, P6]
-  forbiddenLayers: [P0, P1, P3, P5]
+  readLayers: [brainstem, hippocampus, cerebral-cortex, prefrontal-cortex]
+  writeLayers: [hippocampus, cerebral-cortex, prefrontal-cortex]
+  forbiddenLayers: [brainstem, cerebellum, amygdala, default-mode-network]
   stateScope: task
   escalation: maintainer-review
   failureMode: stop

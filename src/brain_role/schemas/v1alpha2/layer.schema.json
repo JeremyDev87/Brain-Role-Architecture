@@ -1,0 +1,271 @@
+{
+  "$id": "https://brain-role.dev/schemas/v1alpha2/layer.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "else": {
+        "properties": {
+          "spec": {
+            "properties": {
+              "mutability": {
+                "const": "controlled"
+              }
+            }
+          }
+        }
+      },
+      "if": {
+        "properties": {
+          "spec": {
+            "properties": {
+              "layer": {
+                "const": "brainstem"
+              }
+            },
+            "required": [
+              "layer"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "spec": {
+            "properties": {
+              "dependencies": {
+                "maxItems": 0
+              },
+              "mutability": {
+                "const": "immutable"
+              },
+              "brainstemCore": {
+                "maxItems": 5,
+                "minItems": 5
+              },
+              "status": {
+                "const": "active"
+              }
+            },
+            "required": [
+              "brainstemCore"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "spec": {
+            "properties": {
+              "layer": {
+                "not": {
+                  "enum": [
+                    "cerebellum",
+                    "amygdala"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "layer"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "spec": {
+            "properties": {
+              "status": {
+                "const": "active"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "spec": {
+            "properties": {
+              "status": {
+                "const": "reserved"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "spec": {
+            "properties": {
+              "responsibilities": {
+                "maxItems": 0
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "properties": {
+    "apiVersion": {
+      "const": "brain-role.dev/v1alpha2"
+    },
+    "kind": {
+      "const": "LayerManifest"
+    },
+    "metadata": {
+      "additionalProperties": false,
+      "properties": {
+        "classification": {
+          "const": "PUBLIC"
+        },
+        "id": {
+          "pattern": "^[a-z][a-z0-9-]{2,63}$",
+          "type": "string"
+        },
+        "version": {
+          "pattern": "^0\\.1\\.[0-9]+$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "classification"
+      ],
+      "type": "object"
+    },
+    "spec": {
+      "additionalProperties": false,
+      "properties": {
+        "changeControl": {
+          "additionalProperties": false,
+          "properties": {
+            "approval": {
+              "maxLength": 128,
+              "minLength": 3,
+              "type": "string"
+            },
+            "effectiveAt": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "provenance": {
+              "pattern": "^(spec|synthetic|owner)://[A-Za-z0-9._/-]+$",
+              "type": "string"
+            },
+            "rollback": {
+              "maxLength": 256,
+              "minLength": 3,
+              "type": "string"
+            }
+          },
+          "required": [
+            "approval",
+            "provenance",
+            "rollback",
+            "effectiveAt"
+          ],
+          "type": "object"
+        },
+        "classification": {
+          "const": "PUBLIC"
+        },
+        "dependencies": {
+          "items": {
+            "enum": [
+              "brainstem",
+              "cerebellum",
+              "hippocampus",
+              "amygdala",
+              "cerebral-cortex",
+              "default-mode-network",
+              "prefrontal-cortex"
+            ]
+          },
+          "maxItems": 6,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "layer": {
+          "enum": [
+            "brainstem",
+            "cerebellum",
+            "hippocampus",
+            "amygdala",
+            "cerebral-cortex",
+            "default-mode-network",
+            "prefrontal-cortex"
+          ]
+        },
+        "mutability": {
+          "enum": [
+            "immutable",
+            "controlled"
+          ]
+        },
+        "owner": {
+          "maxLength": 128,
+          "minLength": 3,
+          "type": "string"
+        },
+        "brainstemCore": {
+          "items": {
+            "enum": [
+              "truth-non-fabrication",
+              "safety-security",
+              "provenance-no-loss",
+              "deterministic-transition",
+              "no-higher-layer-override"
+            ]
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "responsibilities": {
+          "items": {
+            "maxLength": 160,
+            "minLength": 3,
+            "type": "string"
+          },
+          "maxItems": 32,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "status": {
+          "enum": [
+            "active",
+            "reserved"
+          ]
+        }
+      },
+      "required": [
+        "layer",
+        "status",
+        "mutability",
+        "owner",
+        "classification",
+        "responsibilities",
+        "dependencies",
+        "changeControl"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec"
+  ],
+  "title": "Layer Manifest",
+  "type": "object"
+}

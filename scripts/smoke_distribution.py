@@ -128,7 +128,7 @@ def main() -> None:
             temp_path,
             env,
         )
-        if version.returncode != 0 or version.stdout != "brain-role 0.3.0\n":
+        if version.returncode != 0 or version.stdout != "brain-role 0.4.0\n":
             raise SystemExit("DIST_SMOKE_FAIL installed console version surface")
         if validate.returncode != 0 or '"valid":true' not in validate.stdout:
             raise SystemExit("DIST_SMOKE_FAIL installed console validation surface")

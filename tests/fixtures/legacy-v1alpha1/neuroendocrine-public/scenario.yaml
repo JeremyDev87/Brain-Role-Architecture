@@ -1,0 +1,34 @@
+apiVersion: brain-role.dev/v1alpha1
+kind: ActivationScenario
+metadata:
+  id: bounded-pressure-scenario
+  version: 0.2.0
+  classification: PUBLIC
+spec:
+  maxTicks: 6
+  maxEvents: 100
+  signals:
+  - tick: 0
+    targetNeuron: sensory
+    targetPort: request
+    signalType: task.request/v1
+    amplitude: 1.0
+    payloadRef: synthetic-task-1
+    correlationId: corr-1
+  - tick: 2
+    targetNeuron: planner
+    targetPort: signalIn
+    signalType: task.request/v1
+    amplitude: 1.0
+    payloadRef: synthetic-task-2
+    correlationId: corr-2
+  metrics:
+  - tick: 0
+    name: queueDepth
+    value: 10.0
+  - tick: 1
+    name: queueDepth
+    value: 10.0
+  - tick: 2
+    name: queueDepth
+    value: 0.0

@@ -1,0 +1,15 @@
+apiVersion: brain-role.dev/v1alpha1
+kind: HomeostatManifest
+metadata:
+  id: queue-controller
+  version: 0.2.0
+  classification: PUBLIC
+spec:
+  metric: queueDepth
+  targetRange:
+    min: 0.0
+    max: 5.0
+  regulatorRef: resource-pressure
+  belowLevel: 0.0
+  normalLevel: 0.0
+  aboveLevel: 1.0

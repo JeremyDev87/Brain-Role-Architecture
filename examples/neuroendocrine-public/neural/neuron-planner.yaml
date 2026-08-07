@@ -1,11 +1,11 @@
-apiVersion: brain-role.dev/v1alpha1
+apiVersion: brain-role.dev/v1alpha2
 kind: NeuronManifest
 metadata:
   id: planner
   version: 0.2.0
   classification: PUBLIC
 spec:
-  layer: P4
+  layer: cerebral-cortex
   roleRef: synthetic-operator
   capabilityRef: workflow.execute
   inputPorts:

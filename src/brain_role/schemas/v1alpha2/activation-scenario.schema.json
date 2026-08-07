@@ -1,0 +1,138 @@
+{
+  "$id": "https://brain-role.dev/schemas/v1alpha2/activation-scenario.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "apiVersion": {
+      "const": "brain-role.dev/v1alpha2"
+    },
+    "kind": {
+      "const": "ActivationScenario"
+    },
+    "metadata": {
+      "additionalProperties": false,
+      "properties": {
+        "classification": {
+          "const": "PUBLIC"
+        },
+        "id": {
+          "pattern": "^[a-z][a-z0-9-]{0,63}$",
+          "type": "string"
+        },
+        "version": {
+          "pattern": "^0\\.2\\.[0-9]+$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "classification"
+      ],
+      "type": "object"
+    },
+    "spec": {
+      "additionalProperties": false,
+      "properties": {
+        "maxEvents": {
+          "maximum": 1000000,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "maxTicks": {
+          "maximum": 10000,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "metrics": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "pattern": "^[A-Za-z][A-Za-z0-9._-]{0,127}$",
+                "type": "string"
+              },
+              "tick": {
+                "minimum": 0,
+                "type": "integer"
+              },
+              "value": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "tick",
+              "name",
+              "value"
+            ],
+            "type": "object"
+          },
+          "maxItems": 100000,
+          "type": "array"
+        },
+        "signals": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "amplitude": {
+                "maximum": 1000000.0,
+                "minimum": -1000000.0,
+                "type": "number"
+              },
+              "correlationId": {
+                "pattern": "^[a-z][a-z0-9-]{0,63}$",
+                "type": "string"
+              },
+              "payloadRef": {
+                "pattern": "^[a-z][a-z0-9-]{0,63}$",
+                "type": "string"
+              },
+              "signalType": {
+                "pattern": "^[a-z][a-z0-9.-]*/v[1-9][0-9]*$",
+                "type": "string"
+              },
+              "targetNeuron": {
+                "pattern": "^[a-z][a-z0-9-]{0,63}$",
+                "type": "string"
+              },
+              "targetPort": {
+                "pattern": "^[A-Za-z][A-Za-z0-9._-]{0,127}$",
+                "type": "string"
+              },
+              "tick": {
+                "minimum": 0,
+                "type": "integer"
+              }
+            },
+            "required": [
+              "tick",
+              "targetNeuron",
+              "targetPort",
+              "signalType",
+              "amplitude",
+              "payloadRef",
+              "correlationId"
+            ],
+            "type": "object"
+          },
+          "maxItems": 100000,
+          "type": "array"
+        }
+      },
+      "required": [
+        "maxTicks",
+        "maxEvents",
+        "signals",
+        "metrics"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec"
+  ],
+  "type": "object"
+}

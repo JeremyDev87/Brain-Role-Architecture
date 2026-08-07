@@ -1,4 +1,4 @@
-# P3 — Amygdala
+# Amygdala — Amygdala
 
 Risk, conflict, stale, and discarded registries. Controlled mutable; may be reserved. Active instances
 retain signal provenance and explicit stop/escalation semantics.

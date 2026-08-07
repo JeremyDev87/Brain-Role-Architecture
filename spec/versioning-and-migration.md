@@ -1,12 +1,12 @@
 # Versioning and migration
 
 The 0.x line is experimental. Backward-compatible additions increment MINOR; corrections increment
-PATCH. Breaking schema, precedence, or P0 semantics increment MAJOR. P0 semantic changes also create a
+PATCH. Breaking schema, precedence, or Brainstem semantics increment MAJOR. Brainstem semantic changes also create a
 new architecture identity and use an owner-controlled out-of-band migration with explicit rollback.
 
 ## 0.1.x governance compatibility
 
-The `0.3.0` package continues to validate `0.1.x` BrainArchitecture manifests and emits their legacy
+The `0.4.0` package continues to validate `0.1.x` BrainArchitecture manifests and emits their legacy
 validation report as `specVersion=0.1.0`. `CompiledBrainRole` canonical bytes, SHA receipts, and `compile`
 stay unchanged for an unchanged `0.1.x` instance. The provider-specific exporter and its CLI surface were
 removed as a breaking change; no migration of governance manifests is required.

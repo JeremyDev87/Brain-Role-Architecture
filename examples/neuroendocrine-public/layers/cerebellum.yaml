@@ -1,0 +1,19 @@
+apiVersion: brain-role.dev/v1alpha2
+kind: LayerManifest
+metadata:
+  id: cerebellum-layer
+  version: 0.1.0
+  classification: PUBLIC
+spec:
+  layer: cerebellum
+  status: reserved
+  mutability: controlled
+  owner: synthetic-architecture-maintainers
+  classification: PUBLIC
+  responsibilities: []
+  dependencies: [brainstem]
+  changeControl:
+    approval: maintainer-review
+    provenance: spec://layers/cerebellum
+    rollback: restore-prior-reviewed-manifest
+    effectiveAt: "2026-07-31T00:00:00Z"
