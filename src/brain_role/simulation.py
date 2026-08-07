@@ -169,6 +169,8 @@ def simulate_connectome(connectome: Document, scenario: Document) -> Document:
     issues = validate_document(scenario, "<scenario>")
     if _has_nonfinite(scenario) or _has_forbidden_text(scenario) or issues:
         raise InputFailure("activation scenario does not conform to schema")
+    if connectome.get("apiVersion") != scenario.get("apiVersion"):
+        raise InputFailure("connectome and scenario apiVersion must match")
     spec = _spec(scenario)
     max_ticks = int(spec.get("maxTicks", 0))
     max_events = int(spec.get("maxEvents", 0))
