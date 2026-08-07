@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
+import stat
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -52,20 +54,81 @@ def _has_forbidden_text(value: Any) -> bool:
     return False
 
 
-def _safe_input_file(input_path: Path) -> Path:
+def _read_all(descriptor: int, size: int) -> bytes:
+    chunks: list[bytes] = []
+    remaining = size
+    while remaining > 0:
+        chunk = os.read(descriptor, remaining)
+        if not chunk:
+            break
+        chunks.append(chunk)
+        remaining -= len(chunk)
+    return b"".join(chunks)
+
+
+def _read_regular_nofollow(input_path: Path) -> tuple[Path, bytes]:
+    """Open and read a regular non-symlink file without pathname follow races."""
     try:
-        supplied = input_path.expanduser()
-        lexical = supplied.absolute()
-        cursor = Path(lexical.anchor)
-        for part in lexical.parts[1:]:
-            cursor = cursor / part
-            if cursor.is_symlink():
+        lexical = input_path.expanduser().absolute()
+        nofollow = getattr(os, "O_NOFOLLOW", 0)
+        directory_flag = getattr(os, "O_DIRECTORY", 0)
+
+        if os.name == "nt" or nofollow == 0:
+            cursor = Path(lexical.anchor)
+            for part in lexical.parts[1:]:
+                cursor = cursor / part
+                if cursor.is_symlink():
+                    raise InputFailure("input must be a regular non-symlink file")
+            if not lexical.exists() or not lexical.is_file() or lexical.is_symlink():
                 raise InputFailure("input must be a regular non-symlink file")
-        if not lexical.exists() or not lexical.is_file() or lexical.is_symlink():
+            expected = lexical.lstat()
+            if not stat.S_ISREG(expected.st_mode):
+                raise InputFailure("input must be a regular non-symlink file")
+            if expected.st_size > MAX_FILE_BYTES:
+                raise InputFailure("input exceeds file size limit")
+            with lexical.open("rb") as stream:
+                raw_bytes = stream.read(MAX_FILE_BYTES + 1)
+                actual = os.fstat(stream.fileno())
+            if not stat.S_ISREG(actual.st_mode):
+                raise InputFailure("input must be a regular non-symlink file")
+            if (actual.st_dev, actual.st_ino) != (expected.st_dev, expected.st_ino):
+                raise InputFailure("input changed during load")
+            if lexical.is_symlink():
+                raise InputFailure("input must be a regular non-symlink file")
+            if len(raw_bytes) > MAX_FILE_BYTES or actual.st_size > MAX_FILE_BYTES:
+                raise InputFailure("input exceeds file size limit")
+            return lexical, raw_bytes
+
+        parts = list(lexical.parts)
+        if not parts:
             raise InputFailure("input must be a regular non-symlink file")
-        if lexical.stat().st_size > MAX_FILE_BYTES:
-            raise InputFailure("input exceeds file size limit")
-        return lexical.resolve(strict=True)
+        directory_fd = os.open(parts[0], os.O_RDONLY | directory_flag)
+        try:
+            for part in parts[1:-1]:
+                next_fd = os.open(part, os.O_RDONLY | directory_flag | nofollow, dir_fd=directory_fd)
+                os.close(directory_fd)
+                directory_fd = next_fd
+            file_name = parts[-1]
+            file_fd = os.open(file_name, os.O_RDONLY | nofollow, dir_fd=directory_fd)
+            try:
+                info = os.fstat(file_fd)
+                if not stat.S_ISREG(info.st_mode):
+                    raise InputFailure("input must be a regular non-symlink file")
+                if info.st_size > MAX_FILE_BYTES:
+                    raise InputFailure("input exceeds file size limit")
+                raw_bytes = _read_all(file_fd, int(info.st_size))
+                after = os.fstat(file_fd)
+                if not stat.S_ISREG(after.st_mode):
+                    raise InputFailure("input must be a regular non-symlink file")
+                if (after.st_dev, after.st_ino) != (info.st_dev, info.st_ino):
+                    raise InputFailure("input changed during load")
+                if after.st_size != info.st_size or len(raw_bytes) != info.st_size:
+                    raise InputFailure("input changed during load")
+                return lexical, raw_bytes
+            finally:
+                os.close(file_fd)
+        finally:
+            os.close(directory_fd)
     except InputFailure:
         raise
     except OSError as exc:
@@ -169,11 +232,7 @@ def validate_compiled_bundle_document(document: dict[str, Any]) -> None:
 
 
 def load_compiled_bundle(input_path: Path) -> CompiledBundleArtifact:
-    path = _safe_input_file(input_path)
-    try:
-        raw_bytes = path.read_bytes()
-    except OSError as exc:
-        raise InputFailure("unable to load compiled bundle") from exc
+    path, raw_bytes = _read_regular_nofollow(input_path)
     if len(raw_bytes) > MAX_FILE_BYTES:
         raise InputFailure("input exceeds file size limit")
     try:

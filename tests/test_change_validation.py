@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import copy
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -91,6 +92,32 @@ def test_load_compiled_bundle_rejects_noncanonical_input_and_symlink(
     linked_parent.symlink_to(real_parent, target_is_directory=True)
     with pytest.raises(InputFailure):
         load_compiled_bundle(linked_parent / "nested.json")
+
+
+def test_load_compiled_bundle_rejects_symlink_replacement_before_open(
+    anatomical_example_root: Path,
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    document = _compiled_document(anatomical_example_root)
+    target = tmp_path / "race.json"
+    write_compiled_bundle(document, target)
+    decoy = tmp_path / "decoy.json"
+    write_compiled_bundle(document, decoy)
+
+    real_open = os.open
+    nofollow = getattr(os, "O_NOFOLLOW", 0)
+
+    def open_then_replace(path, flags, *args, **kwargs):  # type: ignore[no-untyped-def]
+        # When the final file open occurs, replace the regular file with a symlink first.
+        if nofollow and (flags & nofollow) and kwargs.get("dir_fd") is not None and path == target.name:
+            target.unlink()
+            target.symlink_to(decoy)
+        return real_open(path, flags, *args, **kwargs)
+
+    monkeypatch.setattr(os, "open", open_then_replace)
+    with pytest.raises(InputFailure):
+        load_compiled_bundle(target)
 
 
 def test_load_compiled_bundle_rejects_malformed_duplicate_nonfinite_deep_secret_and_oversized(
