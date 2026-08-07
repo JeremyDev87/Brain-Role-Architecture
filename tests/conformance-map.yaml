@@ -28,6 +28,12 @@ requirements:
   REQ-CLI-001: tests/test_cli.py::test_cli_valid_json_is_byte_deterministic
   REQ-CLI-002: tests/test_cli.py::test_cli_conformance_failure_is_exit_one
   REQ-CLI-003: tests/test_cli.py::test_cli_input_failure_is_exit_two_without_path_echo
+  REQ-CHANGE-001: tests/test_change_validation.py::test_diff_rejects_identity_and_api_version_mismatch
+  REQ-CHANGE-002: tests/test_change_validation.py::test_diff_rejects_brainstem_mutation
+  REQ-CHANGE-003: tests/test_change_validation.py::test_diff_allows_controlled_layer_semantic_change
+  REQ-CHANGE-004: tests/test_change_validation.py::test_diff_rejects_unsupported_component_changes
+  REQ-CHANGE-005: tests/test_change_validation.py::test_diff_report_is_deterministic_and_path_safe
+  REQ-CHANGE-006: tests/test_cli.py::test_cli_diff_exit_codes_are_0_1_2
 
   REQ-NEURAL-001: tests/test_neuroendocrine_runtime.py::test_connectome_is_valid_canonical_and_path_independent
   REQ-NEURAL-002: tests/test_neuroendocrine_runtime.py::test_semantic_validation_rejects_signal_drift_and_authority_effect

@@ -6,8 +6,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from brain_role.errors import InputFailure
-from brain_role.layer_contract import contract_for_api_version
+from brain_role.compiled_loader import validate_compiled_bundle_document
 from brain_role.models import Document, InstanceBundle
 from brain_role.output_safety import atomic_write_bytes
 
@@ -40,60 +39,8 @@ def compile_bundle(bundle: InstanceBundle) -> Document:
     return document
 
 
-def _document_identifier(document: object) -> str:
-    if not isinstance(document, dict):
-        return ""
-    metadata = document.get("metadata", {})
-    return str(metadata.get("id", "")) if isinstance(metadata, dict) else ""
-
-
 def validate_compiled_bundle(document: Document) -> None:
-    order = document.get("compileOrder")
-    layers = document.get("layers")
-    roles = document.get("roles")
-    policies = document.get("policies")
-    contract = contract_for_api_version(document.get("apiVersion"))
-    if contract is None:
-        raise InputFailure("compiled bundle has an unsupported apiVersion")
-    expected_layers = set(contract.layers)
-    if (
-        not isinstance(order, list)
-        or not all(isinstance(layer, str) for layer in order)
-        or len(order) != 7
-        or set(order) != expected_layers
-        or order[0] != contract.invariant
-    ):
-        raise InputFailure("compiled bundle has an invalid compile order")
-    if not isinstance(layers, list):
-        raise InputFailure("compiled bundle has invalid layers")
-    layer_order: list[str] = []
-    layer_dependencies: list[list[str]] = []
-    for layer in layers:
-        if not isinstance(layer, dict):
-            raise InputFailure("compiled bundle has invalid layers")
-        spec = layer.get("spec", {})
-        if not isinstance(spec, dict):
-            raise InputFailure("compiled bundle has invalid layers")
-        layer_order.append(str(spec.get("layer", "")))
-        dependencies = spec.get("dependencies", [])
-        if not isinstance(dependencies, list) or not all(isinstance(item, str) for item in dependencies):
-            raise InputFailure("compiled bundle has invalid layer dependencies")
-        layer_dependencies.append(dependencies)
-    if layer_order != order:
-        raise InputFailure("compiled layers do not match compile order")
-    compiled_layers: set[str] = set()
-    for layer, dependencies in zip(layer_order, layer_dependencies, strict=True):
-        if any(dependency not in compiled_layers for dependency in dependencies):
-            raise InputFailure("compiled layer order violates declared dependencies")
-        compiled_layers.add(layer)
-    for name, values in (("roles", roles), ("policies", policies)):
-        if not isinstance(values, list):
-            raise InputFailure(f"compiled bundle has invalid {name}")
-        identifiers = [_document_identifier(value) for value in values]
-        if not all(identifiers) or len(set(identifiers)) != len(identifiers):
-            raise InputFailure(f"compiled {name} metadata.id values must be unique")
-        if identifiers != sorted(identifiers):
-            raise InputFailure(f"compiled {name} are not sorted by metadata.id")
+    validate_compiled_bundle_document(document)
 
 
 def encode_compiled_bundle(document: Document) -> bytes:

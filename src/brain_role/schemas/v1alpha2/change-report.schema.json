@@ -1,0 +1,116 @@
+{
+  "$id": "https://brain-role.dev/schemas/v1alpha2/change-report.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "allowed": {
+      "type": "boolean"
+    },
+    "apiVersion": {
+      "const": "brain-role.dev/v1alpha2"
+    },
+    "baselineSha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "type": "string"
+    },
+    "candidateSha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "type": "string"
+    },
+    "findings": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "componentId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "componentType": {
+            "enum": [
+              "architecture",
+              "compileOrder",
+              "layer",
+              "policy",
+              "role"
+            ]
+          },
+          "code": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "decision": {
+            "enum": [
+              "allow",
+              "deny"
+            ]
+          },
+          "message": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "componentType",
+          "componentId",
+          "decision",
+          "code",
+          "message"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "kind": {
+      "const": "ChangeReport"
+    },
+    "metadata": {
+      "additionalProperties": false,
+      "properties": {
+        "architectureId": {
+          "pattern": "^bra-[a-z0-9-]{3,60}$",
+          "type": "string"
+        },
+        "baselineId": {
+          "pattern": "^[a-z][a-z0-9-]{2,63}$",
+          "type": "string"
+        },
+        "baselineVersion": {
+          "pattern": "^0\\.1\\.[0-9]+$",
+          "type": "string"
+        },
+        "candidateId": {
+          "pattern": "^[a-z][a-z0-9-]{2,63}$",
+          "type": "string"
+        },
+        "candidateVersion": {
+          "pattern": "^0\\.1\\.[0-9]+$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "architectureId",
+        "baselineId",
+        "baselineVersion",
+        "candidateId",
+        "candidateVersion"
+      ],
+      "type": "object"
+    },
+    "specVersion": {
+      "pattern": "^0\\.1\\.[0-9]+$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "allowed",
+    "baselineSha256",
+    "candidateSha256",
+    "findings",
+    "specVersion"
+  ],
+  "title": "Change Report",
+  "type": "object"
+}

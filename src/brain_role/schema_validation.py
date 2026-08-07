@@ -30,6 +30,7 @@ _SCHEMA_BY_KIND = {
     "CompiledConnectome": "compiled-connectome.schema.json",
     "ActivationScenario": "activation-scenario.schema.json",
     "NeuralTrace": "neural-trace.schema.json",
+    "ChangeReport": "change-report.schema.json",
 }
 
 
