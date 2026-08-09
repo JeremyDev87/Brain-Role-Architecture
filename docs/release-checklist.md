@@ -7,7 +7,7 @@ into an isolated environment and exercises `--version`, `validate`, and `compile
 `validate-neural`, `compile-connectome`, and `simulate` from a non-repository working directory.
 
 The isolated install may resolve declared dependencies through the configured package index or cache. The
-The project's offline guarantee applies to validation, compilation, and simulation at runtime, not to
+project's offline guarantee applies to validation, compilation, and simulation at runtime, not to
 package installation.
 
 Compatibility evidence MUST compare the exact legacy `CompiledBrainRole` bytes/SHA against the pinned 0.1.x
