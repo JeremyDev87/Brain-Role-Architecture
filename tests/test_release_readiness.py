@@ -55,3 +55,41 @@ def test_release_checker_requires_compile_cli_contract(tmp_path: Path) -> None:
         encoding="utf-8",
     )
     assert "docs/reference/cli.md: release contract missing brain-role compile <instance>" in checker.check(target)
+
+
+def test_release_checker_rejects_stale_prepublication_claim(tmp_path: Path) -> None:
+    target = tmp_path / "repository"
+    shutil.copytree(
+        ROOT,
+        target,
+        ignore=shutil.ignore_patterns(".git", ".venv", ".artifacts", "__pycache__"),
+    )
+    changelog = target / "CHANGELOG.md"
+    changelog.write_text(
+        changelog.read_text(encoding="utf-8").replace(
+            checker.github_prerelease_statement("0.4.0"),
+            "No tag, release, or registry publication exists yet.",
+        ),
+        encoding="utf-8",
+    )
+    failures = checker.check(target)
+    assert any("CHANGELOG.md: release contract missing" in failure for failure in failures)
+    assert any("CHANGELOG.md: stale release claim" in failure for failure in failures)
+
+
+def test_release_checker_requires_locale_release_state_marker(tmp_path: Path) -> None:
+    target = tmp_path / "repository"
+    shutil.copytree(
+        ROOT,
+        target,
+        ignore=shutil.ignore_patterns(".git", ".venv", ".artifacts", "__pycache__"),
+    )
+    readme = target / "README.ja.md"
+    readme.write_text(
+        readme.read_text(encoding="utf-8").replace(checker.release_state_marker("0.4.0"), ""),
+        encoding="utf-8",
+    )
+    assert (
+        "README.ja.md: release status missing " + checker.release_state_marker("0.4.0")
+        in checker.check(target)
+    )

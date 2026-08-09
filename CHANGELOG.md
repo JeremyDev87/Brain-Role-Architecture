@@ -2,6 +2,10 @@
 
 ## [0.4.0] - PRE_RELEASE
 
+<!-- release-state: source=PRE_RELEASE github=v0.4.0:prerelease registry=unpublished deployment=none -->
+
+Annotated tag `v0.4.0` and GitHub Pre-release `v0.4.0` exist; no registry package or deployment has been published.
+
 Breaking PRE_RELEASE candidate that removes the provider-specific exporter so the public architecture
 surface stays provider-neutral.
 
@@ -32,5 +36,3 @@ fixtures, threat model, and verification gates.
   the existing `version`, `validate`, and `compile` surfaces.
 - Added the deterministic `CompiledBrainRole` schema, canonical compiler, safe atomic `compile` CLI surface,
   and installed-distribution compile smoke without changing PRE_RELEASE status.
-
-No tag, release, or registry publication exists yet.
