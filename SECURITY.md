@@ -2,7 +2,10 @@
 
 ## Release status
 
-`0.4.0` is a PRE_RELEASE source candidate. No released version is currently supported.
+<!-- release-state: source=PRE_RELEASE github=v0.4.0:prerelease registry=unpublished deployment=none -->
+
+`0.4.0` remains a PRE_RELEASE source candidate. Its annotated tag and GitHub Pre-release provide downloadable
+artifacts, but they do not represent stable support, registry availability, a deployment, or a production-safety guarantee.
 
 ## Reporting
 

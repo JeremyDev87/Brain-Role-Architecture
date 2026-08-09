@@ -8,10 +8,15 @@
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB.svg)](pyproject.toml)
 [![라이선스: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-D22128.svg)](LICENSE)
 
-**PRE_RELEASE · 소스 후보 0.4.0 · 미출시**
+**PRE_RELEASE · 소스 후보 0.4.0 · [GitHub Pre-release v0.4.0](https://github.com/JeremyDev87/Brain-Role-Architecture/releases/tag/v0.4.0)**
 
-Brain-Role Architecture는 AI 에이전트의 불변 규칙, 지속 상태, 위험, 워크플로, 페르소나,
-목표를 책임과 실행 순서를 혼동하지 않고 통제하기 위한 검증 가능한 역할 기반 아키텍처입니다.
+<!-- release-state: source=PRE_RELEASE github=v0.4.0:prerelease registry=unpublished deployment=none -->
+
+Brain-Role Architecture는 AI 에이전트의 책임·권한·변경 계약을 책임과 실행 순서를 혼동하지 않고
+기계적으로 검사하는 policy-as-code 및 적합성 검증 도구입니다.
+
+**주장보다 증거를 먼저 확인하십시오.** [통제된 변경 데모](docs/tutorials/controlled-mutation-demo.md)는
+Brainstem 변경을 fail-closed로 차단하고, 통제 요건을 충족한 Cerebral Cortex 변경을 결정론적 근거와 함께 허용합니다.
 
 > **모든 재작성 뒤에도 남는 한 가지 규칙:** Brainstem만 절대 불변입니다. Cerebellum through Prefrontal Cortex는 명시적인 소유권,
 > 승인, 출처, 롤백, 효력 시점 계약을 통해서만 변경할 수 있습니다.
@@ -134,8 +139,10 @@ source 경로·credential·runtime activation 정보를 추가하지 않습니�
 
 ## 프로젝트 상태
 
-`0.4.0`은 실험적 소스 후보입니다. 레지스트리 패키지, Git 태그, GitHub Release, 배포본으로
-표시되지 않습니다. 명세가 사전 출시 상태인 동안 호환성이 변경될 수 있습니다.
+`0.4.0`은 여전히 실험적 PRE_RELEASE 소스 후보입니다. annotated tag `v0.4.0`과 wheel·source distribution을
+첨부한 [GitHub Pre-release](https://github.com/JeremyDev87/Brain-Role-Architecture/releases/tag/v0.4.0)가 존재합니다.
+레지스트리 패키지와 배포본은 없으며, 다운로드 가능한 자산은 registry 설치 지원, stable/GA,
+production readiness 또는 보안 인증을 뜻하지 않습니다.
 [CHANGELOG.md](CHANGELOG.md)를 참고하십시오.
 
 ## 기여

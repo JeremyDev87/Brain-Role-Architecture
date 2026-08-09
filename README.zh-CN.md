@@ -8,10 +8,15 @@
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB.svg)](pyproject.toml)
 [![许可证：Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-D22128.svg)](LICENSE)
 
-**PRE_RELEASE · 源代码候选版本 0.4.0 · 尚未发布**
+**PRE_RELEASE · 源代码候选版本 0.4.0 · [GitHub Pre-release v0.4.0](https://github.com/JeremyDev87/Brain-Role-Architecture/releases/tag/v0.4.0)**
 
-Brain-Role Architecture 是一种可验证、可感知角色的架构，用于治理 AI 智能体的不变量、
-持久状态、风险、工作流、人格与目标，同时避免混淆责任关系与执行顺序。
+<!-- release-state: source=PRE_RELEASE github=v0.4.0:prerelease registry=unpublished deployment=none -->
+
+Brain-Role Architecture 是一套 policy-as-code 与一致性验证工具，用于机械化检查 AI 智能体的责任、
+权限和变更契约，同时避免混淆责任关系与执行顺序。
+
+**先看证据，再看主张：**运行[受控变更演示](docs/tutorials/controlled-mutation-demo.md)，查看 Brainstem
+变更如何以 fail-closed 方式被阻止，以及满足治理条件的 Cerebral Cortex 变更如何通过确定性证据被允许。
 
 > **无论如何重写，始终保留一条规则：**Brainstem 是唯一的绝对不变量。Cerebellum through Prefrontal Cortex 只能通过明确的
 > 所有权、审批、来源、回滚和生效时间契约进行变更。
@@ -132,8 +137,9 @@ make verify
 
 ## 项目状态
 
-`0.4.0` 是实验性的源代码候选版本。本项目不将其表示为注册表中的软件包、Git 标签、
-GitHub Release 或部署版本。在规范仍处于预发布阶段期间，兼容性可能发生变化。
+`0.4.0` 仍是实验性的 PRE_RELEASE 源代码候选版本。带注释的标签 `v0.4.0` 和附有 wheel、
+source distribution 的 [GitHub Pre-release](https://github.com/JeremyDev87/Brain-Role-Architecture/releases/tag/v0.4.0) 已存在。
+目前没有注册表软件包或部署；可下载资产不代表注册表安装支持、stable/GA、生产就绪或安全认证。
 请参阅 [CHANGELOG.md](CHANGELOG.md)。
 
 ## 贡献

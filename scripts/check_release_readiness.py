@@ -16,6 +16,30 @@ README_NAMES = (
     "README.ja.md",
 )
 
+STALE_RELEASE_CLAIMS = (
+    "No tag, release, or registry publication exists yet.",
+    "not published",
+    "미출시",
+    "尚未发布",
+    "no publicado",
+    "no está publicado",
+    "未公開",
+)
+
+
+def release_state_marker(version: str) -> str:
+    return (
+        f"<!-- release-state: source=PRE_RELEASE github=v{version}:prerelease "
+        "registry=unpublished deployment=none -->"
+    )
+
+
+def github_prerelease_statement(version: str) -> str:
+    return (
+        f"Annotated tag `v{version}` and GitHub Pre-release `v{version}` exist; "
+        "no registry package or deployment has been published."
+    )
+
 
 def package_version(root: Path) -> str:
     tree = ast.parse((root / "src" / "brain_role" / "__init__.py").read_text(encoding="utf-8"))
@@ -55,9 +79,15 @@ def check(root: Path) -> list[str]:
         "SPEC.md": (f"Specification {project_version}", "Status: **PRE_RELEASE**"),
         "CHANGELOG.md": (
             f"## [{project_version}] - PRE_RELEASE",
-            "No tag, release, or registry publication exists yet.",
+            github_prerelease_statement(project_version),
+            release_state_marker(project_version),
         ),
-        "SECURITY.md": (f"`{project_version}`", "PRE_RELEASE", "Validation does not grant publication authority."),
+        "SECURITY.md": (
+            f"`{project_version}`",
+            "PRE_RELEASE",
+            release_state_marker(project_version),
+            "Validation does not grant publication authority.",
+        ),
         "spec/versioning-and-migration.md": ("0.x line is experimental", "Brainstem semantic changes"),
         "docs/reference/cli.md": (
             "brain-role --version",
@@ -79,9 +109,16 @@ def check(root: Path) -> list[str]:
                 failures.append(f"{relative}: release contract missing {token}")
     for name in README_NAMES:
         text = (root / name).read_text(encoding="utf-8")
-        for token in (project_version, "PRE_RELEASE", "CHANGELOG.md"):
+        for token in (project_version, "PRE_RELEASE", "CHANGELOG.md", release_state_marker(project_version)):
             if token not in text:
                 failures.append(f"{name}: release status missing {token}")
+
+    release_surfaces = ("CHANGELOG.md", "SECURITY.md", *README_NAMES)
+    for relative in release_surfaces:
+        text = (root / relative).read_text(encoding="utf-8")
+        for stale_claim in STALE_RELEASE_CLAIMS:
+            if stale_claim in text:
+                failures.append(f"{relative}: stale release claim {stale_claim}")
 
     sdist = set(pyproject["tool"]["hatch"]["build"]["targets"]["sdist"]["include"])
     for path in ("/CHANGELOG.md", "/SECURITY.md", "/SPEC.md", "/spec", "/schemas", "/scripts", "/docs"):

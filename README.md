@@ -8,10 +8,15 @@
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB.svg)](pyproject.toml)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-D22128.svg)](LICENSE)
 
-**PRE_RELEASE · source candidate 0.4.0 · not published**
+**PRE_RELEASE · source candidate 0.4.0 · [GitHub Pre-release v0.4.0](https://github.com/JeremyDev87/Brain-Role-Architecture/releases/tag/v0.4.0)**
 
-Brain-Role Architecture is a verifiable, role-aware architecture for governing AI-agent invariants,
-durable state, risk, workflows, persona, and goals without confusing responsibility with execution order.
+<!-- release-state: source=PRE_RELEASE github=v0.4.0:prerelease registry=unpublished deployment=none -->
+
+Brain-Role Architecture is a policy-as-code and conformance toolkit that makes AI-agent responsibility,
+authority, and change contracts mechanically checkable without confusing responsibility with execution order.
+
+**Proof before promises:** run the [controlled-mutation demo](docs/tutorials/controlled-mutation-demo.md) to see
+an immutable Brainstem change fail closed and a governed Cerebral Cortex change pass with deterministic evidence.
 
 > **One rule survives every rewrite:** Brainstem is the only absolute invariant. Cerebellum through Prefrontal Cortex can change only through
 > explicit ownership, approval, provenance, rollback, and effective-time contracts.
@@ -147,8 +152,10 @@ and must not echo private absolute paths or secret values.
 
 ## Project status
 
-Version `0.4.0` is an experimental source candidate. It is not represented as a package on a registry, a Git
-tag, a GitHub Release, or a deployment. Compatibility may change while the specification remains pre-release.
+Version `0.4.0` remains an experimental PRE_RELEASE source candidate. Annotated tag `v0.4.0` and the
+[GitHub Pre-release](https://github.com/JeremyDev87/Brain-Role-Architecture/releases/tag/v0.4.0) exist with wheel
+and source-distribution assets. No registry package or deployment exists; downloadable assets do not imply
+registry installation support, stable/GA status, production readiness, or a security certification.
 See [CHANGELOG.md](CHANGELOG.md).
 
 ## Contributing
