@@ -36,3 +36,9 @@ release state; marketing language never expands runtime or publication authority
 A passing demo, test suite, or disclosure audit does not authorize commit, push, release mutation, registry
 publication, deployment, repository visibility change, or launch-channel posting. Each external mutation needs
 its own owner approval and authoritative readback.
+
+## Operational surfaces
+
+- `docs/launch/soft-preview-runbook.md` defines the gated publication, security, posting, and containment sequence.
+- `docs/launch/soft-preview-ledger.md` keeps 24-hour reach, 7-day engagement, and 14-day qualified conversion
+  separate.
