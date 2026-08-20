@@ -73,7 +73,7 @@ def test_all_localized_readmes_share_the_public_contract() -> None:
         assert "PRE_RELEASE" in text
         assert "0.1.0" in text
         assert "SPEC.md" in text
-        assert "docs/assets/brain-role-meme.png" in text
+        assert all(asset_path in text for asset_path in check_docs.README_ASSET_PATHS[name])
         assert "uv run brain-role validate" in text
         assert "uv run brain-role compile" in text
         assert EXPECTED_JSON in text

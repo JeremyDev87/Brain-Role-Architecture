@@ -56,14 +56,23 @@ README_TOKENS = (
     "PRE_RELEASE",
     "0.4.0",
     "SPEC.md",
-    "docs/assets/brain-role-meme.png",
-    "docs/assets/brain-role-overview.svg",
-    "docs/assets/brain-role-flow.svg",
     "uv run brain-role validate",
     "uv run brain-role compile",
     '{"errors":[],"specVersion":"0.1.0","valid":true}',
     "make verify",
 )
+ASSET_NAMES = ("brain-role-meme.svg", "brain-role-overview.svg", "brain-role-flow.svg")
+README_ASSET_PATHS = {
+    "README.md": (
+        "docs/assets/brain-role-meme.png",
+        "docs/assets/brain-role-overview.svg",
+        "docs/assets/brain-role-flow.svg",
+    ),
+    "README.ko.md": tuple(f"docs/assets/localized/ko/{name}" for name in ASSET_NAMES),
+    "README.ja.md": tuple(f"docs/assets/localized/ja/{name}" for name in ASSET_NAMES),
+    "README.zh-CN.md": tuple(f"docs/assets/localized/zh-CN/{name}" for name in ASSET_NAMES),
+    "README.es.md": tuple(f"docs/assets/localized/es/{name}" for name in ASSET_NAMES),
+}
 NEURAL_RUNTIME_TOKENS = (
     "Functional Neuron", "Synapse", "Regulator", "Receptor", "Homeostat", "Support",
     "Logical Clock", "Plasticity Proposal", "ActivationScenario", "CompiledConnectome", "NeuralTrace",
@@ -135,6 +144,9 @@ def main() -> None:
         for token in README_TOKENS:
             if token not in text:
                 failures.append(f"{name}: public contract missing {token}")
+        for asset_path in README_ASSET_PATHS[name]:
+            if asset_path not in text:
+                failures.append(f"{name}: localized asset missing {asset_path}")
         for token in NEURAL_RUNTIME_TOKENS:
             if token not in text:
                 failures.append(f"{name}: neural runtime role missing {token}")

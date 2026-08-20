@@ -18,7 +18,7 @@ Brain-Role Architecture es una herramienta de policy-as-code y conformidad que p
 
 > Brainstem es el único invariante absoluto. Cerebellum through Prefrontal Cortex son capas de responsabilidad con mutabilidad controlada y contratos explícitos de propiedad, aprobación, procedencia, reversión y momento de entrada en vigor.
 
-![Póster de Brain-Role con la banda Neural ortogonal, el plano Brain Brainstem through Prefrontal Cortex y los planos Actor/Role y Compilation](docs/assets/brain-role-meme.png)
+![Póster de Brain-Role con identificadores ingleses y términos españoles para la banda Neural y los planos Brain, Actor/Role y Compilation](docs/assets/localized/es/brain-role-meme.svg)
 
 *Cuatro zonas visuales separan responsabilidad, capacidad, compilación determinista y modulación ortogonal.*
 
@@ -56,9 +56,17 @@ Separar los planos evita inferir permisos a partir de una capa, confundir un rol
 
 ## Vista general de la arquitectura
 
-![Mapa estructural de Brain-Role con Brainstem through Prefrontal Cortex, Actor/Role, el DAG de Compilation y el circuito Neural](docs/assets/brain-role-overview.svg)
+![Mapa estructural de Brain-Role con identificadores ingleses y términos españoles para Brainstem through Prefrontal Cortex, Actor/Role, Compilation y Neural](docs/assets/localized/es/brain-role-overview.svg)
 
 *Los iconos muestran responsabilidad, capacidad, orden de compilación y modulación sin convertir Brainstem through Prefrontal Cortex en una canalización.*
+
+## Identificadores ingleses y términos en español
+
+Los Schema y la CLI conservan los identificadores ingleses. Las explicaciones y las imágenes usan el formato `identificador inglés(término español)`.
+
+- **Responsabilidades Brain:** `Brainstem(tronco encefálico)` · `Cerebellum(cerebelo)` · `Hippocampus(hipocampo)` · `Amygdala(amígdala)` · `Cerebral Cortex(corteza cerebral)` · `Default Mode Network(red neuronal por defecto)` · `Prefrontal Cortex(corteza prefrontal)`
+- **Planos:** `Brain plane(plano cerebral)` · `Actor/Role plane(plano de actor/rol)` · `Compilation plane(plano de compilación)` · `Neural Runtime(runtime neuronal)`
+- **Elementos Neural:** `Functional Neuron(neurona funcional)` · `Synapse(sinapsis)` · `Regulator(regulador)` · `Receptor(receptor)` · `Homeostat(homeostato)` · `Support(soporte)` · `Logical Clock(reloj lógico)` · `Plasticity Proposal(propuesta de plasticidad)` · `ActivationScenario(escenario de activación)` · `CompiledBrainRole(rol cerebral compilado)` · `CompiledConnectome(conectoma compilado)` · `NeuralTrace(traza neuronal)`
 
 ## Qué incluye
 
@@ -86,7 +94,7 @@ make verify
 
 ## Flujo de validación y artefactos
 
-![Flujo de la CLI brain-role desde el public bundle hasta compiled.json, connectome.json y trace.json](docs/assets/brain-role-flow.svg)
+![Flujo de la CLI brain-role con identificadores ingleses y términos españoles desde el public bundle hasta compiled.json, connectome.json y trace.json](docs/assets/localized/es/brain-role-flow.svg)
 
 *La validación produce artefactos inspeccionables; no despliega, publica ni modifica el estado de un runtime externo.*
 1. `uv sync --all-groups` sincroniza los grupos de dependencias necesarios para trabajar y verificar el código fuente.
