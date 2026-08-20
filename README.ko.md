@@ -21,7 +21,7 @@ Brainstem 변경을 fail-closed로 차단하고, 통제 요건을 충족한 Cere
 > **모든 재작성 뒤에도 남는 한 가지 규칙:** Brainstem만 절대 불변입니다. Cerebellum through Prefrontal Cortex는 명시적인 소유권,
 > 승인, 출처, 롤백, 효력 시점 계약을 통해서만 변경할 수 있습니다.
 
-![Brain·Actor/Role·Compilation·직교 Neural Runtime의 네 구역과 Brainstem through Prefrontal Cortex를 보여 주는 Brain-Role 포스터](docs/assets/brain-role-meme.png)
+![Brain·Actor/Role·Compilation·직교 Neural Runtime의 네 구역과 Brainstem through Prefrontal Cortex의 영문 식별자·한국어 용어를 함께 보여 주는 Brain-Role 포스터](docs/assets/localized/ko/brain-role-meme.svg)
 
 *책임·역량·결정론적 빌드·직교 조절을 네 시각 구역으로 구분합니다.*
 
@@ -60,9 +60,17 @@ Brainstem 변경을 fail-closed로 차단하고, 통제 요건을 충족한 Cere
 
 ## 한눈에 보는 구성
 
-![Brainstem through Prefrontal Cortex, Actor/Role, Compilation DAG, Neural 회로를 구분한 Brain-Role 구조도](docs/assets/brain-role-overview.svg)
+![Brainstem through Prefrontal Cortex, Actor/Role, Compilation DAG, Neural 회로의 영문 식별자·한국어 용어를 함께 보여 주는 Brain-Role 구조도](docs/assets/localized/ko/brain-role-overview.svg)
 
 *아이콘은 Brainstem through Prefrontal Cortex를 파이프라인으로 만들지 않고 책임·역량·빌드 순서·조절을 보여 줍니다.*
+
+## 영문 식별자와 한국어 용어
+
+Schema·CLI에서는 영문 식별자를 그대로 사용합니다. 설명과 이미지에서는 다음처럼 `영문 식별자(한국어)`를 함께 표기합니다.
+
+- **Brain 책임:** `Brainstem(뇌간)` · `Cerebellum(소뇌)` · `Hippocampus(해마)` · `Amygdala(편도체)` · `Cerebral Cortex(대뇌피질)` · `Default Mode Network(기본 모드 네트워크)` · `Prefrontal Cortex(전전두피질)`
+- **평면:** `Brain plane(브레인 평면)` · `Actor/Role plane(행위자/역할 평면)` · `Compilation plane(컴파일 평면)` · `Neural Runtime(신경 런타임)`
+- **Neural 요소:** `Functional Neuron(기능 뉴런)` · `Synapse(시냅스)` · `Regulator(조절자)` · `Receptor(수용체)` · `Homeostat(항상성 조절기)` · `Support(지원)` · `Logical Clock(논리 시계)` · `Plasticity Proposal(가소성 제안)` · `ActivationScenario(활성화 시나리오)` · `CompiledBrainRole(컴파일된 브레인 역할)` · `CompiledConnectome(컴파일된 연결망)` · `NeuralTrace(신경 추적)`
 
 ## 포함 사항
 
@@ -98,7 +106,7 @@ make verify
 
 ## 검증 및 산출물 흐름
 
-![public bundle에서 compiled.json·connectome.json·trace.json으로 이어지는 brain-role CLI 흐름](docs/assets/brain-role-flow.svg)
+![public bundle에서 compiled.json·connectome.json·trace.json으로 이어지는 영문 식별자·한국어 용어 병기 brain-role CLI 흐름](docs/assets/localized/ko/brain-role-flow.svg)
 
 *검증은 확인 가능한 산출물을 만들지만 외부 runtime을 배포·게시하거나 상태를 변경하지 않습니다.*
 `compile`은 명시적 레이어 순서와 안정적인 role/policy 순서를 가진 canonical JSON 파일을 생성하며,

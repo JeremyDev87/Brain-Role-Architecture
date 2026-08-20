@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "displayPattern": "Canonical(localized)",
+  "locales": ["ko", "ja", "zh-CN", "es"],
+  "terms": [
+    {"key":"brainstem","canonical":"Brainstem","locales":{"ko":"뇌간","ja":"脳幹","zh-CN":"脑干","es":"tronco encefálico"}},
+    {"key":"cerebellum","canonical":"Cerebellum","locales":{"ko":"소뇌","ja":"小脳","zh-CN":"小脑","es":"cerebelo"}},
+    {"key":"hippocampus","canonical":"Hippocampus","locales":{"ko":"해마","ja":"海馬","zh-CN":"海马体","es":"hipocampo"}},
+    {"key":"amygdala","canonical":"Amygdala","locales":{"ko":"편도체","ja":"扁桃体","zh-CN":"杏仁核","es":"amígdala"}},
+    {"key":"cerebral-cortex","canonical":"Cerebral Cortex","locales":{"ko":"대뇌피질","ja":"大脳皮質","zh-CN":"大脑皮层","es":"corteza cerebral"}},
+    {"key":"default-mode-network","canonical":"Default Mode Network","locales":{"ko":"기본 모드 네트워크","ja":"デフォルト・モード・ネットワーク","zh-CN":"默认模式网络","es":"red neuronal por defecto"}},
+    {"key":"prefrontal-cortex","canonical":"Prefrontal Cortex","locales":{"ko":"전전두피질","ja":"前頭前皮質","zh-CN":"前额叶皮层","es":"corteza prefrontal"}},
+    {"key":"brain-plane","canonical":"Brain plane","locales":{"ko":"브레인 평면","ja":"ブレイン・プレーン","zh-CN":"脑平面","es":"plano cerebral"}},
+    {"key":"actor-role-plane","canonical":"Actor/Role plane","locales":{"ko":"행위자/역할 평면","ja":"アクター/ロール・プレーン","zh-CN":"执行者/角色平面","es":"plano de actor/rol"}},
+    {"key":"compilation-plane","canonical":"Compilation plane","locales":{"ko":"컴파일 평면","ja":"コンパイル・プレーン","zh-CN":"编译平面","es":"plano de compilación"}},
+    {"key":"neural-runtime","canonical":"Neural Runtime","locales":{"ko":"신경 런타임","ja":"ニューラル・ランタイム","zh-CN":"神经运行时","es":"runtime neuronal"}},
+    {"key":"functional-neuron","canonical":"Functional Neuron","locales":{"ko":"기능 뉴런","ja":"機能ニューロン","zh-CN":"功能神经元","es":"neurona funcional"}},
+    {"key":"synapse","canonical":"Synapse","locales":{"ko":"시냅스","ja":"シナプス","zh-CN":"突触","es":"sinapsis"}},
+    {"key":"regulator","canonical":"Regulator","locales":{"ko":"조절자","ja":"調節器","zh-CN":"调节器","es":"regulador"}},
+    {"key":"receptor","canonical":"Receptor","locales":{"ko":"수용체","ja":"受容体","zh-CN":"受体","es":"receptor"}},
+    {"key":"homeostat","canonical":"Homeostat","locales":{"ko":"항상성 조절기","ja":"恒常性調節器","zh-CN":"稳态调节器","es":"homeostato"}},
+    {"key":"support","canonical":"Support","locales":{"ko":"지원","ja":"サポート","zh-CN":"支持","es":"soporte"}},
+    {"key":"logical-clock","canonical":"Logical Clock","locales":{"ko":"논리 시계","ja":"論理クロック","zh-CN":"逻辑时钟","es":"reloj lógico"}},
+    {"key":"plasticity-proposal","canonical":"Plasticity Proposal","locales":{"ko":"가소성 제안","ja":"可塑性提案","zh-CN":"可塑性提案","es":"propuesta de plasticidad"}},
+    {"key":"activation-scenario","canonical":"ActivationScenario","locales":{"ko":"활성화 시나리오","ja":"活性化シナリオ","zh-CN":"激活场景","es":"escenario de activación"}},
+    {"key":"compiled-brain-role","canonical":"CompiledBrainRole","locales":{"ko":"컴파일된 브레인 역할","ja":"コンパイル済みブレインロール","zh-CN":"已编译脑角色","es":"rol cerebral compilado"}},
+    {"key":"compiled-connectome","canonical":"CompiledConnectome","locales":{"ko":"컴파일된 연결망","ja":"コンパイル済みコネクトーム","zh-CN":"已编译连接组","es":"conectoma compilado"}},
+    {"key":"neural-trace","canonical":"NeuralTrace","locales":{"ko":"신경 추적","ja":"ニューラル・トレース","zh-CN":"神经轨迹","es":"traza neuronal"}}
+  ],
+  "assets": {
+    "brain-role-meme.svg": ["brainstem","cerebellum","hippocampus","amygdala","cerebral-cortex","default-mode-network","prefrontal-cortex","brain-plane","actor-role-plane","compilation-plane","neural-runtime","functional-neuron","synapse","regulator","receptor","homeostat","support","logical-clock","plasticity-proposal"],
+    "brain-role-overview.svg": ["brainstem","cerebellum","hippocampus","amygdala","cerebral-cortex","default-mode-network","prefrontal-cortex","brain-plane","actor-role-plane","compilation-plane","neural-runtime"],
+    "brain-role-flow.svg": ["activation-scenario","compiled-brain-role","compiled-connectome","neural-trace","neural-runtime"]
+  }
+}

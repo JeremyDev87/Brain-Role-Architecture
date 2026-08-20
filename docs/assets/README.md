@@ -42,4 +42,15 @@ Accessible UTF-8 SVG wrapper around the accepted offline CLI flow. A synthetic p
 - Embedded PNG: 1536 × 1024, SHA-256 `54b886e71ed1bce5e94e903cc2da376f50555e8cd6a5dcb744ead0f2326f6121`
 - Wrapper: `brain-role-flow.svg`, SHA-256 `ad481e9cd5e0c9c8de912b6240b5f359bdc87236ca7675aedd83e5e852c12899`
 
+## localized terminology variants
+
+The four localized READMEs use self-contained SVG variants under `docs/assets/localized/{ko,ja,zh-CN,es}/`. Each variant preserves the accepted 1536 × 1024 illustration pixels and adds an accessible terminology panel using the repository contract `Canonical(localized)`; canonical Schema and CLI identifiers remain English.
+
+- Terminology SSOT: `docs/reference/localized-terminology.json`
+- Deterministic generator: `scripts/build_localized_assets.py` (Python standard library only)
+- Output inventory and exact source/output SHA-256 values: `docs/assets/localized/manifest.json`
+- Safety: no external URL, script, `foreignObject`, font payload, image-model call, or runtime authority is added
+- Actual-pixel QA: PASS for 12/12 locale assets at native render — original illustration and terminology panel visible; no clipped labels, overlap, missing glyph/tofu, or right-edge overflow
+- English asset bytes remain frozen; localized README alt text and captions retain locale-specific accessibility markers
+
 No third-party meme template, external font, URL, or script is embedded. Apache-2.0 distribution scope only.

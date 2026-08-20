@@ -21,7 +21,7 @@ Brainstem の変更を fail-closed で拒否し、統制条件を満たす Cereb
 > **どれだけ書き換えても残る一つの規則:** 絶対不変なのは Brainstem だけです。Cerebellum through Prefrontal Cortex は、明示的な所有者、
 > 承認、来歴、ロールバック、発効時刻の契約を通じてのみ変更できます。
 
-![直交する Neural 領域、Brainstem through Prefrontal Cortex の Brain プレーン、Actor/Role と Compilation の各プレーンを示す Brain-Role ポスター](docs/assets/brain-role-meme.png)
+![直交する Neural 領域と英語識別子・日本語用語を併記した Brain、Actor/Role、Compilation の各プレーンを示す Brain-Role ポスター](docs/assets/localized/ja/brain-role-meme.svg)
 
 *責任・能力・決定論的ビルド・直交モジュレーションを四つの視覚領域に分けます。*
 
@@ -60,9 +60,17 @@ Brainstem の変更を fail-closed で拒否し、統制条件を満たす Cereb
 
 ## アーキテクチャの全体像
 
-![Brainstem through Prefrontal Cortex、Actor/Role、Compilation DAG、Neural 回路を分離した Brain-Role 構造図](docs/assets/brain-role-overview.svg)
+![Brainstem through Prefrontal Cortex、Actor/Role、Compilation DAG、Neural 回路の英語識別子・日本語用語を併記した Brain-Role 構造図](docs/assets/localized/ja/brain-role-overview.svg)
 
 *アイコンは Brainstem through Prefrontal Cortex をパイプライン化せず、責任・能力・ビルド順序・モジュレーションを示します。*
+
+## 英語識別子と日本語用語
+
+Schema と CLI では英語識別子をそのまま使用します。説明と画像では `英語識別子(日本語)` の形式で併記します。
+
+- **Brain の責任:** `Brainstem(脳幹)` · `Cerebellum(小脳)` · `Hippocampus(海馬)` · `Amygdala(扁桃体)` · `Cerebral Cortex(大脳皮質)` · `Default Mode Network(デフォルト・モード・ネットワーク)` · `Prefrontal Cortex(前頭前皮質)`
+- **プレーン:** `Brain plane(ブレイン・プレーン)` · `Actor/Role plane(アクター/ロール・プレーン)` · `Compilation plane(コンパイル・プレーン)` · `Neural Runtime(ニューラル・ランタイム)`
+- **Neural 要素:** `Functional Neuron(機能ニューロン)` · `Synapse(シナプス)` · `Regulator(調節器)` · `Receptor(受容体)` · `Homeostat(恒常性調節器)` · `Support(サポート)` · `Logical Clock(論理クロック)` · `Plasticity Proposal(可塑性提案)` · `ActivationScenario(活性化シナリオ)` · `CompiledBrainRole(コンパイル済みブレインロール)` · `CompiledConnectome(コンパイル済みコネクトーム)` · `NeuralTrace(ニューラル・トレース)`
 
 ## 含まれるもの
 
@@ -98,7 +106,7 @@ make verify
 
 ## 検証と成果物のフロー
 
-![public bundle から compiled.json、connectome.json、trace.json へ至る brain-role CLI フロー](docs/assets/brain-role-flow.svg)
+![public bundle から compiled.json、connectome.json、trace.json へ至る英語識別子・日本語用語併記の brain-role CLI フロー](docs/assets/localized/ja/brain-role-flow.svg)
 
 *検証は確認可能な成果物を生成しますが、外部ランタイムのデプロイ、公開、状態変更は行いません。*
 `compile` は明示的なレイヤー順と安定した role/policy 順を持つ canonical JSON を生成し、

@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "generator": "scripts/build_localized_assets.py",
+  "entries": [
+    {
+      "path": "ko/brain-role-meme.svg",
+      "locale": "ko",
+      "source": "docs/assets/brain-role-meme.png",
+      "sourceSha256": "4fcc65d3d27bfaf6840a4b49533b606c12009a013ef031f20a3e96c686cb2322",
+      "sha256": "d97003b5dc1f743c0335ebd9ac01691e132594620ab86f1b1674f4e93b03e529",
+      "width": 1536,
+      "height": 1598
+    },
+    {
+      "path": "ko/brain-role-overview.svg",
+      "locale": "ko",
+      "source": "docs/assets/brain-role-overview.svg",
+      "sourceSha256": "e9ea05e98ce11319f237ad820f85056d3957a084cd73d6701b8fa3e7ce5d9304",
+      "sha256": "9f0cdc041be9a531cae98dce4629adc5955793c5698697671c193bb7f8960e1b",
+      "width": 1536,
+      "height": 1422
+    },
+    {
+      "path": "ko/brain-role-flow.svg",
+      "locale": "ko",
+      "source": "docs/assets/brain-role-flow.svg",
+      "sourceSha256": "ad481e9cd5e0c9c8de912b6240b5f359bdc87236ca7675aedd83e5e852c12899",
+      "sha256": "0fafd652330efd175ea00e6bbe59a334c00e474763735cb5a56b30a45a3b4013",
+      "width": 1536,
+      "height": 1290
+    },
+    {
+      "path": "ja/brain-role-meme.svg",
+      "locale": "ja",
+      "source": "docs/assets/brain-role-meme.png",
+      "sourceSha256": "4fcc65d3d27bfaf6840a4b49533b606c12009a013ef031f20a3e96c686cb2322",
+      "sha256": "b940a9a27be68746b91c78da65411ee027fe5b2c747d980a5d7ba6c93ed9278e",
+      "width": 1536,
+      "height": 1598
+    },
+    {
+      "path": "ja/brain-role-overview.svg",
+      "locale": "ja",
+      "source": "docs/assets/brain-role-overview.svg",
+      "sourceSha256": "e9ea05e98ce11319f237ad820f85056d3957a084cd73d6701b8fa3e7ce5d9304",
+      "sha256": "fa6263ace2c8898525e58268afc56a8f35636feebb671d6c7a2477165522219c",
+      "width": 1536,
+      "height": 1422
+    },
+    {
+      "path": "ja/brain-role-flow.svg",
+      "locale": "ja",
+      "source": "docs/assets/brain-role-flow.svg",
+      "sourceSha256": "ad481e9cd5e0c9c8de912b6240b5f359bdc87236ca7675aedd83e5e852c12899",
+      "sha256": "518caa46d5a2e3e02088bdc1e1a20582a007bb8a02a2c064af80a84c69defc2f",
+      "width": 1536,
+      "height": 1290
+    },
+    {
+      "path": "zh-CN/brain-role-meme.svg",
+      "locale": "zh-CN",
+      "source": "docs/assets/brain-role-meme.png",
+      "sourceSha256": "4fcc65d3d27bfaf6840a4b49533b606c12009a013ef031f20a3e96c686cb2322",
+      "sha256": "70a33f7f864a9d433422f5cf37dec77e12c8ba322892a96c3552e95c7b00ff91",
+      "width": 1536,
+      "height": 1598
+    },
+    {
+      "path": "zh-CN/brain-role-overview.svg",
+      "locale": "zh-CN",
+      "source": "docs/assets/brain-role-overview.svg",
+      "sourceSha256": "e9ea05e98ce11319f237ad820f85056d3957a084cd73d6701b8fa3e7ce5d9304",
+      "sha256": "e2c3bff125bb156efdd1a08a402fe3134b99e96a58f83c309c3e6564f1ab4ad6",
+      "width": 1536,
+      "height": 1422
+    },
+    {
+      "path": "zh-CN/brain-role-flow.svg",
+      "locale": "zh-CN",
+      "source": "docs/assets/brain-role-flow.svg",
+      "sourceSha256": "ad481e9cd5e0c9c8de912b6240b5f359bdc87236ca7675aedd83e5e852c12899",
+      "sha256": "e337a78001d33ee2f73c06249b210d1ef9db06af33643283ab2a5770a246331c",
+      "width": 1536,
+      "height": 1290
+    },
+    {
+      "path": "es/brain-role-meme.svg",
+      "locale": "es",
+      "source": "docs/assets/brain-role-meme.png",
+      "sourceSha256": "4fcc65d3d27bfaf6840a4b49533b606c12009a013ef031f20a3e96c686cb2322",
+      "sha256": "5423d087a353c742131a1d528314b0eedbd4c83f7890cd05cfbd8a450a231ad1",
+      "width": 1536,
+      "height": 1598
+    },
+    {
+      "path": "es/brain-role-overview.svg",
+      "locale": "es",
+      "source": "docs/assets/brain-role-overview.svg",
+      "sourceSha256": "e9ea05e98ce11319f237ad820f85056d3957a084cd73d6701b8fa3e7ce5d9304",
+      "sha256": "3b08df6e56c7af4030f7ebe85a0ffbfde89a73d3b33ef3e32e4f5e7832c282be",
+      "width": 1536,
+      "height": 1422
+    },
+    {
+      "path": "es/brain-role-flow.svg",
+      "locale": "es",
+      "source": "docs/assets/brain-role-flow.svg",
+      "sourceSha256": "ad481e9cd5e0c9c8de912b6240b5f359bdc87236ca7675aedd83e5e852c12899",
+      "sha256": "0ad40cab76a768ceddac2df1dc79798e0c63d1f90297df828b00ddc32787a267",
+      "width": 1536,
+      "height": 1290
+    }
+  ]
+}

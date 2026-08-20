@@ -21,7 +21,7 @@ Brain-Role Architecture 是一套 policy-as-code 与一致性验证工具，用�
 > **无论如何重写，始终保留一条规则：**Brainstem 是唯一的绝对不变量。Cerebellum through Prefrontal Cortex 只能通过明确的
 > 所有权、审批、来源、回滚和生效时间契约进行变更。
 
-![Brain-Role 海报：Neural 正交区域、Brainstem through Prefrontal Cortex Brain 平面、Actor/Role 平面与 Compilation 平面](docs/assets/brain-role-meme.png)
+![Brain-Role 海报：以英文标识符和简体中文术语标注 Neural 正交区域、Brain、Actor/Role 与 Compilation 平面](docs/assets/localized/zh-CN/brain-role-meme.svg)
 
 *四个可视区域分别表示责任、能力、确定性构建与正交调节。*
 
@@ -58,9 +58,17 @@ P 编号表示的是**责任与权限**，并不代表运行时顺序或编译�
 
 ## 架构一览
 
-![区分 Brainstem through Prefrontal Cortex、Actor/Role、Compilation DAG 与 Neural 回路的 Brain-Role 结构图](docs/assets/brain-role-overview.svg)
+![以英文标识符和简体中文术语区分 Brainstem through Prefrontal Cortex、Actor/Role、Compilation DAG 与 Neural 回路的 Brain-Role 结构图](docs/assets/localized/zh-CN/brain-role-overview.svg)
 
 *图标展示责任、能力、构建顺序和调节，但不会把 Brainstem through Prefrontal Cortex 画成流水线。*
+
+## 英文标识符与简体中文术语
+
+Schema 与 CLI 继续使用英文标识符。说明和图片使用 `英文标识符(简体中文)` 的并列格式。
+
+- **Brain 责任:** `Brainstem(脑干)` · `Cerebellum(小脑)` · `Hippocampus(海马体)` · `Amygdala(杏仁核)` · `Cerebral Cortex(大脑皮层)` · `Default Mode Network(默认模式网络)` · `Prefrontal Cortex(前额叶皮层)`
+- **平面:** `Brain plane(脑平面)` · `Actor/Role plane(执行者/角色平面)` · `Compilation plane(编译平面)` · `Neural Runtime(神经运行时)`
+- **Neural 元素:** `Functional Neuron(功能神经元)` · `Synapse(突触)` · `Regulator(调节器)` · `Receptor(受体)` · `Homeostat(稳态调节器)` · `Support(支持)` · `Logical Clock(逻辑时钟)` · `Plasticity Proposal(可塑性提案)` · `ActivationScenario(激活场景)` · `CompiledBrainRole(已编译脑角色)` · `CompiledConnectome(已编译连接组)` · `NeuralTrace(神经轨迹)`
 
 ## 包含内容
 
@@ -96,7 +104,7 @@ make verify
 
 ## 验证与产物流
 
-![从 public bundle 到 compiled.json、connectome.json 与 trace.json 的 brain-role CLI 流程](docs/assets/brain-role-flow.svg)
+![从 public bundle 到 compiled.json、connectome.json 与 trace.json 的英文标识符和简体中文术语并列 brain-role CLI 流程](docs/assets/localized/zh-CN/brain-role-flow.svg)
 
 *验证会生成可检查的产物，但不会部署、发布或修改外部运行时状态。*
 
